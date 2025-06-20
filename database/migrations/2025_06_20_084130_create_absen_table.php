@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('absen', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')->on('staff');
+            $table->unsignedBigInteger('cabang_id');
+            $table->foreign('cabang_id')->references('id')->on('cabang');
+            $table->date('tanggal');
+            $table->enum('status', ['A', 'H', 'I', 'S', 'O', 'C']);
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

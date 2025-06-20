@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('kronologi', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')->on('staff');
+            $table->unsignedBigInteger('cabang_id')->nullable();
+            $table->foreign('cabang_id')->references('id')->on('cabang');
+            $table->string('judul');
+            $table->string('nama_barang');
+            $table->string('penjelasan');
+            $table->decimal('harga_barang');
+            $table->boolean('validasi_kepalacabang')->default(false);
+            $table->boolean('validasi_admin')->default(false);
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('detail_pengajuan_izin', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pengajuan_izin_id');
+            $table->foreign('pengajuan_izin_id')->references('id')->on('pengajuan_izin');
+            $table->date('tanggal');
+            $table->enum('status', ['I', 'S', 'O', 'C']);
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

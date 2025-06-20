@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('pinjaman', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')->on('staff');
+            $table->integer('periode_pelunasan');
+            $table->decimal('jumlah_pinjaman');
+            $table->string('alasan');
+            $table->date('start_pelunasan');
+            $table->boolean('validasi_admin')->default(false);
+            $table->enum('status', ['LUNAS','BATAL','ONGOING'])->nullable();
+            $table->decimal('sisa_pinjaman')->nullable();
             $table->timestamps();
         });
     }

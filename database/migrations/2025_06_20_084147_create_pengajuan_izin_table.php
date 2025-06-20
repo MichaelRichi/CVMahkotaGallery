@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('pengajuan_izin', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')->on('staff');
+            $table->boolean('validasi_admin')->default(false);
             $table->timestamps();
         });
     }

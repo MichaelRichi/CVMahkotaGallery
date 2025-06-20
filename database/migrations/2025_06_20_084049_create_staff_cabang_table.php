@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('staff_cabang', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('staff_id')->nullable();
+            $table->foreign('staff_id')->references('id')->on('staff');
+            $table->unsignedBigInteger('cabang_id')->nullable();
+            $table->foreign('cabang_id')->references('id')->on('cabang');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
