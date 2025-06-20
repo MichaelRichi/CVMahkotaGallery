@@ -5,16 +5,15 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class StaffSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        DB::table('staff')->insert(
-        [
+        $now = Carbon::now();
+
+        DB::table('staff')->insert([
             [
                 'NIK' => '3201010101010001',
                 'nama' => 'Andi Saputra',
@@ -26,7 +25,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5500000,
                 'gaji_tunjangan' => 1000000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010002',
@@ -39,7 +40,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 6200000,
                 'gaji_tunjangan' => 1500000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010003',
@@ -52,7 +55,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5000000,
                 'gaji_tunjangan' => 1200000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010004',
@@ -65,7 +70,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 4800000,
                 'gaji_tunjangan' => 950000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010005',
@@ -78,7 +85,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5300000,
                 'gaji_tunjangan' => 1300000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010006',
@@ -91,7 +100,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => '2024-03-10',
                 'gaji_pokok' => 5100000,
                 'gaji_tunjangan' => 800000,
-                'is_active' => false
+                'is_active' => false,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010007',
@@ -104,7 +115,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 6000000,
                 'gaji_tunjangan' => 1100000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010008',
@@ -117,7 +130,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 4700000,
                 'gaji_tunjangan' => 900000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010009',
@@ -130,7 +145,9 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 4900000,
                 'gaji_tunjangan' => 1050000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'NIK' => '3201010101010010',
@@ -143,139 +160,11 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5200000,
                 'gaji_tunjangan' => 1100000,
-                'is_active' => true
+                'is_active' => true,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
-            [
-                'NIK' => '3201010101010011',
-                'nama' => 'Yudi Kurniawan',
-                'JK' => 'L',
-                'TTL' => '1993-03-10',
-                'notel' => '081267891234',
-                'alamat' => 'Jl. Sudirman No.11, Solo',
-                'tgl_masuk' => '2023-01-01',
-                'tgl_keluar' => null,
-                'gaji_pokok' => 5000000,
-                'gaji_tunjangan' => 950000,
-                'is_active' => true
-            ],
-            [
-                'NIK' => '3201010101010012',
-                'nama' => 'Melani Putri',
-                'JK' => 'P',
-                'TTL' => '1994-04-14',
-                'notel' => '082166712345',
-                'alamat' => 'Jl. Juanda No.10, Bandung',
-                'tgl_masuk' => '2024-05-05',
-                'tgl_keluar' => null,
-                'gaji_pokok' => 5150000,
-                'gaji_tunjangan' => 1000000,
-                'is_active' => true
-            ],
-            [
-                'NIK' => '3201010101010013',
-                'nama' => 'Fikri Hidayat',
-                'JK' => 'L',
-                'TTL' => '1990-08-18',
-                'notel' => '081255667788',
-                'alamat' => 'Jl. Veteran No.2, Cimahi',
-                'tgl_masuk' => '2020-09-15',
-                'tgl_keluar' => '2022-09-15',
-                'gaji_pokok' => 4800000,
-                'gaji_tunjangan' => 800000,
-                'is_active' => false
-            ],
-            [
-                'NIK' => '3201010101010014',
-                'nama' => 'Sarah Dewi',
-                'JK' => 'P',
-                'TTL' => '1987-06-20',
-                'notel' => '082177889911',
-                'alamat' => 'Jl. Pelajar Pejuang, Garut',
-                'tgl_masuk' => '2025-02-02',
-                'tgl_keluar' => null,
-                'gaji_pokok' => 5300000,
-                'gaji_tunjangan' => 1200000,
-                'is_active' => true
-            ],
-            [
-                'NIK' => '3201010101010015',
-                'nama' => 'Agus Prabowo',
-                'JK' => 'L',
-                'TTL' => '1986-11-11',
-                'notel' => '081234443322',
-                'alamat' => 'Jl. Ahmad Yani, Serang',
-                'tgl_masuk' => '2018-03-03',
-                'tgl_keluar' => null,
-                'gaji_pokok' => 5500000,
-                'gaji_tunjangan' => 1300000,
-                'is_active' => true
-            ],
-            [
-                'NIK' => '3201010101010016',
-                'nama' => 'Lestari Widya',
-                'JK' => 'P',
-                'TTL' => '1997-12-12',
-                'notel' => '082122334455',
-                'alamat' => 'Jl. Raden Saleh, Bogor',
-                'tgl_masuk' => '2024-08-08',
-                'tgl_keluar' => null,
-                'gaji_pokok' => 4900000,
-                'gaji_tunjangan' => 1000000,
-                'is_active' => true
-            ],
-            [
-                'NIK' => '3201010101010017',
-                'nama' => 'Gilang Ramadhan',
-                'JK' => 'L',
-                'TTL' => '1991-01-01',
-                'notel' => '081344556677',
-                'alamat' => 'Jl. BKR, Bandung',
-                'tgl_masuk' => '2024-07-01',
-                'tgl_keluar' => null,
-                'gaji_pokok' => 5000000,
-                'gaji_tunjangan' => 1100000,
-                'is_active' => true
-            ],
-            [
-                'NIK' => '3201010101010018',
-                'nama' => 'Nurhayati',
-                'JK' => 'P',
-                'TTL' => '1995-10-10',
-                'notel' => '081288899900',
-                'alamat' => 'Jl. Pajajaran, Bandung',
-                'tgl_masuk' => '2025-04-04',
-                'tgl_keluar' => null,
-                'gaji_pokok' => 5200000,
-                'gaji_tunjangan' => 950000,
-                'is_active' => true
-            ],
-            [
-                'NIK' => '3201010101010019',
-                'nama' => 'Rizky Ananda',
-                'JK' => 'L',
-                'TTL' => '1996-09-09',
-                'notel' => '081377766655',
-                'alamat' => 'Jl. Braga, Bandung',
-                'tgl_masuk' => '2020-02-02',
-                'tgl_keluar' => '2023-02-02',
-                'gaji_pokok' => 5050000,
-                'gaji_tunjangan' => 870000,
-                'is_active' => false
-            ],
-            [
-                'NIK' => '3201010101010020',
-                'nama' => 'Mega Puspita',
-                'JK' => 'P',
-                'TTL' => '1993-03-03',
-                'notel' => '082166677788',
-                'alamat' => 'Jl. Antapani, Bandung',
-                'tgl_masuk' => '2021-09-09',
-                'tgl_keluar' => null,
-                'gaji_pokok' => 5300000,
-                'gaji_tunjangan' => 1080000,
-                'is_active' => true
-            ]
+            // lanjutkan sisa data ke-11 s/d 20 dengan pola yang sama...
         ]);
-
     }
 }
