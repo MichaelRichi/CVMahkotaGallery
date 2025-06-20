@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_cabang')->unique();
             $table->string('alamat');
-            $tabel->time('jam_masuk');
-            $tabel->time('jam_pulang');
+            $table->time('jam_masuk');
+            $table->time('jam_pulang');
             $table->timestamps();
         });
     }

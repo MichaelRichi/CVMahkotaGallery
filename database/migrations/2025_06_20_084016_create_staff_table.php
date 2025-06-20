@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('notel');
             $table->string('alamat');
             $table->date('tgl_masuk');
-            $table->date('tgl_keluar');
-            $table->decimal('gaji_pokok');
-            $table->decimal('gaji_tunjangan');
+            $table->date('tgl_keluar')->nullable();
+            $table->decimal('gaji_pokok', 12, 2);
+            $table->decimal('gaji_tunjangan', 12, 2);
             $table->unsignedBigInteger('users_id')->nullable();
             $table->foreign('users_id')->references('id')->on('users');
             $table->boolean('is_active')->default(true);
