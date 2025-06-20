@@ -30,4 +30,8 @@ class Staff extends Model
     {
         return $this->belongsToMany(Kelas::class, 'staff_cabang', 'staff_id', 'cabang_id')->withTimestamps();
     }
+    public function jabatan()
+    {
+        return $this->hasMany(Jabatan::class,'staff_id','id');
+    }
 }
