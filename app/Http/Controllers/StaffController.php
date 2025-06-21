@@ -81,7 +81,11 @@ class StaffController extends Controller
         ]));
 
         // Tambah relasi cabang aktif
-        $staff->cabang()->attach($request->cabang_id, ['is_active' => true]);
+        $staff->cabang()->attach($request->cabang_id, [
+            'is_active'       => true,
+            'tanggal_mulai'   => $request->tgl_masuk,
+            'tanggal_selesai' => null,
+        ]);
 
         // Tambah relasi jabatan aktif + tanggal masuk sebagai tanggal_mulai
         $staff->jabatan()->attach($request->jabatan_id, [
