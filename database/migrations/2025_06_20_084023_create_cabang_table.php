@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->time('jam_masuk');
             $table->time('jam_pulang');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

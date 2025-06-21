@@ -17,13 +17,22 @@ class JabatanSeeder extends Seeder
         DB::table('jabatan')->insert([
             
             [
-                'nama_jabatan'=>'Admin'
+                'nama_jabatan'=>'Admin',
+                'is_active' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'nama_jabatan'=>'Kepala Cabang'
+                'nama_jabatan'=>'Kepala Cabang',
+                'is_active' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'nama_jabatan'=>'Karyawan'
+                'nama_jabatan'=>'Karyawan',
+                'is_active' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
         ]);
     }

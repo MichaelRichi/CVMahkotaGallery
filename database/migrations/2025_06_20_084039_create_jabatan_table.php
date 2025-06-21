@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('jabatan', function (Blueprint $table) {
             $table->id();
             $table->string('nama_jabatan')->unique();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
