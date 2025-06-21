@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CabangSeeder::class,  
             JabatanSeeder::class,
             StaffJabatanSeeder::class,
+            StaffCabangSeeder::class,
         ]);
     }
 }
