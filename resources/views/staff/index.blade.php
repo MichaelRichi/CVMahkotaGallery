@@ -39,6 +39,7 @@
             <th>Cabang</th>
             <th>Jabatan</th>
             <th>Status</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -49,6 +50,9 @@
                 <td>{{ $s->jabatan->first()->nama_jabatan ?? '-' }}</td>
                 <td>{{ $s->cabang->first()->nama_cabang ?? '-' }}</td>
                 <td>{{ $s->is_active ? 'Aktif' : 'Tidak Aktif' }}</td>
+                <td>
+                    <a href="{{ route('staff.editView', $s->id) }}">edit</a>
+                </td>
             </tr>
         @empty
             <tr><td colspan="5">Tidak ada data staff.</td></tr>

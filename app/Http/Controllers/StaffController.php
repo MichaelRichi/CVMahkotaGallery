@@ -96,5 +96,108 @@ class StaffController extends Controller
 
         return redirect()->route('staff.view')->with('success', 'Staff berhasil ditambahkan.');
     }
+    public function editView($id)
+    {
+        $staff = Staff::with(['cabang' => function ($q) {
+            $q->wherePivot('is_active', true);
+        }, 'jabatan' => function ($q) {
+            $q->wherePivot('is_active', true);
+        }])->findOrFail($id);
 
+        $cabang = Cabang::where('is_active', 1)->get();
+        $jabatan = Jabatan::where('is_active', 1)->get();
+
+        // Ambil ID cabang & jabatan aktif saat ini (jika ada)
+        $cabangAktif = $staff->cabang->first();
+        $jabatanAktif = $staff->jabatan->first();
+
+        return view('staff.edit', compact('staff', 'cabang', 'jabatan', 'cabangAktif', 'jabatanAktif'));
+    }
+    public function edit(Request $request, $id)
+    {
+        $staff = Staff::findOrFail($id);
+        $validated = $request->validate([
+            'NIK'             => 'required|unique:staff,NIK,' . $staff->id,
+            'nama'            => 'required',
+            'JK'              => 'required|in:L,P',
+            'TTL'             => 'required|date',
+            'notel'           => 'required',
+            'alamat'          => 'required',
+            'tgl_masuk'       => 'required|date',
+            'tgl_keluar'      => 'nullable|date|after_or_equal:tgl_masuk',
+            'gaji_pokok'      => 'required|numeric',
+            'gaji_tunjangan'  => 'required|numeric',
+            'is_active'       => 'required|boolean',
+            'cabang_id_new'       => 'nullable|exists:cabang,id',
+            'cabang_tgl_selesai'  => 'nullable|date',
+            'cabang_tgl_mulai'    => 'nullable|date',
+            'cabang_tgl_selesai_new' => 'nullable|date|after_or_equal:cabang_tgl_mulai',
+            'jabatan_id_new'       => 'nullable|exists:jabatan,id',
+            'jabatan_tgl_selesai'  => 'nullable|date',
+            'jabatan_tgl_mulai'    => 'nullable|date',
+            'jabatan_tgl_selesai_new' => 'nullable|date|after_or_equal:jabatan_tgl_mulai',
+        ]);
+
+        // Otomatis nonaktif jika tgl keluar hari ini atau sebelumnya
+        if (!empty($validated['tgl_keluar']) && \Carbon\Carbon::parse($validated['tgl_keluar'])->lte(now())) {
+            $validated['is_active'] = false;
+        }
+
+        // Update data utama
+        $staff->update($validated);
+
+        // ==== Cabang ====
+        if (!empty($validated['cabang_id_new'])) {
+            $currentCabang = $staff->cabang()->wherePivot('is_active', true)->first();
+            if (!$currentCabang || $currentCabang->id != $validated['cabang_id_new']) {
+                // nonaktifkan cabang lama
+                if ($currentCabang) {
+                    $staff->cabang()->updateExistingPivot($currentCabang->id, [
+                        'is_active' => false,
+                        'tanggal_selesai' => $validated['cabang_tgl_selesai'],
+                    ]);
+                }
+                // tambahkan cabang baru
+                $staff->cabang()->attach($validated['cabang_id_new'], [
+                    'is_active' => true,
+                    'tanggal_mulai' => $validated['cabang_tgl_mulai'] ?? now()->toDateString(),
+                    'tanggal_selesai' => $validated['cabang_tgl_selesai_new'] ?? null,
+                ]);
+            }
+        }
+
+        // ==== Jabatan ====
+        if (!empty($validated['jabatan_id_new'])) {
+            $currentJabatan = $staff->jabatan()->wherePivot('is_active', true)->first();
+            if (!$currentJabatan || $currentJabatan->id != $validated['jabatan_id_new']) {
+                // nonaktifkan jabatan lama
+                if ($currentJabatan) {
+                    $staff->jabatan()->updateExistingPivot($currentJabatan->id, [
+                        'is_active' => false,
+                        'tanggal_selesai' => $validated['jabatan_tgl_selesai'],
+                    ]);
+                }
+                // tambahkan jabatan baru
+                $staff->jabatan()->attach($validated['jabatan_id_new'], [
+                    'is_active' => true,
+                    'tanggal_mulai' => $validated['jabatan_tgl_mulai'] ?? now()->toDateString(),
+                    'tanggal_selesai' => $validated['jabatan_tgl_selesai_new'] ?? null,
+                ]);
+            }
+        }
+
+        // ==== Jika staff dinonaktifkan, nonaktifkan semua cabang dan jabatan aktif ====
+        if ($validated['is_active'] == false) {
+            $staff->cabang()->updateExistingPivot(
+                $staff->cabang()->pluck('cabang.id')->toArray(),
+                ['is_active' => false, 'tanggal_selesai' => now()->toDateString()]
+            );
+            $staff->jabatan()->updateExistingPivot(
+                $staff->jabatan()->pluck('jabatan.id')->toArray(),
+                ['is_active' => false, 'tanggal_selesai' => now()->toDateString()]
+            );
+        }
+
+        return redirect()->route('staff.view')->with('success', 'Data staff berhasil diperbarui.');
+    }
 }
