@@ -28,10 +28,10 @@ class Staff extends Model
     // 1 staff bisa kerja di banyak cabang | 1 cabang bisa memiliki banyak staff 
     public function cabang()
     {
-        return $this->belongsToMany(Kelas::class, 'staff_cabang', 'staff_id', 'cabang_id')->withTimestamps();
+        return $this->belongsToMany(Cabang::class, 'staff_cabang', 'staff_id', 'cabang_id')->withTimestamps();
     }
     public function jabatan()
     {
-        return $this->hasMany(Jabatan::class,'staff_id','id');
+        return $this->belongsToMany(Jabatan::class, 'staff_jabatan', 'staff_id', 'jabatan_id')->withTimestamps();
     }
 }

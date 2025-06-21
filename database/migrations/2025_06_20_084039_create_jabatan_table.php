@@ -13,11 +13,7 @@ return new class extends Migration
     {
         Schema::create('jabatan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('staff_id')->nullable();
-            $table->foreign('staff_id')->references('id')->on('staff');
-            $table->enum('jabatan', ['Admin', 'Karyawan', 'Kepala Cabang']);
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->string('nama_jabatan')->unique();
             $table->timestamps();
         });
     }
