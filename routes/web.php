@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,4 +25,9 @@ Route::middleware(['auth', 'role:admin,kepala'])->group(function () {
     Route::get('/staff/editView/{id}', [StaffController::class, 'editView'])->name('staff.editView');
     Route::patch('/staff/edit/{id}', [StaffController::class, 'edit'])->name('staff.edit');
 });
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/staff/register/{id}', [RegisteredUserController::class, 'createForStaff'])->name('register.staff');
+    Route::post('/staff/register/{id}', [RegisteredUserController::class, 'storeForStaff'])->name('register.staff.store');
+});
+
 require __DIR__.'/auth.php';

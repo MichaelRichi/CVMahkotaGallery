@@ -1,13 +1,9 @@
 
 <h2>Daftar Staff</h2>
-@auth
-    @if (auth()->user()->role === 'admin')
-        <a href="{{ route('staff.addView') }}" class="btn btn-primary">
-            + Tambah Staff
-        </a>
-    @endif
-@endauth
 
+<a href="{{ route('staff.addView') }}" class="btn btn-primary">
+    + Tambah Staff
+</a>
 <form method="GET" action="{{ route('staff.view') }}">
     <select name="is_active">
         <option value="">-- Semua Status --</option>
@@ -57,6 +53,11 @@
                 <td>{{ $s->is_active ? 'Aktif' : 'Tidak Aktif' }}</td>
                 <td>
                     <a href="{{ route('staff.editView', $s->id) }}">edit</a>
+                    @auth
+                        @if (auth()->user()->role === 'admin')
+                            <a href="{{ route('register.staff', $s->id) }}">buat akun</a>
+                        @endif
+                    @endauth
                 </td>
             </tr>
         @empty
