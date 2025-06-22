@@ -19,4 +19,28 @@ class CabangController extends Controller
         $dataCabang = $dataCabang->get();
         return view('cabang.index', compact('dataCabang', 'filter'));
     }
+    public function addView()
+    {
+        return view('cabang.add'); 
+    }
+    public function add(Request $request)
+    {
+        $request->validate([
+            'nama_cabang' => 'required|string|max:100',
+            'alamat'=>'required|string',
+            'jam_masuk' => 'required|date_format:H:i',
+            'jam_pulang' => 'required|date_format:H:i|after:jam_masuk',
+            'is_active' => 'required|in:0,1',
+        ]);
+
+        Cabang::create([
+            'nama_cabang' => $request->nama_cabang,
+            'alamat'=> $request->alamat,
+            'jam_masuk' => $request->jam_masuk,
+            'jam_pulang' => $request->jam_pulang,
+            'is_active' => $request->is_active,
+        ]);
+
+        return redirect()->route('cabang.view')->with('success', 'Data cabang berhasil disimpan!');
+    }
 }

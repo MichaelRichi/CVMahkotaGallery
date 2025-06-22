@@ -31,6 +31,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/staff/userForm/{id}', [StaffController::class, 'userForm'])->name('staff.userForm');
     Route::post('/staff/saveUser/{id}', [StaffController::class, 'saveUser'])->name('staff.saveUser');
     Route::get('/cabang', [CabangController::class, 'view'])->name('cabang.view');
+    Route::get('/cabang/addView', [CabangController::class, 'addView'])->name('cabang.addView');
+    Route::post('/cabang/add', [CabangController::class, 'add'])->name('cabang.add');
     Route::get('/jabatan', [JabatanController::class, 'view'])->name('jabatan.view');
 });
 
