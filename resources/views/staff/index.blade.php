@@ -1,8 +1,13 @@
 
 <h2>Daftar Staff</h2>
-<a href="{{ route('staff.addView') }}" class="btn btn-primary">
-    + Tambah Staff
-</a>
+@auth
+    @if (auth()->user()->role === 'admin')
+        <a href="{{ route('staff.addView') }}" class="btn btn-primary">
+            + Tambah Staff
+        </a>
+    @endif
+@endauth
+
 <form method="GET" action="{{ route('staff.view') }}">
     <select name="is_active">
         <option value="">-- Semua Status --</option>
