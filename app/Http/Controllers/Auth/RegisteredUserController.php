@@ -19,64 +19,9 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    // public function create(): View
-    // {
-    //     return view('auth.register');
-    // }
-    public function createForStaff($id)
-    {
-        $staff = Staff::findOrFail($id);
-
-        return view('staff.create-akun', compact('staff'));
-    }
     /**
      * Handle an incoming registration request.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    // public function store(Request $request): RedirectResponse
-    // {
-    //     $request->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    //         'role' => ['required', Rule::in(['admin', 'karyawan', 'kepala'])],
-    //     ]);
-
-    //     $user = User::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => Hash::make($request->password),
-    //         'role' => $request->role,
-    //         'is_active' => true,
-    //     ]);
-
-    //     event(new Registered($user));
-
-    //     Auth::login($user);
-
-    //     return redirect(route('dashboard', absolute: false));
-    // }
-    public function storeForStaff(Request $request, $id)
-    {
-        $request->validate([
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'in:admin,karyawan,kepala'],
-        ]);
-
-        $staff = Staff::findOrFail($id);
-
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-            'is_active' => true,
-        ]);
-
-        $staff->update(['users_id' => $user->id]);
-
-        return redirect()->route('staff.view')->with('success', 'Akun berhasil dibuat.');
-    }
-
 }

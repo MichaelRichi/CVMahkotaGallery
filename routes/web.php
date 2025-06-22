@@ -26,8 +26,9 @@ Route::middleware(['auth', 'role:admin,kepala'])->group(function () {
     Route::patch('/staff/edit/{id}', [StaffController::class, 'edit'])->name('staff.edit');
 });
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/staff/register/{id}', [RegisteredUserController::class, 'createForStaff'])->name('register.staff');
-    Route::post('/staff/register/{id}', [RegisteredUserController::class, 'storeForStaff'])->name('register.staff.store');
+    Route::get('/staff/userForm/{id}', [StaffController::class, 'userForm'])->name('staff.userForm');
+    Route::post('/staff/saveUser/{id}', [StaffController::class, 'saveUser'])->name('staff.saveUser');
 });
+
 
 require __DIR__.'/auth.php';

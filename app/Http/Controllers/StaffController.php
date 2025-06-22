@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Staff;
 use App\Models\Cabang;
 use App\Models\Jabatan;
+use App\Models\User;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class StaffController extends Controller
 {
@@ -196,8 +201,63 @@ class StaffController extends Controller
                 $staff->jabatan()->pluck('jabatan.id')->toArray(),
                 ['is_active' => false, 'tanggal_selesai' => now()->toDateString()]
             );
+            if ($staff->users_id) {
+                $user = User::find($staff->users_id);
+
+                // Kosongkan dulu users_id di staff
+                $staff->update(['users_id' => null]);
+
+                // Baru hapus user-nya
+                if ($user) {
+                    $user->delete(); // atau forceDelete()
+                }
+            }
         }
 
         return redirect()->route('staff.view')->with('success', 'Data staff berhasil diperbarui.');
     }
+    public function userForm($id)
+    {
+        $staff = Staff::findOrFail($id);
+        $user = $staff->users_id ? User::find($staff->users_id) : null;
+
+        return view('staff.user_form', compact('staff', 'user'));
+    }
+    public function saveUser(Request $request, $id)
+    {
+        $staff = Staff::findOrFail($id);
+
+        $rules = [
+            'email' => ['required', 'email', Rule::unique('users')->ignore($staff->users_id)],
+            'role' => ['required', 'in:admin,karyawan,kepala'],
+        ];
+
+        // Password hanya divalidasi kalau diisi
+        if ($request->filled('password')) {
+            $rules['password'] = ['confirmed', Rules\Password::defaults()];
+        }
+
+        $request->validate($rules);
+
+        if ($staff->users_id) {
+            $user = User::findOrFail($staff->users_id);
+            $user->update([
+                'email' => $request->email,
+                'role' => $request->role,
+                'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+            ]);
+        } else {
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+                'is_active' => true,
+            ]);
+            $staff->update(['users_id' => $user->id]);
+        }
+
+        return redirect()->route('staff.view')->with('success', 'Akun berhasil disimpan.');
+    }
+
+
 }
