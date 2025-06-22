@@ -54,10 +54,12 @@
                 <td>
                     <a href="{{ route('staff.editView', $s->id) }}">edit</a>
                     @auth
-                        @if ($s->users_id)
-                            <a href="{{ route('staff.userForm', $s->id) }}">Edit Akun</a>
-                        @else
-                            <a href="{{ route('staff.userForm', $s->id) }}">Buat Akun</a>
+                        @if (auth()->user()->role === 'admin')
+                            @if ($s->users_id)
+                                <a href="{{ route('staff.userForm', $s->id) }}">Edit Akun</a>
+                            @else
+                                <a href="{{ route('staff.userForm', $s->id) }}">Buat Akun</a>
+                            @endif
                         @endif
                     @endauth
                 </td>

@@ -4,9 +4,14 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <a href="{{ route('staff.view') }}" class="btn btn-primary">
-        Staff
-    </a>
+    <a href="{{ route('staff.view') }}">data Staff</a>
+    @auth
+        @if (auth()->user()->role === 'admin')
+            <a href="{{ route('cabang.view') }}">data cabang</a>
+            <a href="{{ route('jabatan.view') }}">data jabatan</a>
+        @endif
+    @endauth
+    
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

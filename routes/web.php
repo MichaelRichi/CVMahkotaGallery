@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\CabangController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
@@ -28,6 +30,8 @@ Route::middleware(['auth', 'role:admin,kepala'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/staff/userForm/{id}', [StaffController::class, 'userForm'])->name('staff.userForm');
     Route::post('/staff/saveUser/{id}', [StaffController::class, 'saveUser'])->name('staff.saveUser');
+    Route::get('/cabang', [CabangController::class, 'view'])->name('cabang.view');
+    Route::get('/jabatan', [JabatanController::class, 'view'])->name('jabatan.view');
 });
 
 
