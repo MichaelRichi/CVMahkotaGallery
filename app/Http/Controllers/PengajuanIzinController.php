@@ -64,22 +64,19 @@ class PengajuanIzinController extends Controller
                 'keterangan' => $item['keterangan'],
             ]);
         }
-
-        return redirect()->route('pengajuanizin.view')->with('success', 'Pengajuan berhasil ditambahkan.');
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            return redirect()->route('pengajuanizin.view')->with('success', 'Pengajuan berhasil ditambahkan.');
+        }else{
+            return redirect()->route('dashboard')->with('success', 'Pengajuan berhasil ditambahkan.');
+        }
+        
     }
-
-    // public function detail($id)
-    // {
-    //     $izin = PengajuanIzin::with(['staff', 'admin', 'detail_pengajuan_izin'])
-    //         ->findOrFail($id);
-
-    //     return view('pengajuan_izin.detail', compact('izin'));
-    // }
 
     public function detail($id)
     {
         $user = Auth::user();
-        $izin = PengajuanIzin::with(['staff', 'admin', 'detail_pengajuan_izin'])->findOrFail($id);
+        $pengajuan = PengajuanIzin::with(['staff', 'admin', 'detail_pengajuan_izin'])->findOrFail($id);
 
         if ($user->role !== 'admin') {
             $staff = $user->staff;
@@ -90,7 +87,28 @@ class PengajuanIzinController extends Controller
             }
         }
 
-        return view('pengajuan_izin.detail', compact('izin'));
+        return view('pengajuan_izin.detail', compact('pengajuan'));
     }
+    public function validasi(Request $request, $id)
+    {
+        $request->validate([
+            'aksi' => 'required|in:terima,tolak',
+        ]);
+
+        $pengajuan = PengajuanIzin::findOrFail($id);
+
+        $staff = auth()->user()->staff;
+        if (!$staff) {
+            abort(403, 'User ini tidak terhubung dengan data staff.');
+        }
+
+        $pengajuan->validasi_admin = $request->aksi === 'terima' ? 1 : 0;
+        $pengajuan->admin_id = $staff->id;
+        $pengajuan->save();
+
+        return redirect()->route('pengajuanizin.detail', $id)->with('success', 'Pengajuan telah divalidasi.');
+    }
+
+
 
 }

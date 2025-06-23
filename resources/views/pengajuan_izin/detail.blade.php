@@ -7,14 +7,14 @@
     <table class="table table-bordered">
         <tr>
             <th>Nama Staff</th>
-            <td>{{ $izin->staff->nama }}</td>
+            <td>{{ $pengajuan->staff->nama }}</td>
         </tr>
         <tr>
             <th>Status Validasi</th>
             <td>
-                @if(is_null($izin->validasi_admin))
+                @if(is_null($pengajuan->validasi_admin))
                     <span class="text-warning">Menunggu</span>
-                @elseif($izin->validasi_admin == 0)
+                @elseif($pengajuan->validasi_admin == 0)
                     <span class="text-danger">Ditolak</span>
                 @else
                     <span class="text-success">Diterima</span>
@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <th>Divalidasi Oleh</th>
-            <td>{{ $izin->admin->nama ?? '-' }}</td>
+            <td>{{ $pengajuan->admin->nama ?? '-' }}</td>
         </tr>
     </table>
 
@@ -37,7 +37,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($izin->detail_pengajuan_izin->sortBy('tanggal') as $detail)
+            @foreach ($pengajuan->detail_pengajuan_izin->sortBy('tanggal') as $detail)
                 <tr>
                     <td>{{ \Carbon\Carbon::parse($detail->tanggal)->format('d M Y') }}</td>
                     <td>{{ ucfirst($detail->status) }}</td>
@@ -47,3 +47,18 @@
         </tbody>
     </table>
 </div>
+@if(auth()->user()->role === 'admin' && is_null($pengajuan->validasi_admin))
+    <div class="mt-4">
+        <form action="{{ route('pengajuanizin.validasi', $pengajuan->id) }}" method="POST" style="display: inline-block;">
+            @csrf
+            <input type="hidden" name="aksi" value="terima">
+            <button class="btn btn-success" onclick="return confirm('Yakin ingin menerima pengajuan ini?')">✔ Terima</button>
+        </form>
+
+        <form action="{{ route('pengajuanizin.validasi', $pengajuan->id) }}" method="POST" style="display: inline-block;">
+            @csrf
+            <input type="hidden" name="aksi" value="tolak">
+            <button class="btn btn-danger" onclick="return confirm('Yakin ingin menolak pengajuan ini?')">✖ Tolak</button>
+        </form>
+    </div>
+@endif
