@@ -32,7 +32,7 @@
                 <td class="text-center">{{ $cabang->jam_masuk }}</td>
                 <td class="text-center">{{ $cabang->jam_pulang }}</td>
                 <td class="text-center">{{ $cabang->is_active ? 'Aktif' : 'Tidak Aktif' }}</td>
-                <td></td>
+                <td><a href="{{ route('cabang.editView', $cabang->id) }}">edit</a></td>
             </tr>
         @empty
             <tr><td colspan="5">Tidak ada data cabang.</td></tr>

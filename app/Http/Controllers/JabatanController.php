@@ -37,4 +37,21 @@ class JabatanController extends Controller
 
         return redirect()->route('jabatan.view')->with('success', 'Data jabatan berhasil disimpan!');
     }
+    public function editView($id)
+    {
+        $jabatan = Jabatan::find($id);
+        return view("jabatan.edit",compact('jabatan'));
+    }
+    public function edit(Request $request, $id)
+    {
+        $jabatan = Jabatan::findOrFail($id);
+
+        $validated = $request->validate([
+            'nama_jabatan' => 'required|string',
+            'is_active' => 'required|in:0,1',
+        ]);
+        $jabatan->update($validated);
+
+        return redirect()->route('jabatan.view')->with('success', 'Data jabatan berhasil diupdate');
+    }
 }

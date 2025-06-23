@@ -30,12 +30,18 @@ Route::middleware(['auth', 'role:admin,kepala'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/staff/userForm/{id}', [StaffController::class, 'userForm'])->name('staff.userForm');
     Route::post('/staff/saveUser/{id}', [StaffController::class, 'saveUser'])->name('staff.saveUser');
+
     Route::get('/cabang', [CabangController::class, 'view'])->name('cabang.view');
     Route::get('/cabang/addView', [CabangController::class, 'addView'])->name('cabang.addView');
     Route::post('/cabang/add', [CabangController::class, 'add'])->name('cabang.add');
+    Route::get('/cabang/editView/{id}', [CabangController::class, 'editView'])->name('cabang.editView');
+    Route::patch('/cabang/edit/{id}', [CabangController::class, 'edit'])->name('cabang.edit');
+
     Route::get('/jabatan', [JabatanController::class, 'view'])->name('jabatan.view');
     Route::get('/jabatan/addView', [JabatanController::class, 'addView'])->name('jabatan.addView');
     Route::post('/jabatan/add', [JabatanController::class, 'add'])->name('jabatan.add');
+    Route::get('/jabatan/editView/{id}', [JabatanController::class, 'editView'])->name('jabatan.editView');
+    Route::patch('/jabatan/edit/{id}', [JabatanController::class, 'edit'])->name('jabatan.edit');
 });
 
 

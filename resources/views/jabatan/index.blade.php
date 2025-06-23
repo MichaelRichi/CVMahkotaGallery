@@ -28,7 +28,7 @@
                 <td class="text-center">{{ $index + 1 }}</td>
                 <td class="text-center">{{ $jabatan->nama_jabatan }}</td>
                 <td class="text-center">{{ $jabatan->is_active ? 'Aktif' : 'Tidak Aktif' }}</td>
-                <td></td>
+                <td><a href="{{ route('jabatan.editView', $jabatan->id) }}">edit</a></td>
             </tr>
         @empty
             <tr><td colspan="5">Tidak ada data jabatan.</td></tr>

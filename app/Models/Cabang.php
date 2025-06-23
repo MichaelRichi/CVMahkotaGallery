@@ -11,7 +11,8 @@ class Cabang extends Model
         'nama_cabang',
         'alamat',
         'jam_masuk',
-        'jam_pulang'
+        'jam_pulang',
+        'is_active'
     ];
     public function staff()
     {
