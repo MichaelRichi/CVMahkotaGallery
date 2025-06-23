@@ -19,4 +19,22 @@ class JabatanController extends Controller
         $dataJabatan = $dataJabatan->get();
         return view('jabatan.index', compact('dataJabatan', 'filter'));
     }
+    public function addView()
+    {
+        return view('jabatan.add'); 
+    }
+    public function add(Request $request)
+    {
+        $request->validate([
+            'nama_jabatan' => 'required|string',
+            'is_active' => 'required|in:0,1',
+        ]);
+
+        Jabatan::create([
+            'nama_jabatan' => $request->nama_jabatan,
+            'is_active' => $request->is_active,
+        ]);
+
+        return redirect()->route('jabatan.view')->with('success', 'Data jabatan berhasil disimpan!');
+    }
 }

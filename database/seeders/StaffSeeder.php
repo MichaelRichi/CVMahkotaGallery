@@ -25,6 +25,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5500000,
                 'gaji_tunjangan' => 1000000,
+                'users_id'=>2,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -40,6 +41,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 6200000,
                 'gaji_tunjangan' => 1500000,
+                'users_id'=>1,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -55,6 +57,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5000000,
                 'gaji_tunjangan' => 1200000,
+                'users_id'=>3,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -70,6 +73,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 4800000,
                 'gaji_tunjangan' => 950000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -85,6 +89,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5300000,
                 'gaji_tunjangan' => 1300000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -100,6 +105,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => '2024-03-10',
                 'gaji_pokok' => 5100000,
                 'gaji_tunjangan' => 800000,
+                'users_id'=>null,
                 'is_active' => false,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -115,6 +121,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 6000000,
                 'gaji_tunjangan' => 1100000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -130,6 +137,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 4700000,
                 'gaji_tunjangan' => 900000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -145,6 +153,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 4900000,
                 'gaji_tunjangan' => 1050000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -160,6 +169,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5200000,
                 'gaji_tunjangan' => 1100000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -175,6 +185,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5000000,
                 'gaji_tunjangan' => 950000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -190,6 +201,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5150000,
                 'gaji_tunjangan' => 1000000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -205,6 +217,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => '2022-09-15',
                 'gaji_pokok' => 4800000,
                 'gaji_tunjangan' => 800000,
+                'users_id'=>null,
                 'is_active' => false,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -220,6 +233,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5300000,
                 'gaji_tunjangan' => 1200000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -235,6 +249,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5500000,
                 'gaji_tunjangan' => 1300000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -250,6 +265,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 4900000,
                 'gaji_tunjangan' => 1000000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -265,6 +281,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5000000,
                 'gaji_tunjangan' => 1100000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -280,6 +297,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5200000,
                 'gaji_tunjangan' => 950000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -295,6 +313,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => '2023-02-02',
                 'gaji_pokok' => 5050000,
                 'gaji_tunjangan' => 870000,
+                'users_id'=>null,
                 'is_active' => false,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -310,6 +329,7 @@ class StaffSeeder extends Seeder
                 'tgl_keluar' => null,
                 'gaji_pokok' => 5300000,
                 'gaji_tunjangan' => 1080000,
+                'users_id'=>null,
                 'is_active' => true,
                 'created_at' => $now,
                 'updated_at' => $now

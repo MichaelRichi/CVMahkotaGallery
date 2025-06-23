@@ -8,7 +8,12 @@
         </select>
     </div>
 </form>
-
+<a href="{{ route('jabatan.addView') }}">tambah jabatan</a>
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <table>
     <thead>
         <tr>
