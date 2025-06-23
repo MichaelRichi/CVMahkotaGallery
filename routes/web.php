@@ -45,6 +45,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::patch('/jabatan/edit/{id}', [JabatanController::class, 'edit'])->name('jabatan.edit');
 
     Route::get('/pengajuan/izin', [PengajuanIzinController::class, 'view'])->name('pengajuanizin.view');
+    Route::get('/pengajuan/izin/{id}', [PengajuanIzinController::class, 'detail'])->name('pengajuanizin.detail');
+});
+
+Route::middleware(['auth', 'role:admin,kepala,karyawan'])->group(function () {
+    Route::get('/pengajuan/izin/addView', [PengajuanIzinController::class, 'addView'])->name('pengajuanizin.addView');
+    Route::post('/pengajuan/izin/add', [PengajuanIzinController::class, 'add'])->name('pengajuanizin.add');
 });
 
 

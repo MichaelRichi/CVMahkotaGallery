@@ -9,7 +9,12 @@
         <option value="ditolak" {{ $filter == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
     </select>
 </form>
-
+<a href="{{ route('pengajuanizin.addView') }}">tambah pengajuan</a>
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <br>
 
 <table border="1" cellpadding="8" cellspacing="0">
@@ -19,6 +24,7 @@
             <th>Tanggal Pengajuan</th>
             <th>Status Validasi</th>
             <th>Admin Validasi</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +42,7 @@
                     @endif
                 </td>
                 <td>{{ $izin->admin->nama ?? '-' }}</td>
+                <td><a href="{{ route('pengajuanizin.detail', $izin->id) }}" class="btn btn-sm btn-info">Lihat</a></td>
             </tr>
         @empty
             <tr>

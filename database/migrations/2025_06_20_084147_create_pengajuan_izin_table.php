@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pengajuan_izin', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('karyawan_id');
-            $table->foreign('karyawan_id')->references('id')->on('staff');
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')->on('staff');
             $table->boolean('validasi_admin')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('staff');

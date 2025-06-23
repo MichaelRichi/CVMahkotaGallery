@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PengajuanIzin;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Models\Staff;
+use App\Models\DetailPengajuanIzin;
 
 class PengajuanIzinController extends Controller
 {
@@ -28,6 +32,65 @@ class PengajuanIzinController extends Controller
         $dataPengajuan = $query->latest()->get();
 
         return view('pengajuan_izin.index', compact('dataPengajuan', 'filter'));
+    }
+
+    public function addView()
+    {
+        return view('pengajuan_izin.add');
+    }
+
+    public function add(Request $request)
+    {
+        $request->validate([
+            'detail' => 'required|array|min:1',
+            'detail.*.tanggal' => 'required|date',
+            'detail.*.status' => 'required|string|in:I,S,O,C',
+            'detail.*.keterangan' => 'nullable|string|max:255',
+        ]);
+
+        $staff = Staff::where('users_id', Auth::id())->firstOrFail();
+
+        $pengajuan = PengajuanIzin::create([
+            'staff_id' => $staff->id,
+            'validasi_admin' => null,
+            'admin_id' => null
+        ]);
+
+        foreach ($request->detail as $item) {
+            DetailPengajuanIzin::create([
+                'pengajuan_izin_id' => $pengajuan->id,
+                'tanggal' => $item['tanggal'],
+                'status' => $item['status'],
+                'keterangan' => $item['keterangan'],
+            ]);
+        }
+
+        return redirect()->route('pengajuanizin.view')->with('success', 'Pengajuan berhasil ditambahkan.');
+    }
+
+    // public function detail($id)
+    // {
+    //     $izin = PengajuanIzin::with(['staff', 'admin', 'detail_pengajuan_izin'])
+    //         ->findOrFail($id);
+
+    //     return view('pengajuan_izin.detail', compact('izin'));
+    // }
+
+    public function detail($id)
+    {
+        $user = Auth::user();
+        $izin = PengajuanIzin::with(['staff', 'admin', 'detail_pengajuan_izin'])->findOrFail($id);
+
+        if ($user->role !== 'admin') {
+            $staff = $user->staff;
+
+            // Kalau user belum punya relasi staff atau bukan pemilik pengajuan ini, tolak
+            if (!$staff || $pengajuan->staff_id !== $staff->id) {
+                abort(403, 'Anda tidak diizinkan mengakses data ini.');
+            }
+        }
+
+        return view('pengajuan_izin.detail', compact('izin'));
     }
 
 }

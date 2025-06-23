@@ -23,4 +23,9 @@ class PengajuanIzin extends Model
     {
         return $this->belongsTo(Staff::class, 'admin_id', 'id');
     }
+
+    public function detail_pengajuan_izin()
+    {
+        return $this->hasMany(DetailPengajuanIzin::class, 'pengajuan_izin_id', 'id');
+    }
 }
