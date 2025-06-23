@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\PengajuanIzinController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
@@ -42,6 +43,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/jabatan/add', [JabatanController::class, 'add'])->name('jabatan.add');
     Route::get('/jabatan/editView/{id}', [JabatanController::class, 'editView'])->name('jabatan.editView');
     Route::patch('/jabatan/edit/{id}', [JabatanController::class, 'edit'])->name('jabatan.edit');
+
+    Route::get('/pengajuan/izin', [PengajuanIzinController::class, 'view'])->name('pengajuanizin.view');
 });
 
 

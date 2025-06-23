@@ -34,4 +34,16 @@ class Staff extends Model
     {
         return $this->belongsToMany(Jabatan::class, 'staff_jabatan', 'staff_id', 'jabatan_id')->withTimestamps();
     }
+
+    // Semua pengajuan izin yang dia ajukan
+    public function pengajuanIzin()
+    {
+        return $this->hasMany(PengajuanIzin::class, 'staff_id', 'id');
+    }
+
+    // Semua pengajuan izin yang dia validasi sebagai admin
+    public function pengajuanIzinDivalidasi()
+    {
+        return $this->hasMany(PengajuanIzin::class, 'admin_id', 'id');
+    }
 }
