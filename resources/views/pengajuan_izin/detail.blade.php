@@ -2,8 +2,12 @@
 <div class="container">
     <h2>Detail Pengajuan Izin</h2>
 
-    <a href="{{ route('pengajuanizin.view') }}" class="btn btn-secondary btn-sm mb-3">← Kembali</a>
-
+    <a href="{{ 
+    auth()->user()->role === 'admin' 
+        ? route('pengajuanizin.view') 
+        : route('pengajuanizin.riwayat') 
+    }}" class="btn btn-secondary btn-sm mb-3">← Kembali</a>
+    
     <table class="table table-bordered">
         <tr>
             <th>Nama Staff</th>

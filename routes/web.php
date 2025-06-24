@@ -51,9 +51,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:admin,kepala,karyawan'])->group(function () {
     Route::get('/pengajuan/izin/addView', [PengajuanIzinController::class, 'addView'])->name('pengajuanizin.addView');
     Route::post('/pengajuan/izin/add', [PengajuanIzinController::class, 'add'])->name('pengajuanizin.add');
+    Route::get('/pengajuan/izin/riwayat', [PengajuanIzinController::class, 'riwayat'])->middleware(['auth'])->name('pengajuanizin.riwayat');
     Route::get('/pengajuan/izin/{id}', [PengajuanIzinController::class, 'detail'])->name('pengajuanizin.detail');
     Route::post('/pengajuan/izin/validasi/{id}', [PengajuanIzinController::class, 'validasi'])->name('pengajuanizin.validasi');
-
 });
 
 

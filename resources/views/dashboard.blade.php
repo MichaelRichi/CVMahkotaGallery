@@ -1,26 +1,21 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-    <a href="{{ route('staff.view') }}">data Staff</a>
-    @auth
-        @if (auth()->user()->role === 'admin')
-            <a href="{{ route('cabang.view') }}">data cabang</a>
-            <a href="{{ route('jabatan.view') }}">data jabatan</a>
-        @endif
-    @endauth
-    <br>
-    <a href="{{ route('pengajuanizin.addView') }}">ajukan izin</a>
+<h1>{{ Auth::user()->email }}</h1>
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+    <x-dropdown-link :href="route('logout')"
+            onclick="event.preventDefault();
+                        this.closest('form').submit();">
+        {{ __('Log Out') }}
+    </x-dropdown-link>
+</form>
+
+<h2>menu</h2>
+<li><a href="{{ route('staff.view') }}">data Staff</a></li>
+@auth
+    @if (auth()->user()->role === 'admin')
+        <li><a href="{{ route('cabang.view') }}">data cabang</a></li>
+        <li><a href="{{ route('jabatan.view') }}">data jabatan</a></li>       
+    @endif
+@endauth
+<li><a href="{{ route('pengajuanizin.addView') }}">ajukan izin</a></li>
+<li><a href="{{ route('pengajuanizin.riwayat') }}">riwayat pengajuan izin</a></li>
