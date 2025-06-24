@@ -15,14 +15,22 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('staff_id');
             $table->foreign('staff_id')->references('id')->on('staff');
+
             $table->unsignedBigInteger('cabang_id')->nullable();
             $table->foreign('cabang_id')->references('id')->on('cabang');
+            
             $table->string('judul');
             $table->string('nama_barang');
             $table->string('penjelasan');
             $table->decimal('harga_barang');
-            $table->boolean('validasi_kepalacabang')->default(false);
-            $table->boolean('validasi_admin')->default(false);
+
+            $table->boolean('validasi_kepalacabang')->nullable();
+            $table->unsignedBigInteger('kepala_id')->nullable();
+            $table->foreign('kepala_id')->references('id')->on('staff');
+
+            $table->boolean('validasi_admin')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->foreign('admin_id')->references('id')->on('staff');
             $table->timestamps();
         });
     }

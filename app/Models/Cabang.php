@@ -18,4 +18,8 @@ class Cabang extends Model
     {
         return $this->belongsToMany(Staff::class, 'staff_cabang');
     }
+    public function kronologi()
+    {
+        return $this->hasMany(PengajuanKronologi::class, 'cabang_id', 'id');
+    }
 }
