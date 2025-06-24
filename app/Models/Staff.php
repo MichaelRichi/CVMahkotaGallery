@@ -46,4 +46,22 @@ class Staff extends Model
     {
         return $this->hasMany(PengajuanIzin::class, 'admin_id', 'id');
     }
+
+    // Semua pengajuan kronologi yang dia ajukan
+    public function pengajuanKronologi()
+    {
+        return $this->hasMany(PengajuanKronologi::class, 'staff_id', 'id');
+    }
+
+    // Semua pengajuan kronologi yang dia validasi sebagai kepala cabang
+    public function pengajuanKronologiDivalidasiKepala()
+    {
+        return $this->hasMany(PengajuanKronologi::class, 'kepala_id', 'id');
+    }
+
+    // Semua pengajuan kronologi yang dia validasi sebagai admin
+    public function pengajuanKronologiDivalidasiAdmin()
+    {
+        return $this->hasMany(PengajuanKronologi::class, 'admin_id', 'id');
+    }
 }

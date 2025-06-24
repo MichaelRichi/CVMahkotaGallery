@@ -109,6 +109,21 @@ class PengajuanIzinController extends Controller
         return redirect()->route('pengajuanizin.detail', $id)->with('success', 'Pengajuan telah divalidasi.');
     }
 
+    public function riwayat()
+    {
+        $staff = auth()->user()->staff;
+
+        if (!$staff) {
+            abort(403, 'User belum terhubung dengan data staff.');
+        }
+
+        $pengajuan = PengajuanIzin::with('detail_pengajuan_izin')
+            ->where('staff_id', $staff->id)
+            ->latest()
+            ->get();
+
+        return view('pengajuan_izin.riwayat', compact('pengajuan'));
+    }
 
 
 }
