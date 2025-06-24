@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\JabatanController;
@@ -45,7 +46,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::patch('/jabatan/edit/{id}', [JabatanController::class, 'edit'])->name('jabatan.edit');
 
     Route::get('/pengajuan/izin', [PengajuanIzinController::class, 'view'])->name('pengajuanizin.view');
-    
+
 });
 
 Route::middleware(['auth', 'role:admin,kepala,karyawan'])->group(function () {
