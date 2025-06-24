@@ -29,7 +29,7 @@ Route::middleware(['auth', 'role:admin,kepala'])->group(function () {
     Route::get('/staff/editView/{id}', [StaffController::class, 'editView'])->name('staff.editView');
     Route::patch('/staff/edit/{id}', [StaffController::class, 'edit'])->name('staff.edit');
 
-    Route::get('/pengajuan/kronologi', [PengajuanKronologiController::class, 'index'])->name('kronologi.index');
+    Route::get('/pengajuan/kronologi', [PengajuanKronologiController::class, 'view'])->name('kronologi.view');
     Route::post('/pengajuan/kronologi/validasi/{id}', [PengajuanKronologiController::class, 'validasi'])->name('kronologi.validasi');
 
 });
@@ -63,7 +63,7 @@ Route::middleware(['auth', 'role:admin,kepala,karyawan'])->group(function () {
     Route::get('/pengajuan/kronologi/addView', [PengajuanKronologiController::class, 'addView'])->name('kronologi.addView');
     Route::post('/pengajuan/kronologi/add', [PengajuanKronologiController::class, 'add'])->name('kronologi.add');
     Route::get('/pengajuan/kronologi/riwayat', [PengajuanKronologiController::class, 'riwayat'])->name('kronologi.riwayat');
-    Route::get('/pengajuan/kronologi/{id}', [PengajuanKronologiController::class, 'show'])->name('kronologi.detail');
+    Route::get('/pengajuan/kronologi/{id}', [PengajuanKronologiController::class, 'detail'])->name('kronologi.detail');
 
 });
 

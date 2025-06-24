@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PengajuanKronologiController extends Controller
 {
-    public function index(Request $request)
+    public function view(Request $request)
     {
         $filter = $request->query('status', 'semua');
 
@@ -53,6 +53,47 @@ class PengajuanKronologiController extends Controller
             'harga_barang' => $request->harga_barang,
         ]);
 
-        return redirect()->route('kronologi.index')->with('success', 'Pengajuan berhasil diajukan.');
+        return redirect()->route('kronologi.view')->with('success', 'Pengajuan berhasil diajukan.');
     }
+    public function detail($id)
+    {
+        $pengajuan = PengajuanKronologi::with(['staff', 'cabang', 'kepala', 'admin'])->findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->role === 'karyawan' && $pengajuan->staff->users_id !== $user->id) {
+            abort(403);
+        }
+
+        return view('pengajuan_kronologi.detail', compact('pengajuan'));
+    }
+    public function validasi(Request $request, $id)
+    {
+        $request->validate(['aksi' => 'required|in:terima,tolak']);
+        $pengajuan = PengajuanKronologi::findOrFail($id);
+        $staff = Auth::user()->staff;
+        $role = Auth::user()->role;
+
+        if ($role === 'kepala') {
+            $pengajuan->update([
+                'validasi_kepalacabang' => $request->aksi === 'terima' ? 1 : 0,
+                'kepala_id' => $staff->id,
+            ]);
+        } elseif ($role === 'admin') {
+            $pengajuan->update([
+                'validasi_admin' => $request->aksi === 'terima' ? 1 : 0,
+                'admin_id' => $staff->id,
+            ]);
+        } else {
+            abort(403);
+        }
+
+        return redirect()->route('kronologi.detail', $id)->with('success', 'Validasi berhasil dilakukan.');
+    }
+    public function riwayat()
+    {
+        $staff = Auth::user()->staff;
+        $pengajuan = PengajuanKronologi::where('staff_id', $staff->id)->latest()->get();
+        return view('pengajuan_kronologi.riwayat', compact('pengajuan'));
+    }
+
 }

@@ -1,16 +1,12 @@
-<form method="GET" action="{{ route('kronologi.view') }}">
-    <select name="status" onchange="this.form.submit()">
-        <option value="semua" {{ $filter == 'semua' ? 'selected' : '' }}>Semua</option>
-        <option value="menunggu" {{ $filter == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
-        <option value="diterima" {{ $filter == 'diterima' ? 'selected' : '' }}>Diterima</option>
-        <option value="ditolak" {{ $filter == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
-    </select>
-</form>
-<a href="kronologi/addView">tambah</a>
+<h2>Riwayat Pengajuan Kronologi</h2>
+
+@if (session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
 <table class="table">
     <thead>
         <tr>
-            <th>Nama Staff</th>
             <th>Judul</th>
             <th>Status</th>
             <th>Aksi</th>
@@ -19,7 +15,6 @@
     <tbody>
         @foreach ($pengajuan as $item)
         <tr>
-            <td>{{ $item->staff->nama }}</td>
             <td>{{ $item->judul }}</td>
             <td>
                 @if (is_null($item->validasi_admin) || is_null($item->validasi_kepalacabang))
