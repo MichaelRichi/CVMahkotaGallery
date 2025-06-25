@@ -266,6 +266,14 @@
                         <span class="ml-3">Ajukan Pinjaman</span>
                     </a>
 
+                </div>
+
+
+                <div class="pt-4">
+                    <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                        Riwayat</p>
+
+
                     <a href="{{ route('pengajuanizin.riwayat') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.riwayat') ? 'active' : '' }}">
                         <i class="fas fa-history w-5 text-center"></i>
@@ -283,6 +291,12 @@
                         <i class="fas fa-file-alt w-5 text-center"></i>
                         <span class="sidebar-text ml-3">Riwayat Pinjaman</span>
                     </a>
+
+                </div>
+
+                <div class="pt-4">
+                    <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                        General</p>
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -337,29 +351,7 @@
                                 <p class="font-medium">{{ Auth::user()->name ?? 'User' }}</p>
                                 <p class="text-sm text-gray-400">{{ Auth::user()->email }}</p>
                             </div>
-                            <i class="fas fa-chevron-down text-sm"></i>
                         </button>
-
-                        <!-- Dropdown Menu -->
-                        <div id="userDropdown"
-                            class="absolute right-0 mt-2 w-48 glass-card rounded-lg shadow-lg hidden z-50">
-                            <div class="py-2">
-                                {{-- <a href="{{ route('profile') }}" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700/30 hover:text-yellow-400 transition-colors">
-                                    <i class="fas fa-user-circle mr-3"></i>
-                                    Profile
-                                </a> --}}
-
-                                <hr class="my-2 border-gray-700">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full flex items-center px-4 py-2 text-gray-300 hover:bg-red-500/20 hover:text-red-400 transition-colors">
-                                        <i class="fas fa-sign-out-alt mr-3"></i>
-                                        Logout
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </header>

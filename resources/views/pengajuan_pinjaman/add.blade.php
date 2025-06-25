@@ -84,24 +84,6 @@
                 @enderror
             </div>
 
-            <!-- Mulai Pelunasan -->
-            <div>
-                <label class="block text-sm font-medium text-gray-300 mb-2">
-                    <i class="fas fa-play-circle mr-1 text-yellow-400"></i>
-                    Mulai Pelunasan
-                </label>
-                <input type="date" name="start_pelunasan" value="{{ old('start_pelunasan') }}"
-                       min="{{ date('Y-m-d', strtotime('+1 month')) }}"
-                       class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
-                       required>
-                @error('start_pelunasan')
-                    <p class="text-red-400 text-sm mt-1">
-                        <i class="fas fa-exclamation-circle mr-1"></i>
-                        {{ $message }}
-                    </p>
-                @enderror
-            </div>
-
             <!-- Alasan -->
             <div>
                 <label class="block text-sm font-medium text-gray-300 mb-2">

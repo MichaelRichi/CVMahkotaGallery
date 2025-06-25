@@ -33,7 +33,7 @@ class SlipGajiController extends Controller
                 ->where('jenis', 'kronologi')
                 ->first();
             $hutangPeminjaman = Hutang::where('staff_id', $staff->id)
-                ->where('jenis', 'peminjaman')
+                ->where('jenis', 'pinjam')
                 ->first();
 
             $gajiBersih = $staff->gaji_pokok + $staff->gaji_tunjangan;
@@ -54,7 +54,7 @@ class SlipGajiController extends Controller
 
             if ($hutangPeminjaman) {
                 $detailPeminjaman = DetailHutang::where('hutang_id', $hutangPeminjaman->id)
-                    ->whereMonth('tanggal_pengajian', $currentMonth)
+                    ->whereMonth('tanggal_pelunasan', $currentMonth)
                     ->where('status', '!=', '1')
                     ->first();
                 if ($detailPeminjaman) {
@@ -66,26 +66,25 @@ class SlipGajiController extends Controller
             $gajiBersih -= ($potonganKronologi + $potonganPeminjaman);
 
             // Perbarui sisa hutang jika ada potongan
-            if ($hutangKronologi && $potonganKronologi > 0) {
-                $hutangKronologi->sisa_hutang -= $potonganKronologi;
-                if ($hutangKronologi->sisa_hutang <= 0) {
-                    $hutangKronologi->status = 'LUNAS';
-                }
-                $hutangKronologi->save();
-            }
+            // if ($hutangKronologi && $potonganKronologi > 0) {
+            //     $hutangKronologi->sisa_hutang -= $potonganKronologi;
+            //     if ($hutangKronologi->sisa_hutang <= 0) {
+            //         $hutangKronologi->status = 'LUNAS';
+            //     }
+            //     $hutangKronologi->save();
+            // }
 
-            if ($hutangPeminjaman && $potonganPeminjaman > 0) {
-                $hutangPeminjaman->sisa_hutang -= $potonganPeminjaman;
-                if ($hutangPeminjaman->sisa_hutang <= 0) {
-                    $hutangPeminjaman->status = 'LUNAS';
-                }
-                $hutangPeminjaman->save();
-            }
+            // if ($hutangPeminjaman && $potonganPeminjaman > 0) {
+            //     $hutangPeminjaman->sisa_hutang -= $potonganPeminjaman;
+            //     if ($hutangPeminjaman->sisa_hutang <= 0) {
+            //         $hutangPeminjaman->status = 'LUNAS';
+            //     }
+            //     $hutangPeminjaman->save();
+            // }
 
             $staff->gaji_bersih = $gajiBersih > 0 ? $gajiBersih : 0;
             $staff->potongan_kronologi = $potonganKronologi;
             $staff->potongan_peminjaman = $potonganPeminjaman;
-
             return $staff;
         });
 

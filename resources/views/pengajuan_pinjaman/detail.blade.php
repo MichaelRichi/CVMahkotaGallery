@@ -157,26 +157,13 @@
         @php
             $jumlah = $pinjaman->jumlah_pinjaman;
             $periode = $pinjaman->periode_pelunasan;
-            $bunga = 0.02; // 2% per bulan
-            $totalBunga = $jumlah * $bunga * $periode;
-            $totalPembayaran = $jumlah + $totalBunga;
-            $cicilanPerBulan = $totalPembayaran / $periode;
+            $cicilanPerBulan = $jumlah / $periode;
         @endphp
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-center">
                 <p class="text-blue-400 text-sm font-medium">Pokok Pinjaman</p>
                 <p class="text-xl font-bold text-white mt-1">Rp {{ number_format($jumlah, 0, ',', '.') }}</p>
-            </div>
-
-            <div class="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 text-center">
-                <p class="text-yellow-400 text-sm font-medium">Total Bunga</p>
-                <p class="text-xl font-bold text-white mt-1">Rp {{ number_format($totalBunga, 0, ',', '.') }}</p>
-            </div>
-
-            <div class="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4 text-center">
-                <p class="text-purple-400 text-sm font-medium">Total Pembayaran</p>
-                <p class="text-xl font-bold text-white mt-1">Rp {{ number_format($totalPembayaran, 0, ',', '.') }}</p>
             </div>
 
             <div class="bg-green-500/10 border border-green-500/20 rounded-xl p-4 text-center">

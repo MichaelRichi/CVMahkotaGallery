@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailHutang;
 use Illuminate\Http\Request;
 use App\Models\PengajuanPinjaman;
 use App\Models\Hutang;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class PengajuanPinjamanController extends Controller
 {
@@ -24,9 +26,11 @@ class PengajuanPinjamanController extends Controller
     }
     public function add(Request $request)
     {
+        // Set start pelunasan bulan depan
+        $startPelunasan = Carbon::now()->addMonthNoOverflow()->startOfMonth();
+
         $request->validate([
             'jumlah_pinjaman' => 'required|numeric|min:1000',
-            'periode_pelunasan' => 'required|integer|min:1',
             'start_pelunasan' => 'required|date',
             'alasan' => 'required|string',
         ]);
@@ -35,7 +39,7 @@ class PengajuanPinjamanController extends Controller
             'staff_id' => Auth::user()->staff->id,
             'jumlah_pinjaman' => $request->jumlah_pinjaman,
             'periode_pelunasan' => $request->periode_pelunasan,
-            'start_pelunasan' => $request->start_pelunasan,
+            'start_pelunasan' => $startPelunasan,
             'alasan' => $request->alasan,
         ]);
 
@@ -52,15 +56,28 @@ class PengajuanPinjamanController extends Controller
         ]);
 
         if ($request->aksi === 'terima') {
-            Hutang::create([
+            // Set start pelunasan bulan depan
+            $startPelunasan = Carbon::now()->addMonthNoOverflow()->startOfMonth();
+
+            $hutangbaru = Hutang::create([
                 'staff_id' => $pengajuan->staff_id,
                 'jumlah_hutang' => $pengajuan->jumlah_pinjaman,
                 'periode_pelunasan' => $pengajuan->periode_pelunasan,
-                'start_pelunasan' => $pengajuan->start_pelunasan,
-                'sisa_hutang' => $pengajuan->jumlah_pinjaman,
-                'keterangan' => $pengajuan->alasan,
+                'start_pelunasan' => $startPelunasan,
+                'jenis' => 'pinjam',
+                'pinjaman_id' => $pengajuan->id,
                 'status' => 'ONGOING',
-                'admin_id' => Auth::user()->staff->id,
+            ]);
+        }
+
+        // Hitung cicilan per bulan
+        $jumlahPerBulan = round($pengajuan->jumlah_pinjaman/ $pengajuan->periode_pelunasan, 2);
+
+        for ($i = 0; $i < $pengajuan->periode_pelunasan; $i++) {
+            DetailHutang::create([
+                'hutang_id' => $hutangbaru->id,
+                'jumlah_hutang' => $jumlahPerBulan,
+                'tanggal_pelunasan' => $startPelunasan->copy()->addMonths($i),
             ]);
         }
 
@@ -69,14 +86,14 @@ class PengajuanPinjamanController extends Controller
 
     public function detail($id)
     {
-        $pengajuan = PengajuanPinjaman::with(['staff', 'cabang', 'kepala', 'admin'])->findOrFail($id);
+        $pinjaman = PengajuanPinjaman::with(['staff', 'cabang', 'kepala', 'admin'])->findOrFail($id);
         $user = Auth::user();
 
-        if ($user->role === 'karyawan' && $pengajuan->staff->users_id !== $user->id) {
+        if ($user->role === 'karyawan' && $pinjaman->staff->users_id !== $user->id) {
             abort(403);
         }
 
-        return view('pengajuan_pinjaman.detail', compact('pengajuan'));
+        return view('pengajuan_pinjaman.detail', compact('pinjaman'));
     }
 
     public function riwayat()
