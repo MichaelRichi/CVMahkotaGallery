@@ -9,6 +9,8 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PengajuanIzinController;
 use App\Http\Controllers\PengajuanKronologiController;
 use App\Http\Controllers\PengajuanPinjamanController;
+use App\Http\Controllers\SlipGajiController;
+use App\Http\Controllers\HutangController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
@@ -73,7 +75,6 @@ Route::middleware(['auth', 'role:admin,kepala,karyawan'])->group(function () {
     Route::post('/pengajuan/kronologi/add', [PengajuanKronologiController::class, 'add'])->name('kronologi.add');
     Route::get('/pengajuan/kronologi/riwayat', [PengajuanKronologiController::class, 'riwayat'])->name('kronologi.riwayat');
     Route::get('/pengajuan/kronologi/{id}', [PengajuanKronologiController::class, 'detail'])->name('kronologi.detail');
-
 });
 
 Route::middleware('auth')->group(function () {

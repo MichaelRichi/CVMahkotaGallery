@@ -56,9 +56,9 @@ class PengajuanKronologiController extends Controller
             'penjelasan' => $request->penjelasan,
             'harga_barang' => $request->harga_barang,
             'periode_pelunasan' => $request->periode_pelunasan,
-        ]);        
+        ]);
 
-        return redirect()->route('kronologi.view')->with('success', 'Pengajuan berhasil diajukan.');
+        return redirect()->route('kronologi.riwayat')->with('success', 'Pengajuan berhasil diajukan.');
     }
     public function detail($id)
     {
