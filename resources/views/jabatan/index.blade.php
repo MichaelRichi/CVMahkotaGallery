@@ -70,10 +70,10 @@
                             <i class="fas fa-user-tie mr-2 text-yellow-400"></i>
                             Nama Jabatan
                         </th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                        {{-- <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
                             <i class="fas fa-users mr-2 text-yellow-400"></i>
                             Jumlah Karyawan
-                        </th>
+                        </th> --}}
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
                             <i class="fas fa-toggle-on mr-2 text-yellow-400"></i>
                             Status
@@ -103,14 +103,14 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4">
+                            {{-- <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <i class="fas fa-users text-blue-400 mr-2"></i>
                                     <span class="text-gray-300">
                                         {{ $jabatan->staff_count ?? 0 }} Karyawan
                                     </span>
                                 </div>
-                            </td>
+                            </td> --}}
                             <td class="px-6 py-4">
                                 @if($jabatan->is_active)
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-500/20 text-green-400 border border-green-500/30">
