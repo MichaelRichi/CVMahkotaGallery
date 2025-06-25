@@ -21,13 +21,8 @@ return new class extends Migration
 
             $table->date('start_pelunasan');//bulan-tahun
 
-            $table->decimal('sisa_hutang', 12, 2);
+            $table->decimal('sisa_hutang', 12, 2)->nullable();
             $table->enum('status', ['ONGOING', 'LUNAS', 'BATAL'])->default('ONGOING');
-
-            $table->string('keterangan')->nullable();
-
-            $table->unsignedBigInteger('admin_id')->nullable();
-            $table->foreign('admin_id')->references('id')->on('staff');
 
             $table->enum('jenis',['izin','kronologi','pinjam']);
 
