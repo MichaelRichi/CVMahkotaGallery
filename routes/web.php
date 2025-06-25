@@ -80,9 +80,14 @@ Route::middleware(['auth', 'role:admin,kepala,karyawan'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/pengajuan/pinjaman', [PengajuanPinjamanController::class, 'view'])->name('pinjaman.view');
     Route::get('/pengajuan/pinjaman/addView', [PengajuanPinjamanController::class, 'addView'])->name('pinjaman.addView');
+    Route::get('/pengajuan/pinjaman/riwayat', [PengajuanPinjamanController::class, 'riwayat'])->name('pinjaman.riwayat');
     Route::post('/pengajuan/pinjaman/add', [PengajuanPinjamanController::class, 'add'])->name('pinjaman.add');
     Route::post('/pengajuan/pinjaman/{id}/validasi', [PengajuanPinjamanController::class, 'validasi'])->name('pinjaman.validasi');
-    // Route::get('/slip/preview', [SlipGajiController::class, 'preview'])->name('slip.preview');
+    Route::get('/pengajuan/kronologi/{id}', [PengajuanPinjamanController::class, 'detail'])->name('pinjaman.detail');
+
+
+
+    Route::get('/slip/preview', [SlipGajiController::class, 'preview'])->name('slip.preview');
     // Route::post('/slip/jalankan', [SlipGajiController::class, 'jalankan'])->name('slip.jalankan');
     Route::get('/slip/riwayat', [SlipGajiController::class, 'riwayat'])->name('slip.riwayat');
 

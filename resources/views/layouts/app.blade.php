@@ -214,6 +214,12 @@
                                 <span class="sidebar-text ml-3">Pengajuan Kronologi</span>
                             </a>
 
+                            <a href="{{ route('pinjaman.view') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.view') ? 'active' : '' }}">
+                                <i class="fas fa-clock w-5 text-center"></i>
+                                <span class="sidebar-text ml-3">Pengajuan Pinjaman</span>
+                            </a>
+
                             <a href="{{ route('pengajuanizin.view') }}"
                                 class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.view') ? 'active' : '' }}">
                                 <i class="fas fa-calendar-check w-5 text-center"></i>
@@ -254,6 +260,12 @@
                         <span class="sidebar-text ml-3">Ajukan Kronologi</span>
                     </a>
 
+                    <a href="{{ route('pinjaman.addView') }}"
+                        class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.addView') ? 'active' : '' }}">
+                        <i class="fas fa-clock w-5 text-center"></i>
+                        <span class="ml-3">Ajukan Pinjaman</span>
+                    </a>
+
                     <a href="{{ route('pengajuanizin.riwayat') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.riwayat') ? 'active' : '' }}">
                         <i class="fas fa-history w-5 text-center"></i>
@@ -264,6 +276,12 @@
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.riwayat') ? 'active' : '' }}">
                         <i class="fas fa-file-alt w-5 text-center"></i>
                         <span class="sidebar-text ml-3">Riwayat Kronologi</span>
+                    </a>
+
+                    <a href="{{ route('pinjaman.riwayat') }}"
+                        class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.riwayat') ? 'active' : '' }}">
+                        <i class="fas fa-file-alt w-5 text-center"></i>
+                        <span class="sidebar-text ml-3">Riwayat Pinjaman</span>
                     </a>
 
                     <form method="POST" action="{{ route('logout') }}">
@@ -443,6 +461,12 @@
                     class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.addView') ? 'active' : '' }}">
                     <i class="fas fa-plus-square w-5 text-center"></i>
                     <span class="ml-3">Ajukan Kronologi</span>
+                </a>
+
+                <a href="{{ route('pinjaman.addView') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.addView') ? 'active' : '' }}">
+                    <i class="fas fa-clock w-5 text-center"></i>
+                    <span class="ml-3">Ajukan Pinjaman</span>
                 </a>
 
                 <a href="{{ route('pengajuanizin.riwayat') }}"

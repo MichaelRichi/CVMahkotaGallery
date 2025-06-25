@@ -39,7 +39,7 @@ class PengajuanPinjamanController extends Controller
             'alasan' => $request->alasan,
         ]);
 
-        return redirect()->route('pinjaman.view')->with('success', 'Pengajuan pinjaman berhasil dikirim.');
+        return redirect()->route('pinjaman.addView')->with('success', 'Pengajuan pinjaman berhasil dikirim.');
     }
     public function validasi(Request $request, $id)
     {
@@ -65,5 +65,24 @@ class PengajuanPinjamanController extends Controller
         }
 
         return redirect()->route('pinjaman.view')->with('success', 'Validasi berhasil dilakukan.');
+    }
+
+    public function detail($id)
+    {
+        $pengajuan = PengajuanPinjaman::with(['staff', 'cabang', 'kepala', 'admin'])->findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->role === 'karyawan' && $pengajuan->staff->users_id !== $user->id) {
+            abort(403);
+        }
+
+        return view('pengajuan_pinjaman.detail', compact('pengajuan'));
+    }
+
+    public function riwayat()
+    {
+        $staff = Auth::user()->staff;
+        $pengajuan = PengajuanPinjaman::where('staff_id', $staff->id)->latest()->get();
+        return view('pengajuan_pinjaman.riwayat', compact('pengajuan'));
     }
 }
