@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard') - Mahkota Gallery Watches</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -21,9 +23,17 @@
         }
 
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* Sidebar Styling */
@@ -92,9 +102,12 @@
         }
 
         @keyframes logoGlow {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
             }
+
             50% {
                 box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
             }
@@ -140,6 +153,7 @@
         }
     </style>
 </head>
+
 <body class="animated-bg">
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
@@ -147,8 +161,10 @@
             <!-- Logo -->
             <div class="p-6 border-b border-gray-700/50">
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-800/50 to-black/80 flex items-center justify-center border border-yellow-400/20 logo-glow">
-                        <span class="text-xl font-bold bg-gradient-to-br from-yellow-300 to-yellow-500 bg-clip-text text-transparent">MG</span>
+                    <div
+                        class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-800/50 to-black/80 flex items-center justify-center border border-yellow-400/20 logo-glow">
+                        <span
+                            class="text-xl font-bold bg-gradient-to-br from-yellow-300 to-yellow-500 bg-clip-text text-transparent">MG</span>
                     </div>
                     <div class="sidebar-text">
                         <h1 class="text-white font-bold text-lg">Mahkota Gallery</h1>
@@ -160,39 +176,46 @@
             <!-- Navigation -->
             <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
                 <!-- Dashboard -->
-                <a href="{{ route('dashboard') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <i class="fas fa-home w-5 text-center"></i>
                     <span class="sidebar-text ml-3">Dashboard</span>
-                </a>
-
-                <!-- Staff Management -->
-                <a href="{{ route('staff.view') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('staff.*') ? 'active' : '' }}">
-                    <i class="fas fa-users w-5 text-center"></i>
-                    <span class="sidebar-text ml-3">Data Staff</span>
                 </a>
 
                 @auth
                     @if (auth()->user()->role === 'admin')
                         <!-- Admin Only Section -->
                         <div class="pt-4">
-                            <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Admin Panel</p>
+                            <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                                Admin Panel</p>
 
-                            <a href="{{ route('cabang.view') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('cabang.*') ? 'active' : '' }}">
+                            <a href="{{ route('cabang.view') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('cabang.*') ? 'active' : '' }}">
                                 <i class="fas fa-building w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Data Cabang</span>
                             </a>
 
-                            <a href="{{ route('jabatan.view') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('jabatan.*') ? 'active' : '' }}">
+                            <!-- Staff Management -->
+                            <a href="{{ route('staff.view') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('staff.*') ? 'active' : '' }}">
+                                <i class="fas fa-users w-5 text-center"></i>
+                                <span class="sidebar-text ml-3">Data Staff</span>
+                            </a>
+
+                            <a href="{{ route('jabatan.view') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('jabatan.*') ? 'active' : '' }}">
                                 <i class="fas fa-briefcase w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Data Jabatan</span>
                             </a>
 
-                            <a href="{{ route('kronologi.view') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
+                            <a href="{{ route('kronologi.view') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
                                 <i class="fas fa-clock w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Pengajuan Kronologi</span>
                             </a>
 
-                            <a href="{{ route('pengajuanizin.view') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.view') ? 'active' : '' }}">
+                            <a href="{{ route('pengajuanizin.view') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.view') ? 'active' : '' }}">
                                 <i class="fas fa-calendar-check w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Pengajuan Izin</span>
                             </a>
@@ -202,9 +225,11 @@
                     @if (auth()->user()->role === 'kepala')
                         <!-- Kepala Cabang Section -->
                         <div class="pt-4">
-                            <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Kepala Cabang</p>
+                            <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                                Kepala Cabang</p>
 
-                            <a href="{{ route('kronologi.view') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
+                            <a href="{{ route('kronologi.view') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
                                 <i class="fas fa-clock w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Pengajuan Kronologi</span>
                             </a>
@@ -214,34 +239,50 @@
 
                 <!-- Personal Section -->
                 <div class="pt-4">
-                    <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Personal</p>
+                    <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                        Personal</p>
 
-                    <a href="{{ route('pengajuanizin.addView') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.addView') ? 'active' : '' }}">
+                    <a href="{{ route('pengajuanizin.addView') }}"
+                        class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.addView') ? 'active' : '' }}">
                         <i class="fas fa-plus-circle w-5 text-center"></i>
                         <span class="sidebar-text ml-3">Ajukan Izin</span>
                     </a>
 
-                    <a href="{{ route('kronologi.addView') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.addView') ? 'active' : '' }}">
+                    <a href="{{ route('kronologi.addView') }}"
+                        class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.addView') ? 'active' : '' }}">
                         <i class="fas fa-plus-square w-5 text-center"></i>
                         <span class="sidebar-text ml-3">Ajukan Kronologi</span>
                     </a>
 
-                    <a href="{{ route('pengajuanizin.riwayat') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.riwayat') ? 'active' : '' }}">
+                    <a href="{{ route('pengajuanizin.riwayat') }}"
+                        class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.riwayat') ? 'active' : '' }}">
                         <i class="fas fa-history w-5 text-center"></i>
                         <span class="sidebar-text ml-3">Riwayat Izin</span>
                     </a>
 
-                    <a href="{{ route('kronologi.riwayat') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.riwayat') ? 'active' : '' }}">
+                    <a href="{{ route('kronologi.riwayat') }}"
+                        class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.riwayat') ? 'active' : '' }}">
                         <i class="fas fa-file-alt w-5 text-center"></i>
                         <span class="sidebar-text ml-3">Riwayat Kronologi</span>
                     </a>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="sidebar-item w-full flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-red-500/20 hover:text-red-400">
+                            <i class="fas fa-sign-out-alt w-5 text-center"></i>
+                            <span class="sidebar-text ml-3">Logout</span>
+                        </button>
+                    </form>
                 </div>
             </nav>
 
             <!-- Sidebar Toggle Button -->
             <div class="p-4 border-t border-gray-700/50">
-                <button id="sidebarToggle" class="sidebar-item w-full flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-700/30">
-                    <i class="fas fa-chevron-left w-5 text-center transition-transform duration-300" id="toggleIcon"></i>
+                <button id="sidebarToggle"
+                    class="sidebar-item w-full flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-700/30">
+                    <i class="fas fa-chevron-left w-5 text-center transition-transform duration-300"
+                        id="toggleIcon"></i>
                     <span class="sidebar-text ml-3">Collapse</span>
                 </button>
             </div>
@@ -268,8 +309,10 @@
 
                     <!-- User Menu -->
                     <div class="relative">
-                        <button id="userMenuBtn" class="flex items-center space-x-3 text-white hover:text-yellow-400 transition-colors">
-                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center">
+                        <button id="userMenuBtn"
+                            class="flex items-center space-x-3 text-white hover:text-yellow-400 transition-colors">
+                            <div
+                                class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center">
                                 <i class="fas fa-user text-black"></i>
                             </div>
                             <div class="hidden md:block text-left">
@@ -280,20 +323,19 @@
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <div id="userDropdown" class="absolute right-0 mt-2 w-48 glass-card rounded-lg shadow-lg hidden z-50">
+                        <div id="userDropdown"
+                            class="absolute right-0 mt-2 w-48 glass-card rounded-lg shadow-lg hidden z-50">
                             <div class="py-2">
-                                <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700/30 hover:text-yellow-400 transition-colors">
+                                {{-- <a href="{{ route('profile') }}" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700/30 hover:text-yellow-400 transition-colors">
                                     <i class="fas fa-user-circle mr-3"></i>
                                     Profile
-                                </a>
-                                <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700/30 hover:text-yellow-400 transition-colors">
-                                    <i class="fas fa-cog mr-3"></i>
-                                    Settings
-                                </a>
+                                </a> --}}
+
                                 <hr class="my-2 border-gray-700">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="w-full flex items-center px-4 py-2 text-gray-300 hover:bg-red-500/20 hover:text-red-400 transition-colors">
+                                    <button type="submit"
+                                        class="w-full flex items-center px-4 py-2 text-gray-300 hover:bg-red-500/20 hover:text-red-400 transition-colors">
                                         <i class="fas fa-sign-out-alt mr-3"></i>
                                         Logout
                                     </button>
@@ -316,8 +358,10 @@
         <!-- Same sidebar content as desktop -->
         <div class="p-6 border-b border-gray-700/50">
             <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-800/50 to-black/80 flex items-center justify-center border border-yellow-400/20 logo-glow">
-                    <span class="text-xl font-bold bg-gradient-to-br from-yellow-300 to-yellow-500 bg-clip-text text-transparent">MG</span>
+                <div
+                    class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-800/50 to-black/80 flex items-center justify-center border border-yellow-400/20 logo-glow">
+                    <span
+                        class="text-xl font-bold bg-gradient-to-br from-yellow-300 to-yellow-500 bg-clip-text text-transparent">MG</span>
                 </div>
                 <div>
                     <h1 class="text-white font-bold text-lg">Mahkota Gallery</h1>
@@ -328,11 +372,100 @@
 
         <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
             <!-- Same navigation as desktop -->
-            <a href="{{ route('dashboard') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg">
+            <a href="{{ route('dashboard') }}"
+                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg">
                 <i class="fas fa-home w-5 text-center"></i>
                 <span class="ml-3">Dashboard</span>
             </a>
-            <!-- Add other menu items here -->
+            <a href="{{ route('staff.view') }}"
+                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('staff.*') ? 'active' : '' }}">
+                <i class="fas fa-users w-5 text-center"></i>
+                <span class="ml-3">Data Staff</span>
+            </a>
+
+            @auth
+                @if (auth()->user()->role === 'admin')
+                    <!-- Admin Only Section -->
+                    <div class="pt-4">
+                        <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Admin Panel</p>
+
+                        <a href="{{ route('cabang.view') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('cabang.*') ? 'active' : '' }}">
+                            <i class="fas fa-building w-5 text-center"></i>
+                            <span class="ml-3">Data Cabang</span>
+                        </a>
+
+                        <a href="{{ route('jabatan.view') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('jabatan.*') ? 'active' : '' }}">
+                            <i class="fas fa-briefcase w-5 text-center"></i>
+                            <span class="ml-3">Data Jabatan</span>
+                        </a>
+
+                        <a href="{{ route('kronologi.view') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
+                            <i class="fas fa-clock w-5 text-center"></i>
+                            <span class="ml-3">Pengajuan Kronologi</span>
+                        </a>
+
+                        <a href="{{ route('pengajuanizin.view') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.view') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-check w-5 text-center"></i>
+                            <span class="ml-3">Pengajuan Izin</span>
+                        </a>
+                    </div>
+                @endif
+
+                @if (auth()->user()->role === 'kepala')
+                    <!-- Kepala Cabang Section -->
+                    <div class="pt-4">
+                        <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Kepala Cabang</p>
+
+                        <a href="{{ route('kronologi.view') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
+                            <i class="fas fa-clock w-5 text-center"></i>
+                            <span class="ml-3">Pengajuan Kronologi</span>
+                        </a>
+                    </div>
+                @endif
+            @endauth
+
+            <!-- Personal Section -->
+            <div class="pt-4">
+                <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Personal</p>
+
+                <a href="{{ route('pengajuanizin.addView') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.addView') ? 'active' : '' }}">
+                    <i class="fas fa-plus-circle w-5 text-center"></i>
+                    <span class="ml-3">Ajukan Izin</span>
+                </a>
+
+                <a href="{{ route('kronologi.addView') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.addView') ? 'active' : '' }}">
+                    <i class="fas fa-plus-square w-5 text-center"></i>
+                    <span class="ml-3">Ajukan Kronologi</span>
+                </a>
+
+                <a href="{{ route('pengajuanizin.riwayat') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.riwayat') ? 'active' : '' }}">
+                    <i class="fas fa-history w-5 text-center"></i>
+                    <span class="ml-3">Riwayat Izin</span>
+                </a>
+
+                <a href="{{ route('kronologi.riwayat') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.riwayat') ? 'active' : '' }}">
+                    <i class="fas fa-file-alt w-5 text-center"></i>
+                    <span class="ml-3">Riwayat Kronologi</span>
+                </a>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="sidebar-item w-full flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-red-500/20 hover:text-red-400">
+                        <i class="fas fa-sign-out-alt w-5 text-center"></i>
+                        <span class="ml-3">Logout</span>
+                    </button>
+                </form>
+            </div>
         </nav>
     </div>
 
@@ -386,4 +519,5 @@
         });
     </script>
 </body>
+
 </html>
