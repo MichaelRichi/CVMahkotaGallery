@@ -8,6 +8,7 @@ use App\Http\Controllers\CabangController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PengajuanIzinController;
 use App\Http\Controllers\PengajuanKronologiController;
+use App\Http\Controllers\PengajuanPinjamanController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
@@ -51,6 +52,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::patch('/jabatan/edit/{id}', [JabatanController::class, 'edit'])->name('jabatan.edit');
 
     Route::get('/pengajuan/izin', [PengajuanIzinController::class, 'view'])->name('pengajuanizin.view');
+    Route::resource('hutang', HutangController::class);
 
 });
 
@@ -68,6 +70,11 @@ Route::middleware(['auth', 'role:admin,kepala,karyawan'])->group(function () {
 
 });
 
-
+Route::middleware('auth')->group(function () {
+    Route::get('/pengajuan/pinjaman', [PengajuanPinjamanController::class, 'view'])->name('pinjaman.view');
+    Route::get('/pengajuan/pinjaman/addView', [PengajuanPinjamanController::class, 'addView'])->name('pinjaman.addView');
+    Route::post('/pengajuan/pinjaman/add', [PengajuanPinjamanController::class, 'add'])->name('pinjaman.add');
+    Route::post('/pengajuan/pinjaman/{id}/validasi', [PengajuanPinjamanController::class, 'validasi'])->name('pinjaman.validasi');
+});
 
 require __DIR__.'/auth.php';

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('judul');
             $table->string('nama_barang');
             $table->string('penjelasan');
-            $table->decimal('harga_barang');
+            $table->decimal('harga_barang', 12, 2);
 
             $table->boolean('validasi_kepalacabang')->nullable();
             $table->unsignedBigInteger('kepala_id')->nullable();
