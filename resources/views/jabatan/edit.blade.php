@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <p class="text-white font-medium">{{ $jabatan->nama_jabatan }}</p>
-                        <p class="text-gray-400 text-sm">{{ $jabatan->staff_count ?? 0 }} Karyawan terdaftar</p>
+                        {{-- <p class="text-gray-400 text-sm">{{ $jabatan->staff_count ?? 0 }} Karyawan terdaftar</p> --}}
                     </div>
                 </div>
                 @if($jabatan->is_active)
