@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PengajuanKronologi;
 use App\Models\Hutang;
 use App\Models\DetailHutang;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PengajuanKronologiController extends Controller
@@ -43,6 +44,7 @@ class PengajuanKronologiController extends Controller
             'nama_barang' => 'required',
             'penjelasan' => 'required',
             'harga_barang' => 'required|numeric',
+            'periode_pelunasan' =>'required',
         ]);
 
         $staff = Auth::user()->staff;
@@ -101,7 +103,6 @@ class PengajuanKronologiController extends Controller
                     'jumlah_hutang'=> $pengajuan->harga_barang,
                     'periode_pelunasan' => $pengajuan->periode_pelunasan,
                     'start_pelunasan'=> $startPelunasan,
-                    'sisa_hutang'=> $pengajuan->harga_barang,
                     'jenis' =>'kronologi',
                     'kronologi_id'=> $pengajuan->id,
                 ]);

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('hutang_id')->references('id')->on('hutang');
             $table->decimal('jumlah_hutang', 12, 2);
             $table->date('tanggal_pelunasan');//bulan-tahun
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

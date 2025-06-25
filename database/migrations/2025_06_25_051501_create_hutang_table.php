@@ -28,7 +28,7 @@ return new class extends Migration
 
             // kalo type kronologi maka akan terisi kolom ini yg nunjukin kronologi yg mana
             $table->unsignedBigInteger('kronologi_id')->nullable();
-            $table->foreign('kronologi_id')->references('id')->on('pengajuan_kronologi');
+            $table->foreign('kronologi_id')->references('id')->on('kronologi');
 
             // kalo type pinjaman maka akan terisi kolom ini yg nunjukin pinjaman yg mana
             $table->unsignedBigInteger('pinjaman_id')->nullable();

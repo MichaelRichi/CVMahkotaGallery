@@ -17,7 +17,7 @@ class PengajuanKronologi extends Model
         'validasi_kepalacabang',
         'kepala_id',
         'validasi_admin',
-        'admin_id'
+        'admin_id','periode_pelunasan'
     ];
 
     public function cabang()
