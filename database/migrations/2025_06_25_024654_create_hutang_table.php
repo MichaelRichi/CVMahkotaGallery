@@ -13,18 +13,32 @@ return new class extends Migration
     {
         Schema::create('hutang', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('staff_id');
-            $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
-            
+            $table->foreign('staff_id')->references('id')->on('staff');
+
             $table->decimal('jumlah_hutang', 12, 2);
-            $table->integer('periode_pelunasan'); // dalam bulan
-            $table->date('start_pelunasan');
-            $table->string('keterangan')->nullable();
-            $table->enum('status', ['ONGOING', 'LUNAS', 'BATAL'])->default('ONGOING');
+            $table->integer('periode_pelunasan'); // bulan
+
+            $table->date('start_pelunasan');//bulan-tahun
+
             $table->decimal('sisa_hutang', 12, 2);
+            $table->enum('status', ['ONGOING', 'LUNAS', 'BATAL'])->default('ONGOING');
+
+            $table->string('keterangan')->nullable();
+
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('staff');
+
+            $table->enum('jenis',['izin','kronologi','pinjam']);
+
+            // kalo type kronologi maka akan terisi kolom ini yg nunjukin kronologi yg mana
+            $table->unsignedBigInteger('kronologi_id')->nullable();
+            $table->foreign('kronologi_id')->references('id')->on('pengajuan_kronologi');
+
+            // kalo type pinjaman maka akan terisi kolom ini yg nunjukin pinjaman yg mana
+            $table->unsignedBigInteger('pinjaman_id')->nullable();
+            $table->foreign('pinjaman_id')->references('id')->on('pengajuan_pinjaman');
+
             $table->timestamps();
         });
     }

@@ -64,4 +64,10 @@ class Staff extends Model
     {
         return $this->hasMany(PengajuanKronologi::class, 'admin_id', 'id');
     }
+
+    public function cabangAktif()
+    {
+        return $this->hasOne(StaffCabang::class)->where('is_active', true);
+    }
+
 }

@@ -94,6 +94,26 @@
                 @enderror
             </div>
 
+            <!-- periode -->
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">
+                    <i class="fas fa-money-bill-wave mr-1 text-yellow-400"></i>
+                    Berapa kali bayar
+                </label>
+                <div class="relative">
+                    <input type="number" name="periode_pelunasan" value="{{ old('periode_pelunasan') }}" min="0"
+                           class="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
+                           placeholder="0" required>
+                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">kali</span>
+                </div>
+                @error('periode_pelunasan')
+                    <p class="text-red-400 text-sm mt-1">
+                        <i class="fas fa-exclamation-circle mr-1"></i>
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
             <!-- Penjelasan -->
             <div>
                 <label class="block text-sm font-medium text-gray-300 mb-2">

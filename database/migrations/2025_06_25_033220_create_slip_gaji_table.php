@@ -13,6 +13,22 @@ return new class extends Migration
     {
         Schema::create('slip_gaji', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
+            $table->unsignedBigInteger('cabang_id')->nullable();
+            $table->foreign('cabang_id')->references('id')->on('cabang')->onDelete('set null');
+
+            $table->date('periode'); // contoh: 2025-06-01 (kerja bulan Juni)
+            $table->date('tanggal_penggajian');
+
+            $table->decimal('gaji_pokok', 12, 2);
+            $table->decimal('gaji_tunjangan', 12, 2);
+
+            $table->decimal('potongan_izin', 12, 2)->default(0);
+            $table->decimal('potongan_kronologi', 12, 2)->default(0);
+            $table->decimal('potongan_hutang', 12, 2)->default(0);
+
+            $table->decimal('gaji_bersih', 12, 2);
             $table->timestamps();
         });
     }

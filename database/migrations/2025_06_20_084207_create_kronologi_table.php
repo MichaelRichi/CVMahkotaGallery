@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->string('penjelasan');
             $table->decimal('harga_barang', 12, 2);
+            $table->integer('periode_pelunasan'); // bulan
 
             $table->boolean('validasi_kepalacabang')->nullable();
             $table->unsignedBigInteger('kepala_id')->nullable();
