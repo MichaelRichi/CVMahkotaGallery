@@ -58,7 +58,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/slip', [SlipGajiController::class, 'index'])->name('slip.index'); // daftar hasil penggajian
     Route::get('/slip/preview', [SlipGajiController::class, 'preview'])->name('slip.preview'); // form pilih bulan & cabang
     Route::post('/slip/jalankan', [SlipGajiController::class, 'jalankan'])->name('slip.jalankan'); // simpan ke db
-    Route::get('/slip/{periode}/{cabang_id}', [SlipGajiController::class, 'detail'])->name('slip.periode.detail'); // lihat slip tiap periode
+    // Route::get('/slip/{periode}/{cabang_id}', [SlipGajiController::class, 'detail'])->name('slip.periode.detail'); // lihat slip tiap periode
 
 
 });
@@ -84,10 +84,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/pengajuan/pinjaman/{id}/validasi', [PengajuanPinjamanController::class, 'validasi'])->name('pinjaman.validasi');
     Route::get('/pengajuan/pinjaman/{id}', [PengajuanPinjamanController::class, 'detail'])->name('pinjaman.detail');
 
-    Route::get('/slip/preview', [SlipGajiController::class, 'preview'])->name('slip.preview');
+    Route::get('/slip', [SlipGajiController::class, 'view'])->name('slip.view');
     Route::get('/slip/proses', [SlipGajiController::class, 'proses'])->name('slip.proses');
     // Route::post('/slip/jalankan', [SlipGajiController::class, 'jalankan'])->name('slip.jalankan');
     Route::get('/slip/riwayat', [SlipGajiController::class, 'riwayat'])->name('slip.riwayat');
+    Route::get('/slip/karyawan/riwayat', [SlipGajiController::class, 'riwayatGajiKaryawan'])->name('slip.karyawan.riwayat');
 });
 
 require __DIR__ . '/auth.php';

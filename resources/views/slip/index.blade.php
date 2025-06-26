@@ -4,8 +4,28 @@
 @section('page-title', 'Penggajian Staff')
 @section('page-description', 'Kelola dan proses penggajian karyawan Mahkota Gallery')
 
+
+
 @section('content')
     <div class="space-y-6">
+
+        @if (session('success'))
+            <div class="glass-card rounded-2xl p-4 border border-green-500/30 bg-green-500/10">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                    <p class="text-green-300">{{ session('success') }}</p>
+                </div>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="glass-card rounded-2xl p-4 border border-red-500/30 bg-red-500/10">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-red-400 mr-3"></i>
+                    <p class="text-red-300">{{ session('error') }}</p>
+                </div>
+            </div>\
+        @endif
         <!-- Header Actions -->
         <div class="glass-card rounded-2xl p-6">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -14,11 +34,31 @@
                     <p class="text-gray-400">Proses penggajian dan pantau gaji karyawan per {{ now()->format('F Y') }}</p>
                 </div>
                 @if ($staff->isNotEmpty())
-                    <button id="processPayroll"
-                        class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-400/25">
-                        <i class="fas fa-money-bill-wave mr-2"></i>
-                        Proses Penggajian
-                    </button>
+                    <form method="GET" action="{{ route('slip.proses') }}" id="payrollForm">
+                        <div class="flex flex-col lg:flex-row gap-4">
+                            <select name="month"
+                                class="w-full lg:w-40 px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all">
+                                @for ($i = 1; $i <= 12; $i++)
+                                    <option value="{{ $i }}" {{ now()->month == $i ? 'selected' : '' }}>
+                                        {{ \Carbon\Carbon::create()->month($i)->format('F') }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <select name="year"
+                                class="w-full lg:w-40 px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all">
+                                @for ($i = 2025; $i <= 2030; $i++)
+                                    <option value="{{ $i }}" {{ now()->year == $i ? 'selected' : '' }}>
+                                        {{ $i }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <button type="submit" id="processPayroll"
+                                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-400/25">
+                                <i class="fas fa-money-bill-wave mr-2"></i>
+                                Proses Penggajian
+                            </button>
+                        </div>
+                    </form>
                 @else
                     <span class="text-gray-500">Tidak ada staff untuk diproses.</span>
                 @endif
@@ -159,15 +199,18 @@
         </div>
     </div>
 
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var processPayrollButton = document.getElementById('processPayroll');
             if (processPayrollButton) {
-                processPayrollButton.addEventListener('click', function() {
-                    if (confirm(
-                            'Apakah Anda yakin ingin memproses penggajian untuk semua staff pada {{ now()->format('F Y') }}?'
-                            )) {
-                        window.location.href = '{{ route('slip.proses') }}';
+                processPayrollButton.addEventListener('click', function(event) {
+                    var month = document.querySelector('select[name="month"]').value;
+                    var year = document.querySelector('select[name="year"]').value;
+                    if (!month || !year) {
+                        alert('Silakan pilih bulan dan tahun sebelum memproses penggajian.');
+                        event.preventDefault();
                     }
                 });
             } else {

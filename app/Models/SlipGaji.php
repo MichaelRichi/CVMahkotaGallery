@@ -20,4 +20,14 @@ class SlipGaji extends Model
         'gaji_bersih',
 
     ];
+
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class);
+    }
+
+    public function cabang()
+    {
+        return $this->belongsTo(Cabang::class, 'cabang_id', 'id');
+    }
 }

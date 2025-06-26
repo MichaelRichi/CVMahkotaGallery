@@ -225,6 +225,19 @@
                                 <i class="fas fa-calendar-check w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Pengajuan Izin</span>
                             </a>
+
+                            <a href="{{ route('slip.view') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.view') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-check w-5 text-center"></i>
+                                <span class="sidebar-text ml-3">Gaji</span>
+                            </a>
+
+                            <a href="{{ route('slip.riwayat') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.view') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-check w-5 text-center"></i>
+                                <span class="sidebar-text ml-3">Riwayat Gaji</span>
+                            </a>
+
                         </div>
                     @endif
 
@@ -247,6 +260,12 @@
                 <div class="pt-4">
                     <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                         Personal</p>
+
+                    <a href="{{ route('slip.karyawan.riwayat') }}"
+                        class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.karyawan.riwayat') ? 'active' : '' }}">
+                        <i class="fas fa-calendar-check w-5 text-center"></i>
+                        <span class="sidebar-text ml-3">Riwayat Gaji</span>
+                    </a>
 
                     <a href="{{ route('pengajuanizin.addView') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.addView') ? 'active' : '' }}">
@@ -526,7 +545,6 @@
         userMenuBtn.addEventListener('click', () => {
             userDropdown.classList.toggle('hidden');
         });
-
     </script>
 </body>
 

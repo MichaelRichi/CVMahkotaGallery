@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Hutang;
 use App\Models\DetailHutang;
 use App\Models\SlipGaji;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Staff;
 
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class SlipGajiController extends Controller
      * Menampilkan halaman penggajian dengan filter berdasarkan cabang
      * Mengambil data staff dan menghitung gaji bersih berdasarkan potongan hutang dari detail hutang
      */
-    public function preview(Request $request)
+    public function view(Request $request)
     {
         $cabangId = $request->input('cabang_id');
         $staffQuery = Staff::query();
@@ -96,11 +97,31 @@ class SlipGajiController extends Controller
      * Memproses penggajian untuk semua staff
      * Mengisi tabel slip_gaji dan memperbarui status detail hutang
      */
-    public function proses()
+
+    public function proses(Request $request)
     {
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        // Validasi input dan konversi ke integer
+        $month = (int)$month;
+        $year = (int)$year;
+        $periodeDate = Carbon::create($year, $month, 1)->toDateString();
+
+        if (!$month || !$year || $month < 1 || $month > 12 || $year < 2000 || $year > 2100) {
+            return redirect()->back()->with('error', 'Silakan pilih bulan dan tahun yang valid sebelum memproses penggajian.');
+        }
+
+        // Cek apakah penggajian untuk bulan dan tahun ini sudah dilakukan
+        $existingPayroll = SlipGaji::where('periode', $periodeDate)->exists();
+
+        if ($existingPayroll) {
+            $monthName = Carbon::create($year, $month, 1)->format('F');
+            return redirect()->back()->with('error', 'Gaji bulan ' . $monthName . ' ' . $year . ' sudah dilakukan, anda bisa melihat record gaji di riwayat gaji.');
+        }
+
         $staff = Staff::with('cabang')->get();
-        $currentMonth = Carbon::now()->month;
-        $currentDate = Carbon::now();
+        $currentDate = Carbon::now(); // Gunakan tanggal saat ini untuk tanggal_pengajian
 
         foreach ($staff as $s) {
             $hutangKronologi = Hutang::where('staff_id', $s->id)
@@ -115,10 +136,10 @@ class SlipGajiController extends Controller
             $potonganKronologi = 0;
             $potonganPeminjaman = 0;
 
-            // Ambil potongan dari detail hutang untuk bulan ini
             if ($hutangKronologi) {
                 $detailKronologi = DetailHutang::where('hutang_id', $hutangKronologi->id)
-                    ->whereMonth('tanggal_pelunasan', $currentMonth)
+                    ->whereMonth('tanggal_pelunasan', $month)
+                    ->whereYear('tanggal_pelunasan', $year)
                     ->where('status', '!=', '1')
                     ->first();
 
@@ -137,7 +158,8 @@ class SlipGajiController extends Controller
 
             if ($hutangPeminjaman) {
                 $detailPeminjaman = DetailHutang::where('hutang_id', $hutangPeminjaman->id)
-                    ->whereMonth('tanggal_pelunasan', $currentMonth)
+                    ->whereMonth('tanggal_pelunasan', $month)
+                    ->whereYear('tanggal_pelunasan', $year)
                     ->where('status', '!=', '1')
                     ->first();
                 if ($detailPeminjaman) {
@@ -158,7 +180,7 @@ class SlipGajiController extends Controller
             SlipGaji::create([
                 'staff_id' => $s->id,
                 'cabang_id' => $s->cabang_id,
-                'periode' => $currentMonth,
+                'periode' => $periodeDate,
                 'tanggal_penggajian' => $currentDate,
                 'gaji_pokok' => $s->gaji_pokok,
                 'gaji_tunjangan' => $s->gaji_tunjangan,
@@ -170,6 +192,49 @@ class SlipGajiController extends Controller
             ]);
         }
 
-        return redirect()->route('slip.index')->with('success', 'Penggajian berhasil diproses!');
+        return redirect()->route('slip.view')->with('success', 'Penggajian berhasil diproses untuk bulan ' . Carbon::create($year, $month, 1)->format('F') . ' ' . $year . '!');
+    }
+
+
+    public function riwayat(Request $request)
+    {
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        $query = SlipGaji::with(['staff', 'cabang']);
+
+        if ($month) {
+            $query->whereMonth('periode', $month);
+        }
+
+        if ($year) {
+            $query->whereYear('periode', $year);
+        }
+
+        $payrolls = $query->get();
+
+        return view('slip.riwayat', compact('payrolls'));
+    }
+
+    public function riwayatGajiKaryawan(Request $request)
+    {
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $staffId = Auth::user()->staff_id; // Asumsikan staff_id tersedia dari user yang login
+
+        $query = SlipGaji::with(['staff'])
+            ->where('staff_id', $staffId);
+
+        if ($month) {
+            $query->whereMonth('periode', $month);
+        }
+
+        if ($year) {
+            $query->whereYear('periode', $year);
+        }
+
+        $payrolls = $query->get();
+        ($payrolls);
+        return view('slip.riwayat_gaji_karyawan', compact('payrolls'));
     }
 }
