@@ -56,7 +56,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('hutang', HutangController::class);
 
     Route::get('/slip', [SlipGajiController::class, 'index'])->name('slip.index'); // daftar hasil penggajian
-    Route::get('/slip/preview', [SlipGajiController::class, 'preview'])->name('slip.preview'); // form pilih bulan & cabang
+    // Route::get('/slip/preview', [SlipGajiController::class, 'preview'])->name('slip.preview'); // form pilih bulan & cabang
     Route::post('/slip/jalankan', [SlipGajiController::class, 'jalankan'])->name('slip.jalankan'); // simpan ke db
     // Route::get('/slip/{periode}/{cabang_id}', [SlipGajiController::class, 'detail'])->name('slip.periode.detail'); // lihat slip tiap periode
 

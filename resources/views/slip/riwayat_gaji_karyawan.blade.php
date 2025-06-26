@@ -117,7 +117,7 @@
                                     <span class="text-white font-medium">Rp {{ number_format($payroll->gaji_bersih, 0, ',', '.') }}</span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="text-gray-300">{{ $payroll->tanggal_penggajian->format('Y-m-d H:i') }}</span>
+                                    {{-- <span class="text-gray-300">{{ $payroll->tanggal_penggajian->format('Y-m-d H:i') }}</span> --}}
                                 </td>
                             </tr>
                         @empty

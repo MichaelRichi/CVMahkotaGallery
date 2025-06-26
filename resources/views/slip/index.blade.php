@@ -24,7 +24,7 @@
                     <i class="fas fa-check-circle text-red-400 mr-3"></i>
                     <p class="text-red-300">{{ session('error') }}</p>
                 </div>
-            </div>\
+            </div>
         @endif
         <!-- Header Actions -->
         <div class="glass-card rounded-2xl p-6">
@@ -72,7 +72,7 @@
                 Filter Data
             </h3>
 
-            <form method="GET" action="{{ route('slip.preview') }}" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form method="GET" action="{{ route('slip.view') }}" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Cabang Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Cabang</label>

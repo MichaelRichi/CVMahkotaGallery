@@ -9,6 +9,7 @@ use App\Models\DetailHutang;
 use App\Models\SlipGaji;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Staff;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\DB;
 
@@ -177,9 +178,10 @@ class SlipGajiController extends Controller
 
             $gajiBersih -= ($potonganKronologi + $potonganPeminjaman);
 
+
             SlipGaji::create([
                 'staff_id' => $s->id,
-                'cabang_id' => $s->cabang_id,
+                'cabang_id' => $s->cabang[0]->id,
                 'periode' => $periodeDate,
                 'tanggal_penggajian' => $currentDate,
                 'gaji_pokok' => $s->gaji_pokok,
@@ -188,7 +190,6 @@ class SlipGajiController extends Controller
                 'potongan_kronologi' => $potonganKronologi,
                 'potongan_hutang' => $potonganPeminjaman,
                 'gaji_bersih' => $gajiBersih > 0 ? $gajiBersih : 0,
-                'status' => 'PROCESSED'
             ]);
         }
 
@@ -220,11 +221,18 @@ class SlipGajiController extends Controller
     {
         $month = $request->input('month');
         $year = $request->input('year');
-        $staffId = Auth::user()->staff_id; // Asumsikan staff_id tersedia dari user yang login
+        $staffId = Auth::user()->id; // Asumsikan staff_id tersedia dari user yang login
+
+        // Validasi staff_id
+        if (!$staffId) {
+            Log::error('Staff ID tidak ditemukan untuk user: ' . Auth::user()->id);
+            return redirect()->back()->with('error', 'Terjadi kesalahan, silakan hubungi admin.');
+        }
 
         $query = SlipGaji::with(['staff'])
             ->where('staff_id', $staffId);
 
+        // Tambahkan filter jika ada
         if ($month) {
             $query->whereMonth('periode', $month);
         }
@@ -234,7 +242,14 @@ class SlipGajiController extends Controller
         }
 
         $payrolls = $query->get();
-        ($payrolls);
+
+        // Debugging
+        Log::info('Query riwayat gaji untuk staff_id ' . $staffId . ': ', $payrolls->toArray());
+
+        if ($payrolls->isEmpty()) {
+            Log::warning('Tidak ada data riwayat gaji untuk staff_id ' . $staffId . ' pada ' . now());
+        }
+
         return view('slip.riwayat_gaji_karyawan', compact('payrolls'));
     }
 }
