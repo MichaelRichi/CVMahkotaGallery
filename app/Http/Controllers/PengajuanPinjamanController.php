@@ -64,6 +64,7 @@ class PengajuanPinjamanController extends Controller
                 'jumlah_hutang' => $pengajuan->jumlah_pinjaman,
                 'periode_pelunasan' => $pengajuan->periode_pelunasan,
                 'start_pelunasan' => $startPelunasan,
+                'sisa_hutang' => $pengajuan->jumlah_pinjaman,
                 'jenis' => 'pinjam',
                 'pinjaman_id' => $pengajuan->id,
                 'status' => 'ONGOING',

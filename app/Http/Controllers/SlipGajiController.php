@@ -96,7 +96,7 @@ class SlipGajiController extends Controller
      * Memproses penggajian untuk semua staff
      * Mengisi tabel slip_gaji dan memperbarui status detail hutang
      */
-    public function process()
+    public function proses()
     {
         $staff = Staff::with('cabang')->get();
         $currentMonth = Carbon::now()->month;
@@ -106,8 +106,9 @@ class SlipGajiController extends Controller
             $hutangKronologi = Hutang::where('staff_id', $s->id)
                 ->where('jenis', 'kronologi')
                 ->first();
+
             $hutangPeminjaman = Hutang::where('staff_id', $s->id)
-                ->where('jenis', 'peminjaman')
+                ->where('jenis', 'pinjam')
                 ->first();
 
             $gajiBersih = $s->gaji_pokok + $s->gaji_tunjangan;
@@ -117,12 +118,13 @@ class SlipGajiController extends Controller
             // Ambil potongan dari detail hutang untuk bulan ini
             if ($hutangKronologi) {
                 $detailKronologi = DetailHutang::where('hutang_id', $hutangKronologi->id)
-                    ->whereMonth('tanggal_pengajian', $currentMonth)
-                    ->where('status', '!=', 'PAID')
+                    ->whereMonth('tanggal_pelunasan', $currentMonth)
+                    ->where('status', '!=', '1')
                     ->first();
+
                 if ($detailKronologi) {
                     $potonganKronologi = $detailKronologi->jumlah_hutang;
-                    $detailKronologi->status = 'PAID';
+                    $detailKronologi->status = '1';
                     $detailKronologi->save();
 
                     $hutangKronologi->sisa_hutang -= $potonganKronologi;
@@ -135,12 +137,12 @@ class SlipGajiController extends Controller
 
             if ($hutangPeminjaman) {
                 $detailPeminjaman = DetailHutang::where('hutang_id', $hutangPeminjaman->id)
-                    ->whereMonth('tanggal_pengajian', $currentMonth)
-                    ->where('status', '!=', 'PAID')
+                    ->whereMonth('tanggal_pelunasan', $currentMonth)
+                    ->where('status', '!=', '1')
                     ->first();
                 if ($detailPeminjaman) {
                     $potonganPeminjaman = $detailPeminjaman->jumlah_hutang;
-                    $detailPeminjaman->status = 'PAID';
+                    $detailPeminjaman->status = '1';
                     $detailPeminjaman->save();
 
                     $hutangPeminjaman->sisa_hutang -= $potonganPeminjaman;
@@ -157,7 +159,7 @@ class SlipGajiController extends Controller
                 'staff_id' => $s->id,
                 'cabang_id' => $s->cabang_id,
                 'periode' => $currentMonth,
-                'tanggal_pengajian' => $currentDate,
+                'tanggal_penggajian' => $currentDate,
                 'gaji_pokok' => $s->gaji_pokok,
                 'gaji_tunjangan' => $s->gaji_tunjangan,
                 'potongan_izin' => 0,
@@ -168,6 +170,6 @@ class SlipGajiController extends Controller
             ]);
         }
 
-        return redirect()->route('slip.preview')->with('success', 'Penggajian berhasil diproses!');
+        return redirect()->route('slip.index')->with('success', 'Penggajian berhasil diproses!');
     }
 }

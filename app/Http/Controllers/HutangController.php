@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hutang;
+use App\Models\Staff;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HutangController extends Controller
@@ -63,7 +66,7 @@ class HutangController extends Controller
             'jumlah_hutang' => $request->jumlah_hutang,
             'periode_pelunasan' => $request->periode_pelunasan,
             'start_pelunasan' => $request->start_pelunasan,
-            'sisa_hutang' => $request->jumlah_hutang, // bisa dikustom jika pelunasan berjalan
+            'sisa_hutang' => $request->jumlah_hutang,
             'keterangan' => $request->keterangan,
         ]);
 

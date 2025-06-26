@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengajuan/pinjaman/{id}', [PengajuanPinjamanController::class, 'detail'])->name('pinjaman.detail');
 
     Route::get('/slip/preview', [SlipGajiController::class, 'preview'])->name('slip.preview');
+    Route::get('/slip/proses', [SlipGajiController::class, 'proses'])->name('slip.proses');
     // Route::post('/slip/jalankan', [SlipGajiController::class, 'jalankan'])->name('slip.jalankan');
     Route::get('/slip/riwayat', [SlipGajiController::class, 'riwayat'])->name('slip.riwayat');
 });

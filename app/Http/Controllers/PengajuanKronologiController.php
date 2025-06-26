@@ -44,7 +44,7 @@ class PengajuanKronologiController extends Controller
             'nama_barang' => 'required',
             'penjelasan' => 'required',
             'harga_barang' => 'required|numeric',
-            'periode_pelunasan' =>'required',
+            'periode_pelunasan' => 'required',
         ]);
 
         $staff = Auth::user()->staff;
@@ -100,11 +100,12 @@ class PengajuanKronologiController extends Controller
                 // Buat Hutang
                 $hutangbaru = Hutang::create([
                     'staff_id' => $staffPengaju->id,
-                    'jumlah_hutang'=> $pengajuan->harga_barang,
+                    'jumlah_hutang' => $pengajuan->harga_barang,
                     'periode_pelunasan' => $pengajuan->periode_pelunasan,
-                    'start_pelunasan'=> $startPelunasan,
-                    'jenis' =>'kronologi',
-                    'kronologi_id'=> $pengajuan->id,
+                    'start_pelunasan' => $startPelunasan,
+                    'sisa_hutang' => $pengajuan->jumlah_pinjaman,
+                    'jenis' => 'kronologi',
+                    'kronologi_id' => $pengajuan->id,
                 ]);
 
                 // Hitung cicilan per bulan
@@ -132,5 +133,4 @@ class PengajuanKronologiController extends Controller
         $pengajuan = PengajuanKronologi::where('staff_id', $staff->id)->latest()->get();
         return view('pengajuan_kronologi.riwayat', compact('pengajuan'));
     }
-
 }
