@@ -17,7 +17,7 @@ class CabangSeeder extends Seeder
     {
         DB::table('cabang')->insert([
             [
-                'nama_cabang' => 'Cabang A',
+                'nama_cabang' => 'MAHKOTA GALLERY',
                 'alamat' => 'Jalan-jalan',
                 'jam_masuk' => '09:45:00',
                 'jam_pulang' => '22:00:00',
@@ -26,7 +26,7 @@ class CabangSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'nama_cabang' => 'Cabang B',
+                'nama_cabang' => 'MG PTC',
                 'alamat' => 'Jalan-jalan santai',
                 'jam_masuk' => '08:00:00',
                 'jam_pulang' => '17:30:00',
@@ -35,7 +35,7 @@ class CabangSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'nama_cabang' => 'Cabang C',
+                'nama_cabang' => 'MG OPI',
                 'alamat' => 'Jalan-jalan',
                 'jam_masuk' => '09:45:00',
                 'jam_pulang' => '22:00:00',
@@ -44,7 +44,7 @@ class CabangSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'nama_cabang' => 'Cabang D',
+                'nama_cabang' => 'MG PS',
                 'alamat' => 'Jalan-jalan',
                 'jam_masuk' => '09:00:00',
                 'jam_pulang' => '17:00:00',
