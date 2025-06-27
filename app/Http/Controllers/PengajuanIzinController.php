@@ -108,26 +108,27 @@ class PengajuanIzinController extends Controller
         $pengajuan->save();
 
         if ($request->aksi === 'terima') {
-        $staffIzin = $pengajuan->staff;
-        $cabangId = $staffIzin->staffCabang()->where('is_active', true)->value('cabang_id');
+            $staffIzin = $pengajuan->staff;
+            $cabangId = $staffIzin->staffCabang()->where('is_active', true)->value('cabang_id');
 
-        if ($cabangId) {
-            foreach ($pengajuan->detail_pengajuan_izin as $detail) {
-                Absen::updateOrCreate(
-                    [
+            if ($cabangId) {
+                foreach ($pengajuan->detail_pengajuan_izin as $detail) {
+                    // Hapus data absen yang sudah ada di tanggal itu
+                    Absen::where('staff_id', $staffIzin->id)
+                        ->whereDate('tanggal', $detail->tanggal)
+                        ->delete();
+
+                    // Masukkan data absen dari pengajuan
+                    Absen::create([
                         'staff_id' => $staffIzin->id,
-                        'tanggal' => $detail->tanggal,
-                    ],
-                    [
                         'cabang_id' => $cabangId,
+                        'tanggal' => $detail->tanggal,
                         'status' => $detail->status,
                         'keterangan' => $detail->keterangan,
-                    ]
-                );
+                    ]);
+                }
             }
         }
-    }
-
 
         return redirect()->route('pengajuanizin.detail', $id)->with('success', 'Pengajuan telah divalidasi.');
     }
