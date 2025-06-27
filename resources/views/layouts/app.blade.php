@@ -208,6 +208,13 @@
                                 <span class="sidebar-text ml-3">Data Jabatan</span>
                             </a>
 
+                            <!-- Absen Management -->
+                            <a href="{{ route('absen.index') }}"
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('absen.*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-alt w-5 text-center"></i>
+                                <span class="sidebar-text ml-3">Data Absen</span>
+                            </a>
+
                             <a href="{{ route('kronologi.view') }}"
                                 class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
                                 <i class="fas fa-clock w-5 text-center"></i>
@@ -216,7 +223,7 @@
 
                             <a href="{{ route('pinjaman.view') }}"
                                 class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.view') ? 'active' : '' }}">
-                                <i class="fas fa-clock w-5 text-center"></i>
+                                <i class="fas fa-hand-holding-usd w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Pengajuan Pinjaman</span>
                             </a>
 
@@ -228,13 +235,13 @@
 
                             <a href="{{ route('slip.view') }}"
                                 class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.view') ? 'active' : '' }}">
-                                <i class="fas fa-calendar-check w-5 text-center"></i>
+                                <i class="fas fa-money-bill-wave w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Gaji</span>
                             </a>
 
                             <a href="{{ route('slip.riwayat') }}"
                                 class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.riwayat') ? 'active' : '' }}">
-                                <i class="fas fa-calendar-check w-5 text-center"></i>
+                                <i class="fas fa-file-invoice-dollar w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Riwayat Gaji</span>
                             </a>
 
@@ -263,7 +270,7 @@
 
                     <a href="{{ route('slip.karyawan.riwayat') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.karyawan.riwayat') ? 'active' : '' }}">
-                        <i class="fas fa-calendar-check w-5 text-center"></i>
+                        <i class="fas fa-receipt w-5 text-center"></i>
                         <span class="sidebar-text ml-3">Riwayat Gaji</span>
                     </a>
 
@@ -281,8 +288,8 @@
 
                     <a href="{{ route('pinjaman.addView') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.addView') ? 'active' : '' }}">
-                        <i class="fas fa-clock w-5 text-center"></i>
-                        <span class="ml-3">Ajukan Pinjaman</span>
+                        <i class="fas fa-hand-holding-usd w-5 text-center"></i>
+                        <span class="sidebar-text ml-3">Ajukan Pinjaman</span>
                     </a>
 
                 </div>
@@ -307,7 +314,7 @@
 
                     <a href="{{ route('pinjaman.riwayat') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.riwayat') ? 'active' : '' }}">
-                        <i class="fas fa-file-alt w-5 text-center"></i>
+                        <i class="fas fa-file-invoice w-5 text-center"></i>
                         <span class="sidebar-text ml-3">Riwayat Pinjaman</span>
                     </a>
 
@@ -430,16 +437,41 @@
                             <span class="ml-3">Data Jabatan</span>
                         </a>
 
+                        <!-- Absen Management -->
+                        <a href="{{ route('absen.index') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('absen.*') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-alt w-5 text-center"></i>
+                            <span class="ml-3">Data Absen</span>
+                        </a>
+
                         <a href="{{ route('kronologi.view') }}"
                             class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
                             <i class="fas fa-clock w-5 text-center"></i>
                             <span class="ml-3">Pengajuan Kronologi</span>
                         </a>
 
+                        <a href="{{ route('pinjaman.view') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.view') ? 'active' : '' }}">
+                            <i class="fas fa-hand-holding-usd w-5 text-center"></i>
+                            <span class="ml-3">Pengajuan Pinjaman</span>
+                        </a>
+
                         <a href="{{ route('pengajuanizin.view') }}"
                             class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.view') ? 'active' : '' }}">
                             <i class="fas fa-calendar-check w-5 text-center"></i>
                             <span class="ml-3">Pengajuan Izin</span>
+                        </a>
+
+                        <a href="{{ route('slip.view') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.view') ? 'active' : '' }}">
+                            <i class="fas fa-money-bill-wave w-5 text-center"></i>
+                            <span class="ml-3">Gaji</span>
+                        </a>
+
+                        <a href="{{ route('slip.riwayat') }}"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.riwayat') ? 'active' : '' }}">
+                            <i class="fas fa-file-invoice-dollar w-5 text-center"></i>
+                            <span class="ml-3">Riwayat Gaji</span>
                         </a>
                     </div>
                 @endif
@@ -462,6 +494,12 @@
             <div class="pt-4">
                 <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Personal</p>
 
+                <a href="{{ route('slip.karyawan.riwayat') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.karyawan.riwayat') ? 'active' : '' }}">
+                    <i class="fas fa-receipt w-5 text-center"></i>
+                    <span class="ml-3">Riwayat Gaji</span>
+                </a>
+
                 <a href="{{ route('pengajuanizin.addView') }}"
                     class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pengajuanizin.addView') ? 'active' : '' }}">
                     <i class="fas fa-plus-circle w-5 text-center"></i>
@@ -476,7 +514,7 @@
 
                 <a href="{{ route('pinjaman.addView') }}"
                     class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.addView') ? 'active' : '' }}">
-                    <i class="fas fa-clock w-5 text-center"></i>
+                    <i class="fas fa-hand-holding-usd w-5 text-center"></i>
                     <span class="ml-3">Ajukan Pinjaman</span>
                 </a>
 
@@ -490,6 +528,12 @@
                     class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.riwayat') ? 'active' : '' }}">
                     <i class="fas fa-file-alt w-5 text-center"></i>
                     <span class="ml-3">Riwayat Kronologi</span>
+                </a>
+
+                <a href="{{ route('pinjaman.riwayat') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('pinjaman.riwayat') ? 'active' : '' }}">
+                    <i class="fas fa-file-invoice w-5 text-center"></i>
+                    <span class="ml-3">Riwayat Pinjaman</span>
                 </a>
 
                 <form method="POST" action="{{ route('logout') }}">
