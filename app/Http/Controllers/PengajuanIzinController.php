@@ -7,6 +7,7 @@ use App\Models\PengajuanIzin;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Staff;
+use App\Models\Absen;
 use App\Models\DetailPengajuanIzin;
 
 class PengajuanIzinController extends Controller
@@ -95,7 +96,7 @@ class PengajuanIzinController extends Controller
             'aksi' => 'required|in:terima,tolak',
         ]);
 
-        $pengajuan = PengajuanIzin::findOrFail($id);
+        $pengajuan = PengajuanIzin::with('detail_pengajuan_izin')->findOrFail($id);
 
         $staff = auth()->user()->staff;
         if (!$staff) {
@@ -106,8 +107,31 @@ class PengajuanIzinController extends Controller
         $pengajuan->admin_id = $staff->id;
         $pengajuan->save();
 
+        if ($request->aksi === 'terima') {
+        $staffIzin = $pengajuan->staff;
+        $cabangId = $staffIzin->staffCabang()->where('is_active', true)->value('cabang_id');
+
+        if ($cabangId) {
+            foreach ($pengajuan->detail_pengajuan_izin as $detail) {
+                Absen::updateOrCreate(
+                    [
+                        'staff_id' => $staffIzin->id,
+                        'tanggal' => $detail->tanggal,
+                    ],
+                    [
+                        'cabang_id' => $cabangId,
+                        'status' => $detail->status,
+                        'keterangan' => $detail->keterangan,
+                    ]
+                );
+            }
+        }
+    }
+
+
         return redirect()->route('pengajuanizin.detail', $id)->with('success', 'Pengajuan telah divalidasi.');
     }
+
 
     public function riwayat()
     {

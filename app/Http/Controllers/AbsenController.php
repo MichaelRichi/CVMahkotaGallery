@@ -52,7 +52,7 @@ class AbsenController extends Controller
         ]);
 
         $file = $request->file('file');
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getPathname());
+        $spreadsheet = IOFactory::load($file->getPathname());
         $sheet = $spreadsheet->getActiveSheet();
         $rows = $sheet->toArray();
 
@@ -70,13 +70,13 @@ class AbsenController extends Controller
         ];
 
         $bulan = $request->bulan;
-        $tanggalBase = \Carbon\Carbon::parse($bulan . '-01');
+        $tanggalBase = Carbon::parse($bulan . '-01');
 
         foreach ($data as $row) {
             $absenId = $row[2];
             if (!$absenId) continue;
 
-            $staff = \App\Models\Staff::where('absen_id', $absenId)->first();
+            $staff = Staff::where('absen_id', $absenId)->first();
             if (!$staff) continue;
 
             // Ambil cabang aktif
@@ -92,14 +92,14 @@ class AbsenController extends Controller
                 $tanggal = $tanggalBase->copy()->addDays($tglIndex)->toDateString();
 
                 // Skip jika absen sudah ada
-                $sudahAda = \App\Models\Absen::where('staff_id', $staff->id)
+                $sudahAda = Absen::where('staff_id', $staff->id)
                     ->whereDate('tanggal', $tanggal)
                     ->exists();
 
                 if ($sudahAda) continue;
 
                 // Simpan absen
-                \App\Models\Absen::create([
+                Absen::create([
                     'staff_id' => $staff->id,
                     'cabang_id' => $cabangId,
                     'tanggal' => $tanggal,
