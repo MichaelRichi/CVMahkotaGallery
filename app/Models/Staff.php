@@ -70,4 +70,13 @@ class Staff extends Model
         return $this->hasOne(StaffCabang::class)->where('is_active', true);
     }
 
+    public function staffCabang()
+    {
+        return $this->hasMany(StaffCabang::class);
+    }
+
+    public function absen()
+    {
+        return $this->hasMany(Absen::class);
+    }
 }

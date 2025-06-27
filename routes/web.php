@@ -11,6 +11,7 @@ use App\Http\Controllers\PengajuanKronologiController;
 use App\Http\Controllers\PengajuanPinjamanController;
 use App\Http\Controllers\SlipGajiController;
 use App\Http\Controllers\HutangController;
+use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
@@ -87,5 +88,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/slip/riwayat', [SlipGajiController::class, 'riwayat'])->name('slip.riwayat');
     Route::get('/slip/karyawan/riwayat', [SlipGajiController::class, 'riwayatGajiKaryawan'])->name('slip.karyawan.riwayat');
 });
+
+Route::prefix('absen')->middleware('auth')->group(function () {
+    Route::get('/', [AbsenController::class, 'index'])->name('absen.index');
+    Route::get('/import', [AbsenController::class, 'importForm'])->name('absen.import.form');
+    Route::post('/import', [AbsenController::class, 'importProses'])->name('absen.import.proses');
+});
+
 
 require __DIR__ . '/auth.php';
