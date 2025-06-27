@@ -21,12 +21,11 @@ class AbsenController extends Controller
         $jumlahHari = $tanggalAkhir->day;
 
         $queryStaff = Staff::with('staffCabang')
-            ->where('is_active', true)
             ->whereNotNull('absen_id');
 
         if ($cabangId) {
             $queryStaff->whereHas('staffCabang', function ($q) use ($cabangId) {
-                $q->where('cabang_id', $cabangId)->where('is_active', true);
+                $q->where('cabang_id', $cabangId);
             });
         }
 
@@ -81,7 +80,7 @@ class AbsenController extends Controller
             if (!$staff) continue;
 
             // Ambil cabang aktif
-            $cabangId = $staff->staffCabang()->where('is_active', true)->value('cabang_id');
+            $cabangId = $staff->staffCabang()->value('cabang_id');
             if (!$cabangId) continue;
 
             for ($i = 4; $i <= 34; $i++) {
