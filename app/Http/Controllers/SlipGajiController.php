@@ -26,9 +26,10 @@ class SlipGajiController extends Controller
 
         // Filter staff berdasarkan cabang jika ada
         if ($cabangId) {
-            $staffQuery->where('cabang_id', $cabangId);
+            $staffQuery->whereHas('cabang', function ($query) use ($cabangId) {
+                $query->where('cabang.id', $cabangId); // Pastikan 'id' sesuai dengan primary key cabang
+            });
         }
-
         $staff = $staffQuery->with('cabang')->get()->map(function ($staff) {
             // Ambil hutang kronologi dan peminjaman yang sedang berjalan
             $hutangKronologi = Hutang::where('staff_id', $staff->id)
@@ -66,23 +67,6 @@ class SlipGajiController extends Controller
 
             // Kurangi gaji bersih berdasarkan potongan
             $gajiBersih -= ($potonganKronologi + $potonganPeminjaman);
-
-            // Perbarui sisa hutang jika ada potongan
-            // if ($hutangKronologi && $potonganKronologi > 0) {
-            //     $hutangKronologi->sisa_hutang -= $potonganKronologi;
-            //     if ($hutangKronologi->sisa_hutang <= 0) {
-            //         $hutangKronologi->status = 'LUNAS';
-            //     }
-            //     $hutangKronologi->save();
-            // }
-
-            // if ($hutangPeminjaman && $potonganPeminjaman > 0) {
-            //     $hutangPeminjaman->sisa_hutang -= $potonganPeminjaman;
-            //     if ($hutangPeminjaman->sisa_hutang <= 0) {
-            //         $hutangPeminjaman->status = 'LUNAS';
-            //     }
-            //     $hutangPeminjaman->save();
-            // }
 
             $staff->gaji_bersih = $gajiBersih > 0 ? $gajiBersih : 0;
             $staff->potongan_kronologi = $potonganKronologi;

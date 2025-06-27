@@ -233,7 +233,7 @@
                             </a>
 
                             <a href="{{ route('slip.riwayat') }}"
-                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.view') ? 'active' : '' }}">
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.riwayat') ? 'active' : '' }}">
                                 <i class="fas fa-calendar-check w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Riwayat Gaji</span>
                             </a>
