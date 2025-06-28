@@ -8,6 +8,7 @@ use App\Models\Cabang;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Auth;
 
 class AbsenController extends Controller
 {
@@ -111,5 +112,21 @@ class AbsenController extends Controller
 
         return redirect()->route('absen.index')->with('success', 'Data absen berhasil diimpor.');
     }
+    public function riwayat(Request $request)
+    {
+        $bulan = $request->query('bulan', now()->format('Y-m'));
+        $tanggalAwal = Carbon::parse($bulan . '-01')->startOfMonth();
+        $tanggalAkhir = Carbon::parse($bulan . '-01')->endOfMonth();
+
+        $staff = Staff::where('users_id', Auth::id())->firstOrFail();
+
+        $absen = Absen::where('staff_id', $staff->id)
+            ->whereBetween('tanggal', [$tanggalAwal, $tanggalAkhir])
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        return view('absen.riwayat', compact('absen', 'bulan'));
+    }
+
 
 }

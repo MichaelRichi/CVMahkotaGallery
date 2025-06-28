@@ -94,6 +94,7 @@ Route::prefix('absen')->middleware('auth')->group(function () {
     Route::get('/import', [AbsenController::class, 'importForm'])->name('absen.import.form');
     Route::post('/import', [AbsenController::class, 'importProses'])->name('absen.import.proses');
 });
+Route::get('/absen/riwayat', [AbsenController::class, 'riwayat'])->name('absen.riwayat')->middleware('auth');
 
 
 require __DIR__ . '/auth.php';
