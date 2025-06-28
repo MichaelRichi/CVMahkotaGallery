@@ -17,6 +17,7 @@ class AbsenController extends Controller
         $bulan = $request->query('bulan', now()->format('Y-m'));
         $cabangId = $request->query('cabang_id');
 
+
         $tanggalAwal = Carbon::parse($bulan . '-01');
         $tanggalAkhir = $tanggalAwal->copy()->endOfMonth();
         $jumlahHari = $tanggalAkhir->day;
@@ -36,7 +37,6 @@ class AbsenController extends Controller
         }]);
 
         $cabangList = Cabang::all();
-
         return view('absen.index', compact('bulan', 'cabangId', 'cabangList', 'staffList', 'jumlahHari', 'absenData'));
     }
 
@@ -59,7 +59,6 @@ class AbsenController extends Controller
 
         $header = $rows[2]; // Baris ke-3: header tanggal
         $data = array_slice($rows, 3); // Mulai dari baris ke-4 (index 3)
-
         $mapStatus = [
             'Normal'     => 'H',
             'Late'       => 'T',
@@ -85,20 +84,19 @@ class AbsenController extends Controller
             if (!$cabangId) continue;
 
             for ($i = 4; $i <= 34; $i++) {
+
                 $statusIsi = $row[$i] ?? null;
                 if (!$statusIsi || !isset($mapStatus[$statusIsi])) continue;
 
                 $status = $mapStatus[$statusIsi];
                 $tglIndex = $i - 4;
                 $tanggal = $tanggalBase->copy()->addDays($tglIndex)->toDateString();
-
                 // Skip jika absen sudah ada
                 $sudahAda = Absen::where('staff_id', $staff->id)
                     ->whereDate('tanggal', $tanggal)
                     ->exists();
 
                 if ($sudahAda) continue;
-
                 // Simpan absen
                 Absen::create([
                     'staff_id' => $staff->id,
@@ -110,6 +108,7 @@ class AbsenController extends Controller
             }
         }
 
+
         return redirect()->route('absen.index')->with('success', 'Data absen berhasil diimpor.');
     }
     public function riwayat(Request $request)
@@ -118,8 +117,9 @@ class AbsenController extends Controller
         $tanggalAwal = Carbon::parse($bulan . '-01')->startOfMonth();
         $tanggalAkhir = Carbon::parse($bulan . '-01')->endOfMonth();
 
-        $staff = Staff::where('users_id', Auth::id())->firstOrFail();
 
+
+        $staff = Staff::where('users_id', Auth::id())->firstOrFail();
         $absen = Absen::where('staff_id', $staff->id)
             ->whereBetween('tanggal', [$tanggalAwal, $tanggalAkhir])
             ->orderBy('tanggal', 'asc')
@@ -127,6 +127,4 @@ class AbsenController extends Controller
 
         return view('absen.riwayat', compact('absen', 'bulan'));
     }
-
-
 }

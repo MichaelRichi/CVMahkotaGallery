@@ -83,12 +83,20 @@
                                 Pot. Izin
                             </th>
                             <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                                <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
+                                Pot. Alpha
+                            </th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                                <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
+                                Pot. Terlambat
+                            </th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
                                 <i class="fas fa-wallet mr-2 text-yellow-400"></i>
                                 Gaji Bersih
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
-                                <i class="fas fa-clock mr-2 text-yellow-400"></i>
-                                Tanggal Penggajian
+                                <i class="fas fa-eye mr-2 text-yellow-400"></i>
+                                Aksi
                             </th>
                         </tr>
                     </thead>
@@ -114,15 +122,24 @@
                                     <span class="text-red-400 font-medium">Rp {{ number_format($payroll->potongan_izin, 0, ',', '.') }}</span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
+                                    <span class="text-red-400 font-medium">Rp {{ number_format($payroll->potongan_alpha, 0, ',', '.') }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <span class="text-red-400 font-medium">Rp {{ number_format($payroll->potongan_terlambat, 0, ',', '.') }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
                                     <span class="text-white font-medium">Rp {{ number_format($payroll->gaji_bersih, 0, ',', '.') }}</span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{-- <span class="text-gray-300">{{ $payroll->tanggal_penggajian->format('Y-m-d H:i') }}</span> --}}
+                                    <a href="{{ route('slip.karyawan.detail', $payroll->id) }}"
+                                       class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                        <i class="fas fa-eye mr-2"></i> Detail
+                                    </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="px-6 py-12 text-center">
+                                <td colspan="10" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center">
                                         <i class="fas fa-history text-4xl text-gray-600 mb-4"></i>
                                         <p class="text-gray-400 text-lg">Tidak ada riwayat penggajian</p>

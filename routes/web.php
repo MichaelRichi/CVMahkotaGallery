@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/slip/proses', [SlipGajiController::class, 'proses'])->name('slip.proses');
     Route::get('/slip/riwayat', [SlipGajiController::class, 'riwayat'])->name('slip.riwayat');
     Route::get('/slip/karyawan/riwayat', [SlipGajiController::class, 'riwayatGajiKaryawan'])->name('slip.karyawan.riwayat');
+    Route::get('/slip/karyawan/{id}', [SlipGajiController::class, 'detailGajiKaryawan'])->name('slip.karyawan.detail');
 });
 
 Route::prefix('absen')->middleware('auth')->group(function () {

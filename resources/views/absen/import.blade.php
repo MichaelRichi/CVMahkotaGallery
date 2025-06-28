@@ -129,7 +129,7 @@
     </div>
 
     <!-- Download Template -->
-    <div class="glass-card rounded-2xl p-8">
+    {{-- <div class="glass-card rounded-2xl p-8">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mr-4">
@@ -145,7 +145,7 @@
                 Download Template
             </button>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Recent Imports -->
     <div class="glass-card rounded-2xl p-8">

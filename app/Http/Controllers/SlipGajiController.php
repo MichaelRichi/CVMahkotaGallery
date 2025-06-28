@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Hutang;
 use App\Models\DetailHutang;
 use App\Models\SlipGaji;
+use App\Models\Absen;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Log;
@@ -120,6 +121,39 @@ class SlipGajiController extends Controller
             $gajiBersih = $s->gaji_pokok + $s->gaji_tunjangan;
             $potonganKronologi = 0;
             $potonganPeminjaman = 0;
+            $potonganAbsenAlpha = 0;
+            $potonganAbsenIzin = 0;
+            $potonganTerlambat = 0;
+
+            // Hitung potongan berdasarkan absen
+            $daysInMonth = Carbon::create($year, $month)->daysInMonth; // Jumlah hari dalam bulan
+            $dailyRate = $s->gaji_pokok / $daysInMonth; // Gaji per hari
+
+            $absenRecords = Absen::where('staff_id', $s->id)
+                ->whereMonth('tanggal', $month)
+                ->whereYear('tanggal', $year)
+                ->get();
+
+            $alphaDays = $absenRecords->where('status', 'A')->count();
+            $izinDays = $absenRecords->where('status', 'I')->count();
+            $terlambatDays = $absenRecords->where('status', 'T')->count();
+
+            // Potongan Alpha (langsung dipotong per hari)
+            if ($alphaDays > 0) {
+                $potonganAbsenAlpha = $alphaDays * $dailyRate;
+            }
+
+            // Potongan Izin (hanya jika total Alpha + Izin > 3)
+            $totalAbsentDays = $alphaDays + $izinDays;
+            if ($totalAbsentDays > 3) {
+                $extraIzinDays = max(0, $izinDays - ($totalAbsentDays - 3)); // Hanya potong izin tambahan
+                $potonganAbsenIzin = $extraIzinDays * $dailyRate;
+            }
+
+            // Potongan Terlambat (Rp10.000 per hari)
+            if ($terlambatDays > 0) {
+                $potonganTerlambat = $terlambatDays * 10000;
+            }
 
             if ($hutangKronologi) {
                 $detailKronologi = DetailHutang::where('hutang_id', $hutangKronologi->id)
@@ -160,19 +194,21 @@ class SlipGajiController extends Controller
                 }
             }
 
-            $gajiBersih -= ($potonganKronologi + $potonganPeminjaman);
-
+            $potonganLain = $potonganAbsenAlpha + $potonganAbsenIzin + $potonganTerlambat;
+            $gajiBersih -= ($potonganKronologi + $potonganPeminjaman + $potonganAbsenAlpha + $potonganAbsenIzin + $potonganTerlambat);
 
             SlipGaji::create([
                 'staff_id' => $s->id,
-                'cabang_id' => $s->cabang[0]->id,
+                'cabang_id' => $s->cabang[0]->id ?? null,
                 'periode' => $periodeDate,
                 'tanggal_penggajian' => $currentDate,
                 'gaji_pokok' => $s->gaji_pokok,
                 'gaji_tunjangan' => $s->gaji_tunjangan,
-                'potongan_izin' => 0,
+                'potongan_izin' => $potonganLain, // Gunakan potongan_izin untuk izin
                 'potongan_kronologi' => $potonganKronologi,
                 'potongan_hutang' => $potonganPeminjaman,
+                'potongan_alpha' => $potonganAbsenAlpha, // Pisahkan potongan Alpha
+                'potongan_terlambat' => $potonganTerlambat, // Tambahkan potongan terlambat
                 'gaji_bersih' => $gajiBersih > 0 ? $gajiBersih : 0,
             ]);
         }
@@ -235,5 +271,48 @@ class SlipGajiController extends Controller
         }
 
         return view('slip.riwayat_gaji_karyawan', compact('payrolls'));
+    }
+
+    public function detailGajiKaryawan($id)
+    {
+        // Validasi staff_id dari user yang login
+        $staffId = Auth::user()->id;
+        if (!$staffId) {
+            Log::error('Staff ID tidak ditemukan untuk user: ' . (Auth::check() ? Auth::user()->id : 'tidak login'));
+            return redirect()->back()->with('error', 'Terjadi kesalahan, silakan hubungi admin.');
+        }
+
+        // Ambil data slip gaji dengan relasi
+        $payroll = SlipGaji::with(['staff', 'cabang'])
+            ->where('staff_id', $staffId)
+            ->findOrFail($id);
+
+        // Tambahkan konteks absen untuk penjelasan potongan
+        $month = Carbon::parse($payroll->periode)->month;
+        $year = Carbon::parse($payroll->periode)->year;
+        $absenRecords = Absen::where('staff_id', $staffId)
+            ->whereMonth('tanggal', $month)
+            ->whereYear('tanggal', $year)
+            ->get();
+
+        $alphaDays = $absenRecords->where('status', 'A')->count();
+        $izinDays = $absenRecords->where('status', 'I')->count();
+        $terlambatDays = $absenRecords->where('status', 'T')->count();
+        $daysInMonth = Carbon::create($year, $month)->daysInMonth;
+        $dailyRate = $payroll->gaji_pokok / $daysInMonth;
+
+        // Persiapan data untuk tampilan
+        $payroll->absen_details = [
+            'alpha_days' => $alphaDays,
+            'izin_days' => $izinDays,
+            'terlambat_days' => $terlambatDays,
+            'expected_alpha_cut' => $alphaDays * $dailyRate,
+            'expected_izin_cut' => ($alphaDays + $izinDays > 3) ? max(0, $izinDays - ($alphaDays + $izinDays - 3)) * $dailyRate : 0,
+            'expected_terlambat_cut' => $terlambatDays * 10000,
+        ];
+
+        Log::info('Detail gaji untuk staff_id ' . $staffId . ' dengan ID ' . $id . ': ', $payroll->toArray());
+
+        return view('slip.detail', compact('payroll', 'dailyRate'));
     }
 }
