@@ -16,42 +16,58 @@ class StaffController extends Controller
 {
     public function view(Request $request)
     {
-        // $query = Staff::with(['cabang', 'jabatan']);
-        $query = Staff::with(['cabang' => function ($q) {
-        $q->orderByDesc('staff_cabang.created_at');
-        },'jabatan' => function ($q) {
-        $q->orderByDesc('staff_jabatan.created_at');
-        }]);
+        $query = Staff::with([
+            'cabang' => function ($q) {
+                $q->orderByDesc('staff_cabang.created_at');
+            },
+            'jabatan' => function ($q) {
+                $q->orderByDesc('staff_jabatan.created_at');
+            }
+        ]);
 
+        // Define $search with a default value
+        $search = $request->query('search', '');
+
+        // Filter berdasarkan status
         if ($request->filled('is_active')) {
             $query->where('is_active', $request->is_active);
         }
 
+        // Filter berdasarkan cabang
         if ($request->filled('cabang_id')) {
-            // $query->where('cabang_id', $request->cabang_id);
             $query->whereHas('cabang', function ($q) use ($request) {
                 $q->where('cabang.id', $request->cabang_id);
             });
         }
 
+        // Filter berdasarkan jabatan
         if ($request->filled('jabatan_id')) {
-            // $query->where('jabatan_id', $request->jabatan_id);
             $query->whereHas('jabatan', function ($q) use ($request) {
                 $q->where('jabatan.id', $request->jabatan_id);
             });
         }
 
-        $staff = $query->get();
-        $cabang = Cabang::where('is_active','=','1')->get();
-        $jabatan = Jabatan::where('is_active','=','1')->get();
+        // Pencarian berdasarkan nama, NIK, nomor telepon, atau alamat
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', '%' . $search . '%')
+                    ->orWhere('NIK', 'like', '%' . $search . '%')
+                    ->orWhere('notel', 'like', '%' . $search . '%')
+                    ->orWhere('alamat', 'like', '%' . $search . '%');
+            });
+        }
 
-        return view('staff.index', compact('staff', 'cabang', 'jabatan'));
+        $staff = $query->get();
+        $cabang = Cabang::where('is_active', '=', '1')->get();
+        $jabatan = Jabatan::where('is_active', '=', '1')->get();
+
+        return view('staff.index', compact('staff', 'cabang', 'jabatan', 'search'));
     }
     public function addView()
     {
-        $cabang = Cabang::where('is_active','=','1')->get();
-        $jabatan = Jabatan::where('is_active','=','1')->get();
-        return view('staff.add',compact('cabang','jabatan'));
+        $cabang = Cabang::where('is_active', '=', '1')->get();
+        $jabatan = Jabatan::where('is_active', '=', '1')->get();
+        return view('staff.add', compact('cabang', 'jabatan'));
     }
     public function add(Request $request)
     {
@@ -79,7 +95,7 @@ class StaffController extends Controller
             'notel',
             'alamat',
             'tgl_masuk',
-            'tgl_keluar', 
+            'tgl_keluar',
             'gaji_pokok',
             'gaji_tunjangan',
             'is_active',
@@ -258,6 +274,4 @@ class StaffController extends Controller
 
         return redirect()->route('staff.view')->with('success', 'Akun berhasil disimpan.');
     }
-
-
 }

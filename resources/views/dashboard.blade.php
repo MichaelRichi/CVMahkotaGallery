@@ -85,59 +85,61 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="glass-card rounded-2xl p-8">
-            <h3 class="text-2xl font-bold text-white mb-6">Quick Actions</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <a href="{{ route('pengajuanizin.view') }}"
-                    class="group bg-gradient-to-br from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 rounded-xl p-6 hover:from-yellow-500/20 hover:to-amber-500/20 transition-all duration-300 hover:scale-105">
-                    <div class="flex flex-col items-center text-center">
-                        <div
-                            class="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-yellow-500/30 transition-colors">
-                            <i class="fas fa-plus-circle text-2xl text-yellow-400"></i>
+        @if (auth()->user()->role === 'admin')
+            <!-- Quick Actions -->
+            <div class="glass-card rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6">Quick Actions</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="{{ route('pengajuanizin.view') }}"
+                        class="group bg-gradient-to-br from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 rounded-xl p-6 hover:from-yellow-500/20 hover:to-amber-500/20 transition-all duration-300 hover:scale-105">
+                        <div class="flex flex-col items-center text-center">
+                            <div
+                                class="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-yellow-500/30 transition-colors">
+                                <i class="fas fa-plus-circle text-2xl text-yellow-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Pengajuan Izin</h4>
+                            <p class="text-gray-400 text-sm">Lihat pengajuan izin baru</p>
                         </div>
-                        <h4 class="text-white font-semibold mb-2">Pengajuan Izin</h4>
-                        <p class="text-gray-400 text-sm">Buat pengajuan izin baru</p>
-                    </div>
-                </a>
+                    </a>
 
-                <a href="{{ route('kronologi.view') }}"
-                    class="group bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-xl p-6 hover:from-blue-500/20 hover:to-blue-600/20 transition-all duration-300 hover:scale-105">
-                    <div class="flex flex-col items-center text-center">
-                        <div
-                            class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors">
-                            <i class="fas fa-plus-square text-2xl text-blue-400"></i>
+                    <a href="{{ route('kronologi.view') }}"
+                        class="group bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-xl p-6 hover:from-blue-500/20 hover:to-blue-600/20 transition-all duration-300 hover:scale-105">
+                        <div class="flex flex-col items-center text-center">
+                            <div
+                                class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors">
+                                <i class="fas fa-plus-square text-2xl text-blue-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Pengajuan Kronologi</h4>
+                            <p class="text-gray-400 text-sm">Lihat pengajuan kronologi</p>
                         </div>
-                        <h4 class="text-white font-semibold mb-2">Pengajuan Kronologi</h4>
-                        <p class="text-gray-400 text-sm">Buat pengajuan kronologi</p>
-                    </div>
-                </a>
+                    </a>
 
-                <a href="{{ route('pengajuanizin.riwayat') }}"
-                    class="group bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20 rounded-xl p-6 hover:from-green-500/20 hover:to-green-600/20 transition-all duration-300 hover:scale-105">
-                    <div class="flex flex-col items-center text-center">
-                        <div
-                            class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-green-500/30 transition-colors">
-                            <i class="fas fa-history text-2xl text-green-400"></i>
+                    <a href="{{ route('pengajuanizin.riwayat') }}"
+                        class="group bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20 rounded-xl p-6 hover:from-green-500/20 hover:to-green-600/20 transition-all duration-300 hover:scale-105">
+                        <div class="flex flex-col items-center text-center">
+                            <div
+                                class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-green-500/30 transition-colors">
+                                <i class="fas fa-history text-2xl text-green-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Riwayat Izin</h4>
+                            <p class="text-gray-400 text-sm">Lihat riwayat pengajuan</p>
                         </div>
-                        <h4 class="text-white font-semibold mb-2">Riwayat Izin</h4>
-                        <p class="text-gray-400 text-sm">Lihat riwayat pengajuan</p>
-                    </div>
-                </a>
+                    </a>
 
-                <a href="{{ route('staff.view') }}"
-                    class="group bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20 rounded-xl p-6 hover:from-purple-500/20 hover:to-purple-600/20 transition-all duration-300 hover:scale-105">
-                    <div class="flex flex-col items-center text-center">
-                        <div
-                            class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-500/30 transition-colors">
-                            <i class="fas fa-users text-2xl text-purple-400"></i>
+                    <a href="{{ route('staff.view') }}"
+                        class="group bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20 rounded-xl p-6 hover:from-purple-500/20 hover:to-purple-600/20 transition-all duration-300 hover:scale-105">
+                        <div class="flex flex-col items-center text-center">
+                            <div
+                                class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-500/30 transition-colors">
+                                <i class="fas fa-users text-2xl text-purple-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Data Staff</h4>
+                            <p class="text-gray-400 text-sm">Kelola data karyawan</p>
                         </div>
-                        <h4 class="text-white font-semibold mb-2">Data Staff</h4>
-                        <p class="text-gray-400 text-sm">Kelola data karyawan</p>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
-        </div>
+        @endif
 
         <!-- Recent Activity -->
         <div class="glass-card rounded-2xl p-8">

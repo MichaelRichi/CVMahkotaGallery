@@ -27,7 +27,7 @@
             Filter Data
         </h3>
 
-        <form method="GET" action="{{ route('staff.view') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <form method="GET" action="{{ route('staff.view') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
             <!-- Status Filter -->
             <div>
                 <label class="block text-sm font-medium text-gray-300 mb-2">Status</label>
@@ -64,6 +64,14 @@
                 </select>
             </div>
 
+            <!-- Search Bar -->
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Cari Staff</label>
+                <input type="text" name="search" value="{{ $search ?? '' }}"
+                       placeholder="Nama, NIK, No. Telp, Alamat..."
+                       class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all">
+            </div>
+
             <!-- Filter Button -->
             <div class="flex items-end">
                 <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105">
@@ -77,7 +85,7 @@
     <!-- Staff Table -->
     <div class="glass-card rounded-2xl overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full">
+            <table class=System: "w-full">
                 <thead class="bg-gray-800/50 border-b border-gray-700/50">
                     <tr>
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">

@@ -11,17 +11,18 @@ class JabatanController extends Controller
     {
         $filter = $request->query('filter', 'aktif');
         $dataJabatan = Jabatan::query();
+        $dataSemuaJabatan = Jabatan::query();
         if ($filter === 'aktif') {
             $dataJabatan->where('is_active', 1);
         } elseif ($filter === 'nonaktif') {
             $dataJabatan->where('is_active', 0);
         }
         $dataJabatan = $dataJabatan->get();
-        return view('jabatan.index', compact('dataJabatan', 'filter'));
+        return view('jabatan.index', compact('dataJabatan','dataSemuaJabatan', 'filter'));
     }
     public function addView()
     {
-        return view('jabatan.add'); 
+        return view('jabatan.add');
     }
     public function add(Request $request)
     {

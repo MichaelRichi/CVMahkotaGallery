@@ -31,7 +31,6 @@ class PengajuanPinjamanController extends Controller
 
         $request->validate([
             'jumlah_pinjaman' => 'required|numeric|min:1000',
-            'start_pelunasan' => 'required|date',
             'alasan' => 'required|string',
         ]);
 

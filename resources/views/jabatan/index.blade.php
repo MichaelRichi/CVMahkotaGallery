@@ -151,7 +151,7 @@
     </div>
 
     <!-- Statistics Cards -->
-    @if($dataJabatan->count() > 0)
+    @if($dataSemuaJabatan->count() > 0)
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="glass-card rounded-2xl p-6">
                 <div class="flex items-center justify-between">
@@ -169,7 +169,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400 text-sm font-medium">Jabatan Aktif</p>
-                        <p class="text-2xl font-bold text-white mt-1">{{ $dataJabatan->where('is_active', 1)->count() }}</p>
+                        <p class="text-2xl font-bold text-white mt-1">{{ $dataSemuaJabatan->where('is_active', 1)->count() }}</p>
                     </div>
                     <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                         <i class="fas fa-check-circle text-green-400"></i>
@@ -181,7 +181,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-400 text-sm font-medium">Jabatan Tidak Aktif</p>
-                        <p class="text-2xl font-bold text-white mt-1">{{ $dataJabatan->where('is_active', 0)->count() }}</p>
+                        <p class="text-2xl font-bold text-white mt-1">{{ $dataSemuaJabatan->where('is_active', 0)->count() }}</p>
                     </div>
                     <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
                         <i class="fas fa-times-circle text-red-400"></i>
@@ -192,14 +192,14 @@
     @endif
 
     <!-- Jabatan Hierarchy -->
-    @if($dataJabatan->where('is_active', 1)->count() > 0)
+    @if($dataSemuaJabatan->where('is_active', 1)->count() > 0)
         <div class="glass-card rounded-2xl p-6">
             <h3 class="text-xl font-semibold text-white mb-6 flex items-center">
                 <i class="fas fa-sitemap mr-2 text-yellow-400"></i>
                 Hierarki Jabatan Aktif
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                @foreach($dataJabatan->where('is_active', 1) as $jabatan)
+                @foreach($dataSemuaJabatan->where('is_active', 1) as $jabatan)
                     <div class="bg-gray-800/30 rounded-lg p-4 border border-gray-700/50 hover:border-yellow-400/30 transition-colors">
                         <div class="flex items-center mb-3">
                             <div class="w-10 h-10 bg-gradient-to-br from-purple-400/20 to-purple-500/20 rounded-full flex items-center justify-center mr-3">

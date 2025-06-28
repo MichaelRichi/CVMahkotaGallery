@@ -13,10 +13,6 @@
                 <h2 class="text-2xl font-bold text-white mb-2">Form Pengajuan Izin</h2>
                 <p class="text-gray-400">Lengkapi form di bawah untuk mengajukan izin</p>
             </div>
-            <a href="{{ route('pengajuanizin.view') }}" class="inline-flex items-center px-4 py-2 bg-gray-600/50 text-gray-300 rounded-lg hover:bg-gray-600/70 transition-colors duration-200">
-                <i class="fas fa-arrow-left mr-2"></i>
-                Kembali
-            </a>
         </div>
     </div>
 

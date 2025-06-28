@@ -10,24 +10,36 @@ class CabangController extends Controller
     public function view(Request $request)
     {
         $filter = $request->query('filter', 'aktif');
+        $search = $request->query('search'); // Ambil parameter search
+
         $dataCabang = Cabang::query();
+        $dataCabangSemua = Cabang::query();
+
+        // Filter status
         if ($filter === 'aktif') {
             $dataCabang->where('is_active', 1);
         } elseif ($filter === 'nonaktif') {
             $dataCabang->where('is_active', 0);
         }
+        // Jika filter 'semua', tidak perlu tambahan kondisi where
+
+        // Filter pencarian berdasarkan nama cabang
+        if ($search) {
+            $dataCabang->where('nama_cabang', 'like', '%' . $search . '%');
+        }
+
         $dataCabang = $dataCabang->get();
-        return view('cabang.index', compact('dataCabang', 'filter'));
+        return view('cabang.index', compact('dataCabang', 'filter', 'search','dataCabangSemua')); // Kirim variabel search ke view
     }
     public function addView()
     {
-        return view('cabang.add'); 
+        return view('cabang.add');
     }
     public function add(Request $request)
     {
         $request->validate([
             'nama_cabang' => 'required|string|max:100',
-            'alamat'=>'required|string',
+            'alamat' => 'required|string',
             'jam_masuk' => 'required|date_format:H:i',
             'jam_pulang' => 'required|date_format:H:i|after:jam_masuk',
             'is_active' => 'required|in:0,1',
@@ -35,7 +47,7 @@ class CabangController extends Controller
 
         Cabang::create([
             'nama_cabang' => $request->nama_cabang,
-            'alamat'=> $request->alamat,
+            'alamat' => $request->alamat,
             'jam_masuk' => $request->jam_masuk,
             'jam_pulang' => $request->jam_pulang,
             'is_active' => $request->is_active,
@@ -46,7 +58,7 @@ class CabangController extends Controller
     public function editView($id)
     {
         $cabang = Cabang::find($id);
-        return view("cabang.edit",compact('cabang'));
+        return view("cabang.edit", compact('cabang'));
     }
     public function edit(Request $request, $id)
     {
@@ -54,7 +66,7 @@ class CabangController extends Controller
 
         $validated = $request->validate([
             'nama_cabang' => 'required|string|max:100',
-            'alamat'=>'required|string',
+            'alamat' => 'required|string',
             'jam_masuk' => 'required|date_format:H:i',
             'jam_pulang' => 'required|date_format:H:i|after:jam_masuk',
             'is_active' => 'required|in:0,1',
