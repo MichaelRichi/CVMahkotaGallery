@@ -216,7 +216,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-green-400 text-sm font-medium">Total Nilai Pengajuan</p>
-                            <p class="text-2xl font-bold text-white mt-1">Rp {{ number_format($pengajuan->sum('harga_barang'), 0, ',', '.') }}</p>
+                            <p class="text-2xl font-bold text-white mt-1">Rp {{$diterima}}</p>
                         </div>
                         <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                             <i class="fas fa-money-bill-wave text-green-400"></i>

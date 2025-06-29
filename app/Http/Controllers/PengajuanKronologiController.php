@@ -131,6 +131,7 @@ class PengajuanKronologiController extends Controller
     {
         $staff = Auth::user()->staff;
         $pengajuan = PengajuanKronologi::where('staff_id', $staff->id)->latest()->get();
-        return view('pengajuan_kronologi.riwayat', compact('pengajuan'));
+        $diterima = PengajuanKronologi::where('staff_id', $staff->id)->where('validasi_admin', 1)->sum('harga_barang');
+        return view('pengajuan_kronologi.riwayat', compact('pengajuan', 'diterima'));
     }
 }
