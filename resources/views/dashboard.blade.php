@@ -11,7 +11,7 @@
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h2 class="text-3xl font-bold text-white mb-2">
-                        Selamat Datang, <span class="text-yellow-400">{{ Auth::user()->name ?? 'User' }}</span>!
+                        Selamat Datang, <span class="text-yellow-400">{{ Auth::user()->staff->nama ?? 'User' }}</span>!
                     </h2>
                     <p class="text-gray-400 text-lg">{{ Auth::user()->email }}</p>
                     <div class="mt-3">

@@ -373,7 +373,7 @@
                                 <i class="fas fa-user text-black"></i>
                             </div>
                             <div class="hidden md:block text-left">
-                                <p class="font-medium">{{ Auth::user()->name ?? 'User' }}</p>
+                                <p class="font-medium">{{ Auth::user()->staff->nama ?? 'User' }}</p>
                                 <p class="text-sm text-gray-400">{{ Auth::user()->email }}</p>
                             </div>
                         </button>
