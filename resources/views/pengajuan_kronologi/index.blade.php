@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Pengajuan Kronologi')
-@section('page-title', 'Pengajuan Kronologi')
-@section('page-description', 'Kelola pengajuan kronologi karyawan')
+@section('title', 'Pengajuan Denda')
+@section('page-title', 'Pengajuan Denda')
+@section('page-description', 'Kelola pengajuan Denda karyawan')
 
 @section('content')
 <div class="space-y-6">
@@ -10,12 +10,12 @@
     <div class="glass-card rounded-2xl p-6">
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-white mb-2">Pengajuan Kronologi</h2>
-                <p class="text-gray-400">Kelola dan pantau pengajuan kronologi karyawan</p>
+                <h2 class="text-2xl font-bold text-white mb-2">Pengajuan Denda</h2>
+                <p class="text-gray-400">Kelola dan pantau pengajuan Denda karyawan</p>
             </div>
             <a href="{{ route('kronologi.addView') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-amber-500 text-black font-semibold rounded-xl hover:from-yellow-500 hover:to-amber-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-yellow-400/25">
                 <i class="fas fa-plus mr-2"></i>
-                Ajukan Kronologi
+                Ajukan Denda
             </a>
         </div>
     </div>
@@ -203,7 +203,7 @@
                             <td colspan="5" class="px-6 py-12 text-center">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-file-alt text-4xl text-gray-600 mb-4"></i>
-                                    <p class="text-gray-400 text-lg">Tidak ada pengajuan kronologi</p>
+                                    <p class="text-gray-400 text-lg">Tidak ada pengajuan Denda</p>
                                     <p class="text-gray-500 text-sm">Silakan buat pengajuan baru atau ubah filter pencarian</p>
                                 </div>
                             </td>

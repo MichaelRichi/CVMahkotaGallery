@@ -191,8 +191,8 @@
                                     class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors">
                                     <i class="fas fa-plus-square text-2xl text-blue-400"></i>
                                 </div>
-                                <h4 class="text-white font-semibold mb-2">Pengajuan Kronologi</h4>
-                                <p class="text-gray-400 text-sm">Lihat pengajuan kronologi</p>
+                                <h4 class="text-white font-semibold mb-2">Pengajuan Denda</h4>
+                                <p class="text-gray-400 text-sm">Lihat pengajuan denda</p>
                             </div>
                         </a>
 
@@ -247,8 +247,8 @@
                                     class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors">
                                     <i class="fas fa-plus-square text-2xl text-blue-400"></i>
                                 </div>
-                                <h4 class="text-white font-semibold mb-2">Pengajuan Kronologi</h4>
-                                <p class="text-gray-400 text-sm">Ajukan kronologi</p>
+                                <h4 class="text-white font-semibold mb-2">Pengajuan Denda</h4>
+                                <p class="text-gray-400 text-sm">Ajukan Denda</p>
                             </div>
                         </a>
 
@@ -288,7 +288,7 @@
                         <i class="fas fa-plus text-blue-400"></i>
                     </div>
                     <div class="flex-1">
-                        <p class="text-white font-medium">Pengajuan kronologi baru</p>
+                        <p class="text-white font-medium">Pengajuan Denda baru</p>
                         <p class="text-gray-400 text-sm">5 jam yang lalu</p>
                     </div>
                 </div>

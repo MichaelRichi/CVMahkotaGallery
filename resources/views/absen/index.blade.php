@@ -272,5 +272,9 @@
                 color: black !important;
             }
         }
+
+        input[type="month"]::-webkit-calendar-picker-indicator {
+            filter: invert(100%);
+        }
     </style>
 @endsection

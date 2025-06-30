@@ -83,6 +83,13 @@ class PengajuanKronologiController extends Controller
                 'validasi_kepalacabang' => $request->aksi === 'terima' ? 1 : 0,
                 'kepala_id' => $staff->id,
             ]);
+
+            if ($request->aksi === 'tolak') {
+                $pengajuan->update([
+                    'validasi_admin' => 0,
+                    'admin_id' => null,
+                ]);
+            }
         } elseif ($role === 'admin') {
             $pengajuan->update([
                 'validasi_admin' => $request->aksi === 'terima' ? 1 : 0,
@@ -130,7 +137,7 @@ class PengajuanKronologiController extends Controller
     public function riwayat()
     {
         $staff = Auth::user()->staff;
-        $pengajuan = PengajuanKronologi::where('staff_id', $staff->id)->latest()->get();
+        $pengajuan = PengajuanKronologi::where('staff_id', $staff->id)->get();
         $diterima = PengajuanKronologi::where('staff_id', $staff->id)->where('validasi_admin', 1)->sum('harga_barang');
         return view('pengajuan_kronologi.riwayat', compact('pengajuan', 'diterima'));
     }

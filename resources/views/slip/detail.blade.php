@@ -38,10 +38,10 @@
                             </td>
                         </tr>
                         <tr class="hover:bg-gray-800/30 transition-colors duration-200">
-                            <td class="px-6 py-4 text-white">Potongan Kronologi</td>
+                            <td class="px-6 py-4 text-white">Potongan Denda</td>
                             <td class="px-6 py-4 text-right">
                                 <span class="text-red-400 font-medium">Rp {{ number_format($payroll->potongan_kronologi, 0, ',', '.') }}</span>
-                                <p class="text-gray-500 text-sm">Cicilan hutang kronologi.</p>
+                                <p class="text-gray-500 text-sm">Cicilan hutang Denda.</p>
                             </td>
                         </tr>
                         <tr class="hover:bg-gray-800/30 transition-colors duration-200">

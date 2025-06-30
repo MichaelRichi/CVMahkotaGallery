@@ -2,7 +2,7 @@
 
 @section('title', 'Detail Pengajuan')
 @section('page-title', 'Detail Pengajuan')
-@section('page-description', 'Detail pengajuan kronologi ' . $pengajuan->judul)
+@section('page-description', 'Detail pengajuan Denda ' . $pengajuan->judul)
 
 @section('content')
     <div class="max-w-4xl mx-auto space-y-6">
@@ -10,7 +10,7 @@
         <div class="glass-card rounded-2xl p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold text-white mb-2">Detail Pengajuan Kronologi</h2>
+                    <h2 class="text-2xl font-bold text-white mb-2">Detail Pengajuan Denda</h2>
                     <p class="text-gray-400">{{ $pengajuan->judul }}</p>
                 </div>
                 @if (auth()->user()->role === 'admin' || auth()->user()->role === 'kepala')

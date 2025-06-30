@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Ajukan Kronologi')
-@section('page-title', 'Ajukan Kronologi')
-@section('page-description', 'Buat pengajuan kronologi baru')
+@section('title', 'Ajukan Denda')
+@section('page-title', 'Ajukan Denda')
+@section('page-description', 'Buat pengajuan Denda baru')
 
 @section('content')
 <div class="max-w-2xl mx-auto space-y-6">
@@ -10,8 +10,8 @@
     <div class="glass-card rounded-2xl p-6">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-2xl font-bold text-white mb-2">Form Pengajuan Kronologi</h2>
-                <p class="text-gray-400">Lengkapi form di bawah untuk mengajukan kronologi</p>
+                <h2 class="text-2xl font-bold text-white mb-2">Form Pengajuan Denda</h2>
+                <p class="text-gray-400">Lengkapi form di bawah untuk mengajukan Denda</p>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                 </label>
                 <input type="text" name="judul" id="judul-input" value="{{ old('judul') }}"
                        class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
-                       placeholder="Masukkan judul pengajuan kronologi" required>
+                       placeholder="Masukkan judul pengajuan Denda" required>
                 @error('judul')
                     <p class="text-red-400 text-sm mt-1">
                         <i class="fas fa-exclamation-circle mr-1"></i>
@@ -121,7 +121,7 @@
                 </label>
                 <textarea name="penjelasan" id="penjelasan-input" rows="4"
                           class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
-                          placeholder="Jelaskan detail pengajuan kronologi, alasan, dan informasi tambahan lainnya" required>{{ old('penjelasan') }}</textarea>
+                          placeholder="Jelaskan detail pengajuan Denda, alasan, dan informasi tambahan lainnya" required>{{ old('penjelasan') }}</textarea>
                 @error('penjelasan')
                     <p class="text-red-400 text-sm mt-1">
                         <i class="fas fa-exclamation-circle mr-1"></i>
@@ -137,7 +137,7 @@
                 </a>
                 <button type="submit" class="px-8 py-3 bg-gradient-to-r from-yellow-400 to-amber-500 text-black font-semibold rounded-xl hover:from-yellow-500 hover:to-amber-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-yellow-400/25">
                     <i class="fas fa-paper-plane mr-2"></i>
-                    Ajukan Kronologi
+                    Ajukan Denda
                 </button>
             </div>
         </form>

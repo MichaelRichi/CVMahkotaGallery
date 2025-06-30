@@ -20,7 +20,7 @@
     <tr>
         <th>Nama</th>
         <th>Potongan Izin</th>
-        <th>Potongan Kronologi</th>
+        <th>Potongan Denda</th>
         <th>Potongan Hutang</th>
         <th>Gaji Bersih</th>
     </tr>

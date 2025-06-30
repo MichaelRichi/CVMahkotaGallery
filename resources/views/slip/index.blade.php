@@ -126,7 +126,7 @@
                             </th>
                             <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
                                 <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
-                                Pot. Kronologi
+                                Pot. Denda
                             </th>
                             <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
                                 <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Riwayat Kronologi')
-@section('page-title', 'Riwayat Kronologi')
-@section('page-description', 'Riwayat pengajuan kronologi Anda')
+@section('title', 'Riwayat Denda')
+@section('page-title', 'Riwayat Denda')
+@section('page-description', 'Riwayat pengajuan Denda Anda')
 
 @section('content')
 <div class="space-y-6">
@@ -10,8 +10,8 @@
     <div class="glass-card rounded-2xl p-6">
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-white mb-2">Riwayat Pengajuan Kronologi</h2>
-                <p class="text-gray-400">Pantau semua pengajuan kronologi yang pernah Anda buat</p>
+                <h2 class="text-2xl font-bold text-white mb-2">Riwayat Pengajuan denda</h2>
+                <p class="text-gray-400">Pantau semua pengajuan denda yang pernah Anda buat</p>
             </div>
             <a href="{{ route('kronologi.addView') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-amber-500 text-black font-semibold rounded-xl hover:from-yellow-500 hover:to-amber-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-yellow-400/25">
                 <i class="fas fa-plus mr-2"></i>
@@ -188,8 +188,8 @@
                             <td colspan="6" class="px-6 py-12 text-center">
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-file-alt text-4xl text-gray-600 mb-4"></i>
-                                    <p class="text-gray-400 text-lg">Belum ada pengajuan kronologi</p>
-                                    <p class="text-gray-500 text-sm mb-4">Mulai buat pengajuan kronologi pertama Anda</p>
+                                    <p class="text-gray-400 text-lg">Belum ada pengajuan Denda</p>
+                                    <p class="text-gray-500 text-sm mb-4">Mulai buat pengajuan denda pertama Anda</p>
                                     <a href="{{ route('kronologi.addView') }}" class="inline-flex items-center px-4 py-2 bg-yellow-400/20 text-yellow-400 rounded-lg hover:bg-yellow-400/30 transition-colors duration-200 border border-yellow-400/30">
                                         <i class="fas fa-plus mr-2"></i>
                                         Buat Pengajuan

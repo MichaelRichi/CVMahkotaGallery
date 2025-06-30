@@ -243,6 +243,7 @@ class StaffController extends Controller
     {
         $staff = Staff::findOrFail($id);
 
+
         $rules = [
             'email' => ['required', 'email', Rule::unique('users')->ignore($staff->users_id)],
             'role' => ['required', 'in:admin,karyawan,kepala'],
@@ -252,9 +253,7 @@ class StaffController extends Controller
         if ($request->filled('password')) {
             $rules['password'] = ['confirmed', Rules\Password::defaults()];
         }
-
         $request->validate($rules);
-
         if ($staff->users_id) {
             $user = User::findOrFail($staff->users_id);
             $user->update([
@@ -262,6 +261,7 @@ class StaffController extends Controller
                 'role' => $request->role,
                 'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
             ]);
+
         } else {
             $user = User::create([
                 'email' => $request->email,

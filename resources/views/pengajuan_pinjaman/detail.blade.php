@@ -124,17 +124,11 @@
                     <div class="p-4 bg-gray-800/50 rounded-lg border-2 border-dashed border-gray-600/50">
                         <div class="text-center">
                             <p class="text-gray-400 text-sm mb-2">Status Keseluruhan</p>
-                            @if ($pinjaman->validasi_admin === 0 || $pinjaman->validasi_kepalacabang === 0)
+                            @if ($pinjaman->validasi_admin === 0)
                                 <span
                                     class="inline-flex items-center px-4 py-2 rounded-full text-lg font-medium bg-red-500/20 text-red-400 border border-red-500/30">
                                     <i class="fas fa-times-circle mr-2"></i>
                                     Pengajuan Ditolak
-                                </span>
-                            @elseif (is_null($pinjaman->validasi_kepalacabang))
-                                <span
-                                    class="inline-flex items-center px-4 py-2 rounded-full text-lg font-medium bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-                                    <i class="fas fa-clock mr-2"></i>
-                                    Menunggu Persetujuan Kepala Cabang
                                 </span>
                             @elseif (is_null($pinjaman->validasi_admin))
                                 <span

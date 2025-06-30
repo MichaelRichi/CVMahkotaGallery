@@ -217,7 +217,7 @@
                             <a href="{{ route('kronologi.view') }}"
                                 class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
                                 <i class="fas fa-clock w-5 text-center"></i>
-                                <span class="sidebar-text ml-3">Pengajuan Kronologi</span>
+                                <span class="sidebar-text ml-3">Pengajuan Denda</span>
                             </a>
 
                             <a href="{{ route('pinjaman.view') }}"
@@ -241,7 +241,7 @@
                             <a href="{{ route('slip.riwayat') }}"
                                 class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.riwayat') ? 'active' : '' }}">
                                 <i class="fas fa-file-invoice-dollar w-5 text-center"></i>
-                                <span class="sidebar-text ml-3">Riwayat Gaji</span>
+                                <span class="sidebar-text ml-3">Riwayat Gaji All Staff</span>
                             </a>
 
                         </div>
@@ -256,7 +256,7 @@
                             <a href="{{ route('kronologi.view') }}"
                                 class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
                                 <i class="fas fa-clock w-5 text-center"></i>
-                                <span class="sidebar-text ml-3">Pengajuan Kronologi</span>
+                                <span class="sidebar-text ml-3">Pengajuan Denda</span>
                             </a>
                         </div>
                     @endif
@@ -282,7 +282,7 @@
                     <a href="{{ route('kronologi.addView') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.addView') ? 'active' : '' }}">
                         <i class="fas fa-plus-square w-5 text-center"></i>
-                        <span class="sidebar-text ml-3">Ajukan Kronologi</span>
+                        <span class="sidebar-text ml-3">Ajukan Denda</span>
                     </a>
 
                     <a href="{{ route('pinjaman.addView') }}"
@@ -308,7 +308,7 @@
                     <a href="{{ route('kronologi.riwayat') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.riwayat') ? 'active' : '' }}">
                         <i class="fas fa-file-alt w-5 text-center"></i>
-                        <span class="sidebar-text ml-3">Riwayat Kronologi</span>
+                        <span class="sidebar-text ml-3">Riwayat Denda</span>
                     </a>
 
                     <a href="{{ route('pinjaman.riwayat') }}"
@@ -446,7 +446,7 @@
                         <a href="{{ route('kronologi.view') }}"
                             class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
                             <i class="fas fa-clock w-5 text-center"></i>
-                            <span class="ml-3">Pengajuan Kronologi</span>
+                            <span class="ml-3">Pengajuan Denda</span>
                         </a>
 
                         <a href="{{ route('pinjaman.view') }}"
@@ -483,7 +483,7 @@
                         <a href="{{ route('kronologi.view') }}"
                             class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.view') ? 'active' : '' }}">
                             <i class="fas fa-clock w-5 text-center"></i>
-                            <span class="ml-3">Pengajuan Kronologi</span>
+                            <span class="ml-3">Pengajuan Denda</span>
                         </a>
                     </div>
                 @endif
@@ -508,7 +508,7 @@
                 <a href="{{ route('kronologi.addView') }}"
                     class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.addView') ? 'active' : '' }}">
                     <i class="fas fa-plus-square w-5 text-center"></i>
-                    <span class="ml-3">Ajukan Kronologi</span>
+                    <span class="ml-3">Ajukan Denda</span>
                 </a>
 
                 <a href="{{ route('pinjaman.addView') }}"
@@ -526,7 +526,7 @@
                 <a href="{{ route('kronologi.riwayat') }}"
                     class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('kronologi.riwayat') ? 'active' : '' }}">
                     <i class="fas fa-file-alt w-5 text-center"></i>
-                    <span class="ml-3">Riwayat Kronologi</span>
+                    <span class="ml-3">Riwayat Denda</span>
                 </a>
 
                 <a href="{{ route('pinjaman.riwayat') }}"
