@@ -8,6 +8,7 @@ use App\Models\Hutang;
 use App\Models\DetailHutang;
 use App\Models\SlipGaji;
 use App\Models\Absen;
+use App\Models\Cabang;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Log;
@@ -28,11 +29,15 @@ class SlipGajiController extends Controller
         // Filter staff berdasarkan cabang jika ada
         if ($cabangId) {
             $staffQuery->whereHas('cabang', function ($query) use ($cabangId) {
-                $query->where('cabang.id', $cabangId); // Pastikan 'id' sesuai dengan primary key cabang
+                $query->where('cabang.id', $cabangId);
             });
         }
-        $staff = $staffQuery->with('cabang')->get()->map(function ($staff) {
-            // Ambil hutang kronologi dan peminjaman yang sedang berjalan
+
+        $month = $request->input('month', Carbon::now()->month);
+        $year = $request->input('year', Carbon::now()->year);
+
+        $staff = $staffQuery->with('cabang')->get()->map(function ($staff) use ($month, $year) {
+            // Ambil hutang kronologi dan peminjaman
             $hutangKronologi = Hutang::where('staff_id', $staff->id)
                 ->where('jenis', 'kronologi')
                 ->first();
@@ -43,12 +48,45 @@ class SlipGajiController extends Controller
             $gajiBersih = $staff->gaji_pokok + $staff->gaji_tunjangan;
             $potonganKronologi = 0;
             $potonganPeminjaman = 0;
+            $potonganAbsenAlpha = 0;
+            $potonganAbsenIzin = 0;
+            $potonganTerlambat = 0;
 
-            // Hitung potongan dari detail hutang untuk bulan ini
-            $currentMonth = Carbon::now()->month;
+            // Hitung potongan berdasarkan absen
+            $daysInMonth = Carbon::create($year, $month)->daysInMonth;
+            $dailyRate = $staff->gaji_pokok / $daysInMonth;
+
+            $absenRecords = Absen::where('staff_id', $staff->id)
+                ->whereMonth('tanggal', $month)
+                ->whereYear('tanggal', $year)
+                ->get();
+
+            $alphaDays = $absenRecords->where('status', 'A')->count();
+            $izinDays = $absenRecords->where('status', 'I')->count();
+            $terlambatDays = $absenRecords->where('status', 'T')->count();
+
+            // Potongan Alpha
+            if ($alphaDays > 0) {
+                $potonganAbsenAlpha = $alphaDays * $dailyRate;
+            }
+
+            // Potongan Izin (hanya jika total Alpha + Izin > 3)
+            $totalAbsentDays = $alphaDays + $izinDays;
+            if ($totalAbsentDays > 3) {
+                $extraIzinDays = max(0, $izinDays - ($totalAbsentDays - 3));
+                $potonganAbsenIzin = $extraIzinDays * $dailyRate;
+            }
+
+            // Potongan Terlambat (Rp10.000 per hari)
+            if ($terlambatDays > 0) {
+                $potonganTerlambat = $terlambatDays * 10000;
+            }
+
+            // Hitung potongan dari detail hutang
             if ($hutangKronologi) {
                 $detailKronologi = DetailHutang::where('hutang_id', $hutangKronologi->id)
-                    ->whereMonth('tanggal_pelunasan', $currentMonth)
+                    ->whereMonth('tanggal_pelunasan', $month)
+                    ->whereYear('tanggal_pelunasan', $year)
                     ->where('status', '!=', '1')
                     ->first();
                 if ($detailKronologi) {
@@ -58,7 +96,8 @@ class SlipGajiController extends Controller
 
             if ($hutangPeminjaman) {
                 $detailPeminjaman = DetailHutang::where('hutang_id', $hutangPeminjaman->id)
-                    ->whereMonth('tanggal_pelunasan', $currentMonth)
+                    ->whereMonth('tanggal_pelunasan', $month)
+                    ->whereYear('tanggal_pelunasan', $year)
                     ->where('status', '!=', '1')
                     ->first();
                 if ($detailPeminjaman) {
@@ -66,16 +105,20 @@ class SlipGajiController extends Controller
                 }
             }
 
-            // Kurangi gaji bersih berdasarkan potongan
-            $gajiBersih -= ($potonganKronologi + $potonganPeminjaman);
+            // Kurangi gaji bersih berdasarkan semua potongan
+            $gajiBersih -= ($potonganKronologi + $potonganPeminjaman + $potonganAbsenAlpha + $potonganAbsenIzin + $potonganTerlambat);
 
             $staff->gaji_bersih = $gajiBersih > 0 ? $gajiBersih : 0;
             $staff->potongan_kronologi = $potonganKronologi;
             $staff->potongan_peminjaman = $potonganPeminjaman;
+            $staff->potongan_absen_alpha = $potonganAbsenAlpha;
+            $staff->potongan_absen_izin = $potonganAbsenIzin;
+            $staff->potongan_terlambat = $potonganTerlambat;
+
             return $staff;
         });
 
-        $cabang = \App\Models\Cabang::all();
+        $cabang = Cabang::all();
         return view('slip.index', compact('staff', 'cabang'));
     }
 

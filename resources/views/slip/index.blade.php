@@ -4,11 +4,8 @@
 @section('page-title', 'Penggajian Staff')
 @section('page-description', 'Kelola dan proses penggajian karyawan Mahkota Gallery')
 
-
-
 @section('content')
     <div class="space-y-6">
-
         @if (session('success'))
             <div class="glass-card rounded-2xl p-4 border border-green-500/30 bg-green-500/10">
                 <div class="flex items-center">
@@ -26,6 +23,7 @@
                 </div>
             </div>
         @endif
+
         <!-- Header Actions -->
         <div class="glass-card rounded-2xl p-6">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -126,6 +124,18 @@
                             </th>
                             <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
                                 <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
+                                Pot. Alpha
+                            </th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                                <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
+                                Pot. Izin
+                            </th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                                <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
+                                Pot. Terlambat
+                            </th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                                <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
                                 Pot. Denda
                             </th>
                             <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
@@ -171,6 +181,18 @@
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <span class="text-red-400 font-medium">Rp
+                                        {{ number_format($s->potongan_absen_alpha, 0, ',', '.') }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <span class="text-red-400 font-medium">Rp
+                                        {{ number_format($s->potongan_absen_izin, 0, ',', '.') }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <span class="text-red-400 font-medium">Rp
+                                        {{ number_format($s->potongan_terlambat, 0, ',', '.') }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <span class="text-red-400 font-medium">Rp
                                         {{ number_format($s->potongan_kronologi, 0, ',', '.') }}</span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
@@ -184,7 +206,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="px-6 py-12 text-center">
+                                <td colspan="11" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center">
                                         <i class="fas fa-users text-4xl text-gray-600 mb-4"></i>
                                         <p class="text-gray-400 text-lg">Tidak ada data staff</p>
@@ -198,8 +220,6 @@
             </div>
         </div>
     </div>
-
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
