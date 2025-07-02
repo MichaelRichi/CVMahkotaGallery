@@ -235,7 +235,7 @@
                 <div class="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-green-400 font-medium">Disetujui Hari Ini</p>
+                            <p class="text-green-400 font-medium">Disetujui</p>
                             <p class="text-2xl font-bold text-white">{{ $diterima }}</p>
                         </div>
                         <i class="fas fa-check-circle text-2xl text-green-400"></i>

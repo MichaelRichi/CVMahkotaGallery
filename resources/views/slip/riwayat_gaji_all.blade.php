@@ -13,6 +13,13 @@
                     <h2 class="text-2xl font-bold text-white mb-2">Riwayat Penggajian</h2>
                     <p class="text-gray-400">Pantau riwayat penggajian karyawan per {{ now()->format('F Y') }}</p>
                 </div>
+                <div>
+                    <a href="{{ route('slip.riwayat.pdf') }}"
+                       class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        Cetak PDF
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -95,7 +102,7 @@
                                 <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
                                 Pot. Peminjaman
                             </th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300uppercase tracking-wider">
                                 <i class="fas fa-wallet mr-2 text-yellow-400"></i>
                                 Gaji Bersih
                             </th>

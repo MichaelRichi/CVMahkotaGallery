@@ -209,7 +209,7 @@
 
                             <!-- Absen Management -->
                             <a href="{{ route('absen.index') }}"
-                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('absen.*') ? 'active' : '' }}">
+                                class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('absen.index') ? 'active' : '' }}">
                                 <i class="fas fa-calendar-alt w-5 text-center"></i>
                                 <span class="sidebar-text ml-3">Data Absen</span>
                             </a>
@@ -266,6 +266,12 @@
                 <div class="pt-4">
                     <p class="sidebar-text px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                         Personal</p>
+
+                    <a href="{{ route('absen.riwayat') }}"
+                        class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('absen.riwayat') ? 'active' : '' }}">
+                        <i class="fas fa-receipt w-5 text-center"></i>
+                        <span class="ml-3">Riwayat Absen</span>
+                    </a>
 
                     <a href="{{ route('slip.karyawan.riwayat') }}"
                         class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.karyawan.riwayat') ? 'active' : '' }}">
@@ -438,7 +444,7 @@
 
                         <!-- Absen Management -->
                         <a href="{{ route('absen.index') }}"
-                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('absen.*') ? 'active' : '' }}">
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('absen.index') ? 'active' : '' }}">
                             <i class="fas fa-calendar-alt w-5 text-center"></i>
                             <span class="ml-3">Data Absen</span>
                         </a>
@@ -492,6 +498,11 @@
             <!-- Personal Section -->
             <div class="pt-4">
                 <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Personal</p>
+                <a href="{{ route('absen.riwayat') }}"
+                    class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('absen.riwayat') ? 'active' : '' }}">
+                    <i class="fas fa-receipt w-5 text-center"></i>
+                    <span class="ml-3">Riwayat Absen</span>
+                </a>
 
                 <a href="{{ route('slip.karyawan.riwayat') }}"
                     class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg {{ request()->routeIs('slip.karyawan.riwayat') ? 'active' : '' }}">

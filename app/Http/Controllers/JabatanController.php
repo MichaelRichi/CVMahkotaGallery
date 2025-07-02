@@ -11,7 +11,7 @@ class JabatanController extends Controller
     {
         $filter = $request->query('filter', 'aktif');
         $dataJabatan = Jabatan::query();
-        $dataSemuaJabatan = Jabatan::query();
+        $dataSemuaJabatan = Jabatan::all();
         if ($filter === 'aktif') {
             $dataJabatan->where('is_active', 1);
         } elseif ($filter === 'nonaktif') {

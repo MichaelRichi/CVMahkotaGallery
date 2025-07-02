@@ -88,6 +88,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/slip/riwayat', [SlipGajiController::class, 'riwayat'])->name('slip.riwayat');
     Route::get('/slip/karyawan/riwayat', [SlipGajiController::class, 'riwayatGajiKaryawan'])->name('slip.karyawan.riwayat');
     Route::get('/slip/karyawan/{id}', [SlipGajiController::class, 'detailGajiKaryawan'])->name('slip.karyawan.detail');
+    Route::get('/slip/riwayat/pdf', [SlipGajiController::class, 'exportPdf'])->name('slip.riwayat.pdf');
+    Route::get('/slip/karyawan/riwayat/pdf', [SlipGajiController::class, 'exportPdf'])->name('slip.riwayat.karyawan.pdf');
+
 });
 
 Route::prefix('absen')->middleware('auth')->group(function () {
@@ -96,6 +99,5 @@ Route::prefix('absen')->middleware('auth')->group(function () {
     Route::post('/import', [AbsenController::class, 'importProses'])->name('absen.import.proses');
 });
 Route::get('/absen/riwayat', [AbsenController::class, 'riwayat'])->name('absen.riwayat')->middleware('auth');
-
 
 require __DIR__ . '/auth.php';

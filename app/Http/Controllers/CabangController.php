@@ -13,7 +13,7 @@ class CabangController extends Controller
         $search = $request->query('search'); // Ambil parameter search
 
         $dataCabang = Cabang::query();
-        $dataCabangSemua = Cabang::query();
+        $dataCabangSemua = Cabang::all  ();
 
         // Filter status
         if ($filter === 'aktif') {

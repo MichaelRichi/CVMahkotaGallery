@@ -12,6 +12,8 @@ use App\Models\Cabang;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 use Illuminate\Support\Facades\DB;
 
@@ -277,7 +279,7 @@ class SlipGajiController extends Controller
 
         $payrolls = $query->get();
 
-        return view('slip.riwayat', compact('payrolls'));
+        return view('slip.riwayat_gaji_all', compact('payrolls'));
     }
 
     public function riwayatGajiKaryawan(Request $request)
@@ -357,5 +359,18 @@ class SlipGajiController extends Controller
         Log::info('Detail gaji untuk staff_id ' . $staffId . ' dengan ID ' . $id . ': ', $payroll->toArray());
 
         return view('slip.detail', compact('payroll', 'dailyRate'));
+    }
+
+
+    public function exportPdf(Request $request)
+    {
+        $payrolls = SlipGaji::query()
+            ->when($request->month, fn($query) => $query->whereMonth('periode', $request->month))
+            ->when($request->year, fn($query) => $query->whereYear('periode', $request->year))
+            ->with(['staff', 'cabang'])
+            ->get();
+
+        $pdf = Pdf::loadView('slip.riwayat_penggajian_all_pdf', compact('payrolls'));
+        return $pdf->download('riwayat-penggajian-' . now()->format('Y-m-d') . '.pdf');
     }
 }

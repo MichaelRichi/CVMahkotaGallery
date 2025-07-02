@@ -207,7 +207,7 @@
                             </div>
                             <div>
                                 <h4 class="text-white font-medium">{{ $jabatan->nama_jabatan }}</h4>
-                                <p class="text-gray-400 text-sm">{{ $jabatan->staff_count ?? 0 }} Karyawan</p>
+                                <p class="text-gray-400 text-sm">{{ $jabatan->staff->count() ?? 0 }} Karyawan</p>
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
