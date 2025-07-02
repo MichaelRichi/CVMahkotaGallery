@@ -14,6 +14,7 @@ class PengajuanKronologi extends Model
         'nama_barang',
         'penjelasan',
         'harga_barang',
+        'keterangan',
         'validasi_kepalacabang',
         'kepala_id',
         'validasi_admin',

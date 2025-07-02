@@ -18,12 +18,13 @@ return new class extends Migration
 
             $table->unsignedBigInteger('cabang_id')->nullable();
             $table->foreign('cabang_id')->references('id')->on('cabang');
-            
+
             $table->string('judul');
             $table->string('nama_barang');
             $table->string('penjelasan');
             $table->decimal('harga_barang', 12, 2);
             $table->integer('periode_pelunasan'); // bulan
+            $table->string('keterangan')->nullable();
 
             $table->boolean('validasi_kepalacabang')->nullable();
             $table->unsignedBigInteger('kepala_id')->nullable();

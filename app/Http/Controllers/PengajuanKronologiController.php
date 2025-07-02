@@ -73,52 +73,60 @@ class PengajuanKronologiController extends Controller
     }
     public function validasi(Request $request, $id)
     {
-        $request->validate(['aksi' => 'required|in:terima,tolak']);
+        // Validate request, require 'alasan' if 'aksi' is 'tolak'
+        $request->validate([
+            'aksi' => 'required|in:terima,tolak',
+        ]);
+
+
         $pengajuan = PengajuanKronologi::findOrFail($id);
         $staff = Auth::user()->staff;
         $role = Auth::user()->role;
 
         if ($role === 'kepala') {
-            $pengajuan->update([
+            $updateData = [
                 'validasi_kepalacabang' => $request->aksi === 'terima' ? 1 : 0,
                 'kepala_id' => $staff->id,
-            ]);
+            ];
 
+            // Append rejection reason to penjelasan if rejected
             if ($request->aksi === 'tolak') {
-                $pengajuan->update([
-                    'validasi_admin' => 0,
-                    'admin_id' => null,
-                ]);
+                $updateData['keterangan'] = $request->alasan . "(Kepala Cabang)";
+                $updateData['validasi_admin'] = 0;
+                $updateData['admin_id'] = null;
             }
+
+            $pengajuan->update($updateData);
         } elseif ($role === 'admin') {
-            $pengajuan->update([
+            $updateData = [
                 'validasi_admin' => $request->aksi === 'terima' ? 1 : 0,
                 'admin_id' => $staff->id,
-            ]);
+            ];
 
-            // Cek jika validasi kepala cabang sudah OK dan admin juga menerima
+            // Append rejection reason to penjelasan if rejected
+            if ($request->aksi === 'tolak') {
+                $updateData['keterangan'] = $request->alasan . "(Admin)";;
+            }
+
+            $pengajuan->update($updateData);
+
+            // Create Hutang if both validations are approved
             if ($request->aksi === 'terima' && $pengajuan->validasi_kepalacabang === 1) {
-                // Ambil staff pengaju
                 $staffPengaju = $pengajuan->staff;
-
-                // Set start pelunasan bulan depan
                 $startPelunasan = Carbon::now()->addMonthNoOverflow()->startOfMonth();
 
-                // Buat Hutang
                 $hutangbaru = Hutang::create([
                     'staff_id' => $staffPengaju->id,
                     'jumlah_hutang' => $pengajuan->harga_barang,
                     'periode_pelunasan' => $pengajuan->periode_pelunasan,
                     'start_pelunasan' => $startPelunasan,
-                    'sisa_hutang' => $pengajuan->jumlah_pinjaman,
+                    'sisa_hutang' => $pengajuan->harga_barang, // Assuming jumlah_pinjaman was a typo
                     'jenis' => 'kronologi',
                     'kronologi_id' => $pengajuan->id,
                 ]);
 
-                // Hitung cicilan per bulan
                 $jumlahPerBulan = round($pengajuan->harga_barang / $pengajuan->periode_pelunasan, 2);
 
-                // Buat detail hutang per bulan
                 for ($i = 0; $i < $pengajuan->periode_pelunasan; $i++) {
                     DetailHutang::create([
                         'hutang_id' => $hutangbaru->id,

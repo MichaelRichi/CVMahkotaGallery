@@ -190,7 +190,7 @@
                 Penjelasan Detail
             </h3>
             <div class="bg-gray-800/30 rounded-lg p-6">
-                <p class="text-gray-300 leading-relaxed">{{ $pengajuan->penjelasan }}</p>
+                <p class="text-gray-300 leading-relaxed">{!! nl2br(e($pengajuan->penjelasan)) !!}</p>
             </div>
         </div>
 
@@ -205,15 +205,17 @@
                 @if (Auth::user()->role === 'admin')
                     @if ($pengajuan->validasi_admin === null)
                         @if ($pengajuan->validasi_kepalacabang === 1)
-                            <form action="{{ route('kronologi.validasi', $pengajuan->id) }}" method="POST"
-                                class="flex items-center space-x-4">
+                            <form id="adminForm" action="{{ route('kronologi.validasi', $pengajuan->id) }}"
+                                method="POST" class="flex items-center space-x-4">
                                 @csrf
-                                <button name="aksi" value="terima"
+                                <input type="hidden" name="aksi" id="adminAksi">
+                                <input type="hidden" name="alasan" id="adminAlasan">
+                                <button type="button" onclick="submitForm('terima', 'admin')"
                                     class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105">
                                     <i class="fas fa-check mr-2"></i>
                                     Terima Pengajuan
                                 </button>
-                                <button name="aksi" value="tolak"
+                                <button type="button" onclick="openModal('admin')"
                                     class="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105">
                                     <i class="fas fa-times mr-2"></i>
                                     Tolak Pengajuan
@@ -238,15 +240,17 @@
                 @endif
 
                 @if (Auth::user()->role === 'kepala' && $pengajuan->validasi_kepalacabang === null)
-                    <form action="{{ route('kronologi.validasi', $pengajuan->id) }}" method="POST"
-                        class="flex items-center space-x-4">
+                    <form id="kepalaForm" action="{{ route('kronologi.validasi', $pengajuan->id) }}"
+                        method="POST" class="flex items-center space-x-4">
                         @csrf
-                        <button name="aksi" value="terima"
+                        <input type="hidden" name="aksi" id="kepalaAksi">
+                        <input type="hidden" name="alasan" id="kepalaAlasan">
+                        <button type="button" onclick="submitForm('terima', 'kepala')"
                             class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105">
                             <i class="fas fa-check mr-2"></i>
                             Terima Pengajuan
                         </button>
-                        <button name="aksi" value="tolak"
+                        <button type="button" onclick="openModal('kepala')"
                             class="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105">
                             <i class="fas fa-times mr-2"></i>
                             Tolak Pengajuan
@@ -255,6 +259,21 @@
                 @endif
             </div>
         @endif
+
+        <!-- Rejection Reason Modal -->
+        <div id="rejectionModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full">
+                <h3 class="text-xl font-semibold text-white mb-4">Alasan Penolakan</h3>
+                <textarea id="rejectionReason" class="w-full p-3 bg-gray-700 text-white rounded-lg" rows="4"
+                    placeholder="Masukkan alasan penolakan..." required></textarea>
+                <div class="flex justify-end space-x-4 mt-4">
+                    <button onclick="closeModal()"
+                        class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">Batal</button>
+                    <button id="submitRejection" onclick="submitRejection()"
+                        class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Kirim</button>
+                </div>
+            </div>
+        </div>
 
         <!-- Timeline -->
         <div class="glass-card rounded-2xl p-6">
@@ -319,4 +338,37 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let currentRole = '';
+
+        function openModal(role) {
+            currentRole = role;
+            document.getElementById('rejectionModal').classList.remove('hidden');
+            document.getElementById('rejectionReason').value = '';
+        }
+
+        function closeModal() {
+            document.getElementById('rejectionModal').classList.add('hidden');
+            currentRole = '';
+        }
+
+        function submitForm(aksi, role) {
+            const form = document.getElementById(role + 'Form');
+            document.getElementById(role + 'Aksi').value = aksi;
+            form.submit();
+        }
+
+        function submitRejection() {
+            const reason = document.getElementById('rejectionReason').value.trim();
+            if (reason === '') {
+                alert('Alasan penolakan harus diisi.');
+                return;
+            }
+            const form = document.getElementById(currentRole + 'Form');
+            document.getElementById(currentRole + 'Aksi').value = 'tolak';
+            document.getElementById(currentRole + 'Alasan').value = reason;
+            form.submit();
+        }
+    </script>
 @endsection
