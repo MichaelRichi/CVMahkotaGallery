@@ -286,8 +286,9 @@ class SlipGajiController extends Controller
     {
         $month = $request->input('month');
         $year = $request->input('year');
-        $staffId = Auth::user()->id; // Asumsikan staff_id tersedia dari user yang login
-
+        $user = Auth::user();
+        $staff = \App\Models\Staff::where('users_id', $user->id)->first();
+        $staffId = $staff->id;
         // Validasi staff_id
         if (!$staffId) {
             Log::error('Staff ID tidak ditemukan untuk user: ' . Auth::user()->id);
@@ -372,5 +373,42 @@ class SlipGajiController extends Controller
 
         $pdf = Pdf::loadView('slip.riwayat_penggajian_all_pdf', compact('payrolls'));
         return $pdf->download('riwayat-penggajian-' . now()->format('Y-m-d') . '.pdf');
+    }
+
+    public function exportPdfKaryawan(Request $request)
+    {
+        $payroll = SlipGaji::query()
+            ->where('staff_id', Auth::user()->staff_id) // Filter for authenticated user
+            ->when($request->month, fn($query) => $query->whereMonth('periode', $request->month))
+            ->when($request->year, fn($query) => $query->whereYear('periode', $request->year))
+            ->get();
+
+        $pdf = Pdf::loadView('slip.riwayat_penggajian_karyawan_pdf', compact('payroll'));
+        return $pdf->download('riwayat-penggajian-' . now()->format('Y-m-d') . '.pdf');
+    }
+
+    public function exportPdfKaryawanBulan($id)
+    {
+        $user = Auth::user()->id;
+        $staff = \App\Models\Staff::where('users_id', $user)->first();
+        $staffId = $staff->id;
+        $payroll = SlipGaji::with(['staff', 'cabang'])
+            ->where('staff_id', $staffId)
+            ->findOrFail($id);
+
+
+        // Load the single payroll PDF view
+        $pdf = Pdf::loadView('slip.riwayat_penggajian_karyawan_pdf', compact('payroll'));
+
+        // Set PDF options for better rendering
+        $pdf->setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true,
+            'defaultFont' => 'Arial',
+        ]);
+
+        // Download the PDF with a filename based on the period
+        $periode = \Carbon\Carbon::parse($payroll->periode)->format('Y-m');
+        return $pdf->download('slip-gaji-' . $periode . '.pdf');
     }
 }

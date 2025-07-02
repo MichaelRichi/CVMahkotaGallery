@@ -89,7 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/slip/karyawan/riwayat', [SlipGajiController::class, 'riwayatGajiKaryawan'])->name('slip.karyawan.riwayat');
     Route::get('/slip/karyawan/{id}', [SlipGajiController::class, 'detailGajiKaryawan'])->name('slip.karyawan.detail');
     Route::get('/slip/riwayat/pdf', [SlipGajiController::class, 'exportPdf'])->name('slip.riwayat.pdf');
-    Route::get('/slip/karyawan/riwayat/pdf', [SlipGajiController::class, 'exportPdf'])->name('slip.riwayat.karyawan.pdf');
+    Route::get('/slip/karyawan/riwayat/pdf/{id}', [SlipGajiController::class, 'exportPdfKaryawanBulan'])->name('slip.riwayat.karyawan.pdf');
 
 });
 

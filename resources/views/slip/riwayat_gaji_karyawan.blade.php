@@ -19,10 +19,11 @@
                    border: 1px solid #000;
                }
                .text-white { color: #000 !important; }
-               .text-gray-300, .text-gray-400, .text-gray-500 { color: #333 !important; }
+               .text-gray-300, text-gray-400, .text-gray-500 { color: #333 !important; }
                .text-yellow-400 { color: #000 !important; }
                .text-red-400 { color: #000 !important; }
                .bg-blue-600, .hover\:bg-blue-700:hover { background: none !important; border: 1px solid #000; color: #000 !important; }
+               .bg-green-500, .hover\:bg-green-600:hover, .bg-green-600, .hover\:bg-green-700:hover { background: none !important; border: 1px solid #000; color: #000 !important; }
                .hover\:bg-gray-800\/30:hover { background: none !important; }
                .transform, .hover\:scale-105:hover { transform: none !important; }
                table { width: 100%; border-collapse: collapse; }
@@ -42,13 +43,6 @@
                        <h2 class="text-2xl font-bold text-white mb-2">Riwayat Penggajian Saya</h2>
                        <p class="text-gray-400">Pantau riwayat penggajian Anda per {{ now()->format('F Y') }}</p>
                    </div>
-                   <div>
-                       <a href="{{ route('slip.karyawan.riwayat.pdf') }}"
-                          class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105">
-                           <i class="fas fa-file-pdf mr-2"></i>
-                           Cetak PDF
-                       </a>
-                   </div>
                </div>
            </div>
 
@@ -59,7 +53,7 @@
                    Filter Riwayat
                </h3>
 
-               <form method="GET" action="{{ route('slip.riwayat.karyawan.pdf') }}" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+               <form method="GET" action="{{ route('slip.karyawan.riwayat') }}" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                    <!-- Month Filter -->
                    <div>
                        <label class="block text-sm font-medium text-gray-300 mb-2">Bulan</label>
@@ -167,10 +161,16 @@
                                        <span class="text-white font-medium">Rp {{ number_format($payroll->gaji_bersih, 0, ',', '.') }}</span>
                                    </td>
                                    <td class="px-6 py-4 hidden-in-pdf">
-                                       <a href="{{ route('slip.karyawan.detail', $payroll->id) }}"
-                                          class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                                           <i class="fas fa-eye mr-2"></i> Detail
-                                       </a>
+                                       <div class="flex space-x-2">
+                                           <a href="{{ route('slip.karyawan.detail', $payroll->id) }}"
+                                              class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                               <i class="fas fa-eye mr-2"></i> Detail
+                                           </a>
+                                           <a href="{{ route('slip.riwayat.karyawan.pdf', $payroll->id) }}"
+                                              class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                                               <i class="fas fa-file-pdf mr-2"></i> Cetak PDF
+                                           </a>
+                                       </div>
                                    </td>
                                </tr>
                            @empty
