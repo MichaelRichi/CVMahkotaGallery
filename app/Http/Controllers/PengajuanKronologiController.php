@@ -146,7 +146,15 @@ class PengajuanKronologiController extends Controller
     {
         $staff = Auth::user()->staff;
         $pengajuan = PengajuanKronologi::where('staff_id', $staff->id)->get();
-        $diterima = PengajuanKronologi::where('staff_id', $staff->id)->where('validasi_admin', 1)->sum('harga_barang');
-        return view('pengajuan_kronologi.riwayat', compact('pengajuan', 'diterima'));
+        $totalPengajuan = $pengajuan->count();
+        $menunggu = $pengajuan->filter(fn($item) => is_null($item->validasi_admin) || is_null($item->validasi_kepalacabang))->count();
+        $diterimaCount = $pengajuan->filter(fn($item) => $item->validasi_admin === 1 && $item->validasi_kepalacabang === 1)->count();
+        $ditolak = $pengajuan->filter(fn($item) => $item->validasi_admin === 0 || $item->validasi_kepalacabang === 0)->count();
+        $diterima = PengajuanKronologi::where('staff_id', $staff->id)
+            ->where('validasi_admin', 1)
+            ->where('validasi_kepalacabang', 1) // Add this if needed
+            ->sum('harga_barang');
+
+        return view('pengajuan_kronologi.riwayat', compact('pengajuan', 'totalPengajuan', 'menunggu', 'diterimaCount', 'ditolak', 'diterima'));
     }
 }

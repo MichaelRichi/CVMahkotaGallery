@@ -11,7 +11,7 @@
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h2 class="text-3xl font-bold text-white mb-2">
-                        <i class="fas fa-calendar-alt mr-2 text-white"></i> Rekap Absen Bulan <span
+                        📅 Rekap Absen Bulan <span
                             class="text-yellow-400">{{ \Carbon\Carbon::parse($bulan)->translatedFormat('F Y') }}</span>
                     </h2>
                     <p class="text-gray-400 text-lg">Pantau kehadiran karyawan dengan mudah dan akurat</p>
@@ -46,7 +46,7 @@
                             <p class="text-2xl font-bold text-white mt-1">{{ $jumlahHari }}</p>
                         </div>
                         <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-calendar-alt text-white"></i>
+                            <i class="fas fa-calendar-alt text-green-400"></i>
                         </div>
                     </div>
                 </div>
@@ -128,11 +128,10 @@
             @if (count($staffList) > 0)
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
-                        <
                         <thead class="bg-gray-800/30 rounded-lg">
                             <tr>
                                 <th
-                                    class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider sticky left-0 bg-gray-800 min-w-[200px] rounded-l-lg">
+                                    class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider sticky left-0 bg-gray-800/50 min-w-[200px] rounded-l-lg">
                                     Nama Karyawan
                                 </th>
                                 @for ($i = 1; $i <= $jumlahHari; $i++)
@@ -148,7 +147,7 @@
                                 <tr
                                     class="bg-gray-800/30 rounded-lg border border-gray-700/50 hover:bg-gray-800/50 transition-colors duration-200">
                                     <td
-                                        class="px-4 py-4 whitespace-nowrap sticky left-0 bg-gray-800 rounded-l-lg">
+                                        class="px-4 py-4 whitespace-nowrap sticky left-0 bg-gray-800/50 backdrop-blur-sm rounded-l-lg">
                                         <div class="flex items-center">
                                             <div
                                                 class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center mr-3">

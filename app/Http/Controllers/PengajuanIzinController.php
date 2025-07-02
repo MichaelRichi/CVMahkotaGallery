@@ -71,7 +71,7 @@ class PengajuanIzinController extends Controller
         }else{
             return redirect()->route('dashboard')->with('success', 'Pengajuan berhasil ditambahkan.');
         }
-        
+
     }
 
     public function detail($id)

@@ -10,7 +10,7 @@
     <div class="glass-card rounded-2xl p-6">
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-white mb-2">Riwayat Pengajuan denda</h2>
+                <h2 class="text-2xl font-bold text-white mb-2">Riwayat Pengajuan Denda</h2>
                 <p class="text-gray-400">Pantau semua pengajuan denda yang pernah Anda buat</p>
             </div>
             <a href="{{ route('kronologi.addView') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-amber-500 text-black font-semibold rounded-xl hover:from-yellow-500 hover:to-amber-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-yellow-400/25">
@@ -37,7 +37,7 @@
             $menunggu = $pengajuan->filter(function($item) {
                 return is_null($item->validasi_admin) || is_null($item->validasi_kepalacabang);
             })->count();
-            $diterima = $pengajuan->filter(function($item) {
+            $diterimaCount = $pengajuan->filter(function($item) {
                 return $item->validasi_admin === 1 && $item->validasi_kepalacabang === 1;
             })->count();
             $ditolak = $pengajuan->filter(function($item) {
@@ -73,7 +73,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-400 text-sm font-medium">Diterima</p>
-                    <p class="text-2xl font-bold text-white mt-1">{{ $diterima }}</p>
+                    <p class="text-2xl font-bold text-white mt-1">{{ $diterimaCount }}</p>
                 </div>
                 <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                     <i class="fas fa-check-circle text-green-400"></i>
@@ -216,7 +216,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-green-400 text-sm font-medium">Total Nilai Pengajuan</p>
-                            <p class="text-2xl font-bold text-white mt-1">Rp {{$diterima}}</p>
+                            <p class="text-2xl font-bold text-white mt-1">Rp {{ number_format($diterima, 0, ',', '.') }}</p>
                         </div>
                         <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                             <i class="fas fa-money-bill-wave text-green-400"></i>
@@ -230,7 +230,7 @@
                         <div>
                             <p class="text-blue-400 text-sm font-medium">Tingkat Persetujuan</p>
                             <p class="text-2xl font-bold text-white mt-1">
-                                {{ $totalPengajuan > 0 ? round(($diterima / $totalPengajuan) * 100) : 0 }}%
+                                {{ $totalPengajuan > 0 ? round(($diterimaCount / $totalPengajuan) * 100) : 0 }}%
                             </p>
                         </div>
                         <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">

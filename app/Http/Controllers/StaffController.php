@@ -71,47 +71,52 @@ class StaffController extends Controller
     }
     public function add(Request $request)
     {
+        // Validasi input
         $validated = $request->validate([
-            'NIK'             => 'required|unique:staff,NIK',
-            'nama'            => 'required',
-            'JK'              => 'required|in:L,P',
-            'TTL'             => 'required|date',
-            'notel'           => 'required',
-            'alamat'          => 'required',
-            'tgl_masuk'       => 'required|date',
-            'tgl_keluar'      => 'nullable|date|after_or_equal:tgl_masuk',
-            'gaji_pokok'      => 'required|numeric',
-            'gaji_tunjangan'  => 'required|numeric',
-            'is_active'       => 'required|boolean',
-            'cabang_id'       => 'required|exists:cabang,id',
-            'jabatan_id'      => 'required|exists:jabatan,id',
+            'NIK' => 'required|string|max:16|unique:staff,NIK',
+            'nama' => 'required|string|max:255',
+            'JK' => 'required|in:L,P',
+            'TTL' => 'required|date',
+            'notel' => 'required|string|max:20',
+            'alamat' => 'required|string',
+            'tgl_masuk' => 'required|date',
+            'tgl_keluar' => 'nullable|date|after_or_equal:tgl_masuk',
+            'gaji_pokok' => 'required|numeric|min:0',
+            'gaji_tunjangan' => 'nullable|numeric|min:0',
+            'is_active' => 'required|boolean',
+            'cabang_id' => 'required|exists:cabang,id',
+            'jabatan_id' => 'required|exists:jabatan,id',
         ]);
 
-        $staff = Staff::create($request->only([
-            'NIK',
-            'nama',
-            'JK',
-            'TTL',
-            'notel',
-            'alamat',
-            'tgl_masuk',
-            'tgl_keluar',
-            'gaji_pokok',
-            'gaji_tunjangan',
-            'is_active',
-        ]));
+        // Set default nilai gaji_tunjangan ke 0 jika tidak diisi
+        $validated['gaji_tunjangan'] = $validated['gaji_tunjangan'] ?? 0;
+
+        // Simpan data staff
+        $staff = Staff::create([
+            'NIK' => $validated['NIK'],
+            'nama' => $validated['nama'],
+            'JK' => $validated['JK'],
+            'TTL' => $validated['TTL'],
+            'notel' => $validated['notel'],
+            'alamat' => $validated['alamat'],
+            'tgl_masuk' => $validated['tgl_masuk'],
+            'tgl_keluar' => $validated['tgl_keluar'],
+            'gaji_pokok' => $validated['gaji_pokok'],
+            'gaji_tunjangan' => $validated['gaji_tunjangan'],
+            'is_active' => $validated['is_active'],
+        ]);
 
         // Tambah relasi cabang aktif
-        $staff->cabang()->attach($request->cabang_id, [
-            'is_active'       => true,
-            'tanggal_mulai'   => $request->tgl_masuk,
+        $staff->cabang()->attach($validated['cabang_id'], [
+            'is_active' => true,
+            'tanggal_mulai' => $validated['tgl_masuk'],
             'tanggal_selesai' => null,
         ]);
 
-        // Tambah relasi jabatan aktif + tanggal masuk sebagai tanggal_mulai
-        $staff->jabatan()->attach($request->jabatan_id, [
-            'is_active'       => true,
-            'tanggal_mulai'   => $request->tgl_masuk,
+        // Tambah relasi jabatan aktif
+        $staff->jabatan()->attach($validated['jabatan_id'], [
+            'is_active' => true,
+            'tanggal_mulai' => $validated['tgl_masuk'],
             'tanggal_selesai' => null,
         ]);
 
@@ -261,7 +266,6 @@ class StaffController extends Controller
                 'role' => $request->role,
                 'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
             ]);
-
         } else {
             $user = User::create([
                 'email' => $request->email,
