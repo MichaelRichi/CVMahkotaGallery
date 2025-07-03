@@ -15,7 +15,7 @@ class StaffSeeder extends Seeder
 
         DB::table('staff')->insert([
             [
-                'NIP' => '3201010101010001',
+                'NIP' => 'MG070102-001',
                 'nama' => 'Andi Saputra',
                 'JK' => 'L',
                 'TTL' => '1995-06-15',
@@ -33,7 +33,7 @@ class StaffSeeder extends Seeder
             ],
             // admin
             [
-                'NIP' => '3201010101010002',
+                'NIP' => 'MG070102-002',
                 'nama' => 'Rina Kartika',
                 'JK' => 'P',
                 'TTL' => '1992-08-22',
@@ -50,7 +50,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010003',
+                'NIP' => 'MG070102-003',
                 'nama' => 'Dedi Supriadi',
                 'JK' => 'L',
                 'TTL' => '1988-03-30',
@@ -67,7 +67,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010004',
+                'NIP' => 'MG070102-004',
                 'nama' => 'Lisa Amalia',
                 'JK' => 'P',
                 'TTL' => '1990-12-05',
@@ -84,7 +84,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010005',
+                'NIP' => 'MG070102-005',
                 'nama' => 'Budi Prasetyo',
                 'JK' => 'L',
                 'TTL' => '1985-05-17',
@@ -101,7 +101,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010006',
+                'NIP' => 'MG070102-006',
                 'nama' => 'Siti Rohmah',
                 'JK' => 'P',
                 'TTL' => '1993-11-11',
@@ -118,7 +118,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010007',
+                'NIP' => 'MG070102-007',
                 'nama' => 'Ahmad Fauzi',
                 'JK' => 'L',
                 'TTL' => '1994-09-09',
@@ -135,7 +135,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010008',
+                'NIP' => 'MG070102-008',
                 'nama' => 'Desi Marlina',
                 'JK' => 'P',
                 'TTL' => '1991-07-20',
@@ -152,7 +152,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010009',
+                'NIP' => 'MG070102-009',
                 'nama' => 'Ilham Maulana',
                 'JK' => 'L',
                 'TTL' => '1996-01-01',
@@ -169,7 +169,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010010',
+                'NIP' => 'MG070102-010',
                 'nama' => 'Tania Rizky',
                 'JK' => 'P',
                 'TTL' => '1989-02-25',
@@ -186,7 +186,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010011',
+                'NIP' => 'MG070102-011',
                 'nama' => 'Yudi Kurniawan',
                 'JK' => 'L',
                 'TTL' => '1993-03-10',
@@ -203,7 +203,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010012',
+                'NIP' => 'MG070102-012',
                 'nama' => 'Melani Putri',
                 'JK' => 'P',
                 'TTL' => '1994-04-14',
@@ -220,7 +220,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010013',
+                'NIP' => 'MG070102-013',
                 'nama' => 'Fikri Hidayat',
                 'JK' => 'L',
                 'TTL' => '1990-08-18',
@@ -237,7 +237,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010014',
+                'NIP' => 'MG070102-014',
                 'nama' => 'Sarah Dewi',
                 'JK' => 'P',
                 'TTL' => '1987-06-20',
@@ -254,7 +254,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010015',
+                'NIP' => 'MG070102-015',
                 'nama' => 'Agus Prabowo',
                 'JK' => 'L',
                 'TTL' => '1986-11-11',
@@ -271,7 +271,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010016',
+                'NIP' => 'MG070102-016',
                 'nama' => 'Lestari Widya',
                 'JK' => 'P',
                 'TTL' => '1997-12-12',
@@ -288,7 +288,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010017',
+                'NIP' => 'MG070102-017',
                 'nama' => 'Gilang Ramadhan',
                 'JK' => 'L',
                 'TTL' => '1991-01-01',
@@ -305,7 +305,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010018',
+                'NIP' => 'MG070102-018',
                 'nama' => 'Nurhayati',
                 'JK' => 'P',
                 'TTL' => '1995-10-10',
@@ -322,7 +322,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010019',
+                'NIP' => 'MG070102-019',
                 'nama' => 'Rizky Ananda',
                 'JK' => 'L',
                 'TTL' => '1996-09-09',
@@ -339,7 +339,7 @@ class StaffSeeder extends Seeder
                 'updated_at' => $now
             ],
             [
-                'NIP' => '3201010101010020',
+                'NIP' => 'MG070102-020',
                 'nama' => 'Mega Puspita',
                 'JK' => 'P',
                 'TTL' => '1993-03-03',
@@ -355,7 +355,6 @@ class StaffSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now
             ]
-
         ]);
     }
 }
