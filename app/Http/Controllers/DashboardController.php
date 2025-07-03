@@ -6,9 +6,8 @@ use App\Models\Staff;
 use App\Models\Absen;
 use App\Models\SlipGaji;
 use App\Models\Cabang;
-use App\Models\PengajuanIzin;
-use App\Models\PengajuanKronologi;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -19,9 +18,11 @@ class DashboardController extends Controller
         if (Auth::user()->role === 'admin') {
             // Admin dashboard data
             $data['totalStaff'] = Staff::where('is_active', true)->count();
-            $data['pengajuanAktif'] = PengajuanIzin::where('validasi_admin', 'pending')->count();
             $data['cabangAktif'] = Cabang::where('is_active', true)->count();
-            $data['kronologiAktif'] = PengajuanKronologi::where('status', 'pending')->count();
+            $data['izinHariIni'] = Absen::whereIn('status', ['I', 'S', 'C'])
+                ->whereDate('tanggal', Carbon::today())
+                ->distinct('staff_id')
+                ->count('staff_id');
         } else {
             // Karyawan dashboard data
             $staff = Auth::user()->staff;
@@ -41,6 +42,14 @@ class DashboardController extends Controller
                     'izin' => Absen::where('staff_id', $staff->id)
                         ->whereIn('status', ['I', 'S', 'C'])
                         ->count(),
+                    'izinBulanan' => Absen::where('staff_id', $staff->id)
+                        ->whereIn('status', ['A', 'I'])
+                        ->whereBetween('tanggal', [Carbon::today()->startOfMonth(), Carbon::today()->endOfMonth()])
+                        ->count(),
+                    'cutiTahunan' => Absen::where('staff_id', $staff->id)
+                        ->where('status', 'C')
+                        ->whereBetween('tanggal', [Carbon::today()->startOfYear(), Carbon::today()->endOfYear()])
+                        ->count(),
                 ];
 
                 // Salary summary (get the latest salary record)
@@ -59,6 +68,8 @@ class DashboardController extends Controller
                     'alpha' => 0,
                     'terlambat' => 0,
                     'izin' => 0,
+                    'izinBulanan' => 0,
+                    'cutiTahunan' => 0,
                 ];
                 $data['salarySummary'] = [
                     'gaji_pokok' => 0,
