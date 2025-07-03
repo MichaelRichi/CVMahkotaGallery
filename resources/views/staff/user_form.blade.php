@@ -45,8 +45,8 @@
                     <i class="fas fa-id-card text-blue-400"></i>
                 </div>
                 <div>
-                    <p class="text-gray-400 text-sm">NIK</p>
-                    <p class="text-white font-medium">{{ $staff->NIK }}</p>
+                    <p class="text-gray-400 text-sm">NIP</p>
+                    <p class="text-white font-medium">{{ $staff->NIP }}</p>
                 </div>
             </div>
         </div>

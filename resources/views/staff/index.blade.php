@@ -68,7 +68,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-300 mb-2">Cari Staff</label>
                 <input type="text" name="search" value="{{ $search ?? '' }}"
-                       placeholder="Nama, NIK, No. Telp, Alamat..."
+                       placeholder="Nama, NIP, No. Telp, Alamat..."
                        class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all">
             </div>
 
@@ -94,7 +94,7 @@
                         </th>
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
                             <i class="fas fa-id-card mr-2 text-yellow-400"></i>
-                            NIK
+                            NIP
                         </th>
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
                             <i class="fas fa-briefcase mr-2 text-yellow-400"></i>
@@ -129,7 +129,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                <span class="text-gray-300 font-mono">{{ $s->NIK }}</span>
+                                <span class="text-gray-300 font-mono">{{ $s->NIP }}</span>
                             </td>
                             <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-500/20 text-blue-400 border border-blue-500/30">

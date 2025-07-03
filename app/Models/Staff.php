@@ -8,7 +8,7 @@ class Staff extends Model
 {
     protected $table = 'staff';
     protected $fillable = [
-        'NIK',
+        'NIP',
         'nama',
         'JK',
         'TTL',
@@ -25,7 +25,7 @@ class Staff extends Model
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
-    // 1 staff bisa kerja di banyak cabang | 1 cabang bisa memiliki banyak staff 
+    // 1 staff bisa kerja di banyak cabang | 1 cabang bisa memiliki banyak staff
     public function cabang()
     {
         return $this->belongsToMany(Cabang::class, 'staff_cabang', 'staff_id', 'cabang_id')->withTimestamps();

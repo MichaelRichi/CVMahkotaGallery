@@ -51,13 +51,13 @@
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- NIK -->
+                <!-- NIP -->
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">
                         <i class="fas fa-id-card mr-1 text-yellow-400"></i>
-                        NIK
+                        NIP
                     </label>
-                    <input type="text" name="NIK" value="{{ old('NIK', $staff->NIK) }}"
+                    <input type="text" name="NIP" value="{{ old('NIP', $staff->NIP) }}"
                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all" required>
                 </div>
 

@@ -47,11 +47,11 @@ class StaffController extends Controller
             });
         }
 
-        // Pencarian berdasarkan nama, NIK, nomor telepon, atau alamat
+        // Pencarian berdasarkan nama, NIP, nomor telepon, atau alamat
         if ($request->filled('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('nama', 'like', '%' . $search . '%')
-                    ->orWhere('NIK', 'like', '%' . $search . '%')
+                    ->orWhere('NIP', 'like', '%' . $search . '%')
                     ->orWhere('notel', 'like', '%' . $search . '%')
                     ->orWhere('alamat', 'like', '%' . $search . '%');
             });
@@ -73,7 +73,7 @@ class StaffController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-            'NIK' => 'required|string|max:16|unique:staff,NIK',
+            'NIP' => 'required|string|max:12|unique:staff,NIP',
             'nama' => 'required|string|max:255',
             'JK' => 'required|in:L,P',
             'TTL' => 'required|date',
@@ -93,7 +93,7 @@ class StaffController extends Controller
 
         // Simpan data staff
         $staff = Staff::create([
-            'NIK' => $validated['NIK'],
+            'NIP' => $validated['NIP'],
             'nama' => $validated['nama'],
             'JK' => $validated['JK'],
             'TTL' => $validated['TTL'],
@@ -143,7 +143,7 @@ class StaffController extends Controller
     {
         $staff = Staff::findOrFail($id);
         $validated = $request->validate([
-            'NIK'             => 'required|unique:staff,NIK,' . $staff->id,
+            'NIP'             => 'required|unique:staff,NIP,' . $staff->id,
             'nama'            => 'required',
             'JK'              => 'required|in:L,P',
             'TTL'             => 'required|date',

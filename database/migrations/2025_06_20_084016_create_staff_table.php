@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->char('NIK',16)->unique();
+            $table->char('NIP',12)->unique();
             $table->string('nama');
             $table->enum('JK', ['L', 'P']);
             $table->date('TTL');
