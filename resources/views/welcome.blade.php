@@ -252,8 +252,8 @@
                                    class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-amber-500 text-black font-bold rounded-xl hover:from-yellow-500 hover:to-amber-600 transition-all duration-300 shadow-lg hover:shadow-yellow-500/25 pulse-glow">
                                     <i class="fas fa-sign-in-alt mr-3"></i>
                                     Masuk Sekarang
-                                </a>
-                            @endauth --}}
+                                </a> --}}
+                            @endauth
                         @endif
 
                         <a href="#about"
