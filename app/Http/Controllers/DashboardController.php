@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function view()
+ public function view()
     {
         $data = [];
 
@@ -28,23 +28,30 @@ class DashboardController extends Controller
             $staff = Auth::user()->staff;
 
             if ($staff) {
-                // Attendance summary
+                // Attendance summary for current month
+                $startOfMonth = Carbon::today()->startOfMonth();
+                $endOfMonth = Carbon::today()->endOfMonth();
+
                 $data['absenSummary'] = [
                     'hadir' => Absen::where('staff_id', $staff->id)
                         ->where('status', 'H')
+                        ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                         ->count(),
                     'alpha' => Absen::where('staff_id', $staff->id)
                         ->where('status', 'A')
+                        ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                         ->count(),
                     'terlambat' => Absen::where('staff_id', $staff->id)
                         ->where('status', 'T')
+                        ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                         ->count(),
                     'izin' => Absen::where('staff_id', $staff->id)
                         ->whereIn('status', ['I', 'S', 'C'])
+                        ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                         ->count(),
                     'izinBulanan' => Absen::where('staff_id', $staff->id)
                         ->whereIn('status', ['A', 'I'])
-                        ->whereBetween('tanggal', [Carbon::today()->startOfMonth(), Carbon::today()->endOfMonth()])
+                        ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                         ->count(),
                     'cutiTahunan' => Absen::where('staff_id', $staff->id)
                         ->where('status', 'C')
