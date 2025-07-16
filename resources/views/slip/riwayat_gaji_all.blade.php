@@ -5,6 +5,37 @@
 @section('page-description', 'Lihat riwayat penggajian karyawan Mahkota Gallery per bulan')
 
 @section('content')
+    <style>
+        /* PDF-specific styles */
+        @media print {
+            .glass-card {
+                background: none;
+                border: 1px solid #ddd;
+                box-shadow: none;
+            }
+            .bg-gradient-to-r {
+                background: none !important;
+                color: #000 !important;
+                border: 1px solid #000;
+            }
+            .text-white { color: #000 !important; }
+            .text-gray-300, .text-gray-400, .text-gray-500 { color: #333 !important; }
+            .text-yellow-400 { color: #000 !important; }
+            .text-red-400 { color: #000 !important; }
+            .text-purple-400 { color: #000 !important; }
+            .bg-blue-600, .hover\:bg-blue-700:hover { background: none !important; border: 1px solid #000; color: #000 !important; }
+            .bg-green-500, .hover\:bg-green-600:hover { background: none !important; border: 1px solid #000; color: #000 !important; }
+            .hover\:bg-gray-800\/30:hover { background: none !important; }
+            .transform, .hover\:scale-105:hover { transform: none !important; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #000; padding: 8px; }
+            th { background-color: #f2f2f2; }
+            .text-right { text-align: right; }
+            .text-center { text-align: center; }
+            .hidden-in-pdf { display: none !important; }
+        }
+    </style>
+
     <div class="space-y-6">
         <!-- Header Actions -->
         <div class="glass-card rounded-2xl p-6">
@@ -102,13 +133,25 @@
                                 <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
                                 Pot. Peminjaman
                             </th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300uppercase tracking-wider">
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                                <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
+                                Pot. Izin
+                            </th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                                <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
+                                Pot. Alpha
+                            </th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                                <i class="fas fa-minus-circle mr-2 text-yellow-400"></i>
+                                Pot. Terlambat
+                            </th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-300 uppercase tracking-wider">
                                 <i class="fas fa-wallet mr-2 text-yellow-400"></i>
                                 Gaji Bersih
                             </th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">
-                                <i class="fas fa-clock mr-2 text-yellow-400"></i>
-                                Tanggal Penggajian
+                                <i class="fas fa-eye mr-2 text-yellow-400"></i>
+                                Aksi
                             </th>
                         </tr>
                     </thead>
@@ -146,15 +189,29 @@
                                     <span class="text-red-400 font-medium">Rp {{ number_format($payroll->potongan_hutang, 0, ',', '.') }}</span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
+                                    <span class="text-red-400 font-medium">Rp {{ number_format($payroll->potongan_izin, 0, ',', '.') }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <span class="text-red-400 font-medium">Rp {{ number_format($payroll->potongan_alpha, 0, ',', '.') }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <span class="text-red-400 font-medium">Rp {{ number_format($payroll->potongan_terlambat, 0, ',', '.') }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
                                     <span class="text-white font-medium">Rp {{ number_format($payroll->gaji_bersih, 0, ',', '.') }}</span>
                                 </td>
-                                <td class="px-6 py-4">
-                                    <span class="text-gray-300">{{ $payroll->created_at->format('Y-m-d') }}</span>
+                                <td class="px-6 py-4 hidden-in-pdf">
+                                    <div class="flex space-x-2">
+                                        <a href="{{ route('slip.karyawan.detail', $payroll->id) }}"
+                                           class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                            <i class="fas fa-eye mr-2"></i> Detail
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="px-6 py-12 text-center">
+                                <td colspan="12" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center">
                                         <i class="fas fa-history text-4xl text-gray-600 mb-4"></i>
                                         <p class="text-gray-400 text-lg">Tidak ada riwayat penggajian</p>

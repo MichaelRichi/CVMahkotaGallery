@@ -322,7 +322,9 @@ class SlipGajiController extends Controller
     public function detailGajiKaryawan($id)
     {
         // Validasi staff_id dari user yang login
-        $staffId = Auth::user()->id;
+        $userId = Auth::user()->id;
+        $staffId = Staff::where('users_id', $userId)->value('id');
+
         if (!$staffId) {
             Log::error('Staff ID tidak ditemukan untuk user: ' . (Auth::check() ? Auth::user()->id : 'tidak login'));
             return redirect()->back()->with('error', 'Terjadi kesalahan, silakan hubungi admin.');
@@ -331,7 +333,8 @@ class SlipGajiController extends Controller
         // Ambil data slip gaji dengan relasi
         $payroll = SlipGaji::with(['staff', 'cabang'])
             ->where('staff_id', $staffId)
-            ->findOrFail($id);
+            ->where('id', $id)
+            ->firstOrFail();
 
         // Tambahkan konteks absen untuk penjelasan potongan
         $month = Carbon::parse($payroll->periode)->month;
@@ -340,6 +343,7 @@ class SlipGajiController extends Controller
             ->whereMonth('tanggal', $month)
             ->whereYear('tanggal', $year)
             ->get();
+
 
         $alphaDays = $absenRecords->where('status', 'A')->count();
         $izinDays = $absenRecords->where('status', 'I')->count();
@@ -358,7 +362,6 @@ class SlipGajiController extends Controller
         ];
 
         Log::info('Detail gaji untuk staff_id ' . $staffId . ' dengan ID ' . $id . ': ', $payroll->toArray());
-
         return view('slip.detail', compact('payroll', 'dailyRate'));
     }
 

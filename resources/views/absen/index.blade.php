@@ -131,7 +131,7 @@
                         <thead class="bg-gray-800/30 rounded-lg">
                             <tr>
                                 <th
-                                    class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider sticky left-0 bg-gray-800/50 min-w-[200px] rounded-l-lg">
+                                    class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider sticky left-0 bg-gray-800 min-w-[200px] rounded-l-lg">
                                     Nama Karyawan
                                 </th>
                                 @for ($i = 1; $i <= $jumlahHari; $i++)
@@ -147,7 +147,7 @@
                                 <tr
                                     class="bg-gray-800/30 rounded-lg border border-gray-700/50 hover:bg-gray-800/50 transition-colors duration-200">
                                     <td
-                                        class="px-4 py-4 whitespace-nowrap sticky left-0 bg-gray-800/50 backdrop-blur-sm rounded-l-lg">
+                                        class="px-4 py-4 whitespace-nowrap sticky left-0 bg-gray-800 rounded-l-lg">
                                         <div class="flex items-center">
                                             <div
                                                 class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center mr-3">
@@ -254,6 +254,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Override transparansi untuk kolom Nama Karyawan */
+        .sticky.bg-gray-800 {
+            background: rgb(31, 41, 55) !important; /* Warna solid dari bg-gray-800 */
+            backdrop-filter: none !important;
+        }
+
         @media print {
             body * {
                 visibility: hidden;
@@ -270,6 +276,23 @@
                 top: 0;
                 background: white !important;
                 color: black !important;
+            }
+
+            /* Pastikan kolom Nama Karyawan solid saat dicetak */
+            .sticky.bg-gray-800 {
+                background: #f2f2f2 !important; /* Warna abu-abu terang untuk cetak */
+                backdrop-filter: none !important;
+            }
+
+            /* Sesuaikan warna teks dan border untuk cetak */
+            .text-white { color: #000 !important; }
+            .text-gray-400 { color: #333 !important; }
+            .bg-blue-500\/20, .bg-green-500\/20, .bg-yellow-500\/20, .bg-red-500\/20, .bg-purple-500\/20, .bg-orange-500\/20, .bg-gray-500\/20 {
+                background: #f2f2f2 !important;
+                border: 1px solid #000 !important;
+            }
+            .text-blue-400, .text-green-400, .text-yellow-400, .text-red-400, .text-purple-400, .text-orange-400, .text-gray-400 {
+                color: #000 !important;
             }
         }
 

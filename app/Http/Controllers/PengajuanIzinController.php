@@ -71,7 +71,6 @@ class PengajuanIzinController extends Controller
         }else{
             return redirect()->route('dashboard')->with('success', 'Pengajuan berhasil ditambahkan.');
         }
-
     }
 
     public function detail($id)
@@ -98,7 +97,7 @@ class PengajuanIzinController extends Controller
 
         $pengajuan = PengajuanIzin::with('detail_pengajuan_izin')->findOrFail($id);
 
-        $staff = auth()->user()->staff;
+        $staff = Auth::user()->staff;
         if (!$staff) {
             abort(403, 'User ini tidak terhubung dengan data staff.');
         }
@@ -136,7 +135,7 @@ class PengajuanIzinController extends Controller
 
     public function riwayat()
     {
-        $staff = auth()->user()->staff;
+        $staff = Auth::user()->staff;
 
         if (!$staff) {
             abort(403, 'User belum terhubung dengan data staff.');
