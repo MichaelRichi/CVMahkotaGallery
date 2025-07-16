@@ -74,6 +74,7 @@ class StaffController extends Controller
         // Validasi input
         $validated = $request->validate([
             'NIP' => 'required|string|max:12|unique:staff,NIP',
+            'absen_id' => 'required|string|max:50|unique:staff,absen_id',
             'nama' => 'required|string|max:255',
             'JK' => 'required|in:L,P',
             'TTL' => 'required|date',
@@ -86,6 +87,8 @@ class StaffController extends Controller
             'is_active' => 'required|boolean',
             'cabang_id' => 'required|exists:cabang,id',
             'jabatan_id' => 'required|exists:jabatan,id',
+        ], [
+            'NIP.max' => 'NIP tidak boleh lebih dari 12 karakter.', // Pesan error kustom untuk max:12
         ]);
 
         // Set default nilai gaji_tunjangan ke 0 jika tidak diisi
@@ -94,6 +97,7 @@ class StaffController extends Controller
         // Simpan data staff
         $staff = Staff::create([
             'NIP' => $validated['NIP'],
+            'absen_id' => $validated['absen_id'],
             'nama' => $validated['nama'],
             'JK' => $validated['JK'],
             'TTL' => $validated['TTL'],

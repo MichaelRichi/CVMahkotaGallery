@@ -59,7 +59,30 @@
                     </label>
                     <input type="text" name="NIP" value="{{ old('NIP') }}"
                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
-                           placeholder="Masukkan NIP" required>
+                           placeholder="Masukkan NIP" required maxlength="12">
+                    @error('NIP')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
+                <!-- Absen ID -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">
+                        <i class="fas fa-fingerprint mr-1 text-yellow-400"></i>
+                        Absen ID
+                    </label>
+                    <input type="text" name="absen_id" value="{{ old('absen_id') }}"
+                           class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
+                           placeholder="Masukkan Absen ID" required>
+                    @error('absen_id')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Nama -->
@@ -71,6 +94,12 @@
                     <input type="text" name="nama" value="{{ old('nama') }}"
                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
                            placeholder="Masukkan nama lengkap" required>
+                    @error('nama')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Jenis Kelamin -->
@@ -86,6 +115,12 @@
                         <option value="L" {{ old('JK') == 'L' ? 'selected' : '' }}>Laki-laki</option>
                         <option value="P" {{ old('JK') == 'P' ? 'selected' : '' }}>Perempuan</option>
                     </select>
+                    @error('JK')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Tanggal Lahir -->
@@ -97,6 +132,12 @@
                     <input type="date" name="TTL" value="{{ old('TTL') }}"
                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
                            required>
+                    @error('TTL')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- No Telepon -->
@@ -108,6 +149,12 @@
                     <input type="text" name="notel" value="{{ old('notel') }}"
                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
                            placeholder="Masukkan nomor telepon" required>
+                    @error('notel')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Alamat -->
@@ -119,6 +166,12 @@
                     <textarea name="alamat" rows="3"
                               class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
                               placeholder="Masukkan alamat lengkap" required>{{ old('alamat') }}</textarea>
+                    @error('alamat')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
             </div>
         </div>
@@ -140,6 +193,12 @@
                     <input type="date" name="tgl_masuk" value="{{ old('tgl_masuk') }}"
                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all"
                            required>
+                    @error('tgl_masuk')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Tanggal Keluar -->
@@ -150,6 +209,12 @@
                     </label>
                     <input type="date" name="tgl_keluar" value="{{ old('tgl_keluar') }}"
                            class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all">
+                    @error('tgl_keluar')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Cabang -->
@@ -168,6 +233,12 @@
                             </option>
                         @endforeach
                     </select>
+                    @error('cabang_id')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Jabatan -->
@@ -186,6 +257,12 @@
                             </option>
                         @endforeach
                     </select>
+                    @error('jabatan_id')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Status -->
@@ -200,6 +277,12 @@
                         <option value="1" {{ old('is_active') == '1' ? 'selected' : '' }}>Aktif</option>
                         <option value="0" {{ old('is_active') == '0' ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
+                    @error('is_active')
+                        <p class="text-red-400 text-sm mt-1">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
             </div>
         </div>
