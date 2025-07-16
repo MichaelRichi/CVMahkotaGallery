@@ -233,6 +233,18 @@
                                 <p class="text-gray-400 text-sm">Kelola data karyawan</p>
                             </div>
                         </a>
+
+                        <a href="{{ route('reset.pw') }}"
+                            class="group bg-gradient-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-xl p-6 hover:from-orange-500/20 hover:to-orange-600/20 transition-all duration-300 hover:scale-105">
+                            <div class="flex flex-col items-center text-center">
+                                <div
+                                    class="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-500/30 transition-colors">
+                                    <i class="fas fa-lock text-2xl text-orange-400"></i>
+                                </div>
+                                <h4 class="text-white font-semibold mb-2">Reset Password</h4>
+                                <p class="text-gray-400 text-sm">Ubah kata sandi Anda</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             @endif
@@ -275,6 +287,18 @@
                                 </div>
                                 <h4 class="text-white font-semibold mb-2">Riwayat Izin</h4>
                                 <p class="text-gray-400 text-sm">Lihat riwayat pengajuan</p>
+                            </div>
+                        </a>
+
+                        <a href="{{ route('reset.pw') }}"
+                            class="group bg-gradient-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-xl p-6 hover:from-orange-500/20 hover:to-orange-600/20 transition-all duration-300 hover:scale-105">
+                            <div class="flex flex-col items-center text-center">
+                                <div
+                                    class="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-500/30 transition-colors">
+                                    <i class="fas fa-lock text-2xl text-orange-400"></i>
+                                </div>
+                                <h4 class="text-white font-semibold mb-2">Reset Password</h4>
+                                <p class="text-gray-400 text-sm">Ubah kata sandi Anda</p>
                             </div>
                         </a>
                     </div>

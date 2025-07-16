@@ -90,6 +90,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/slip/riwayat/pdf', [SlipGajiController::class, 'exportPdf'])->name('slip.riwayat.pdf');
     Route::get('/slip/karyawan/riwayat/pdf/{id}', [SlipGajiController::class, 'exportPdfKaryawanBulan'])->name('slip.riwayat.karyawan.pdf');
 
+    Route::get('/resetpass', [DashboardController::class, 'showResetForm'])->name('reset.pw');
+    Route::post('/resetpass', [DashboardController::class, 'updatePassword'])->name('reset.pass');
 });
 
 Route::prefix('absen')->middleware('auth')->group(function () {

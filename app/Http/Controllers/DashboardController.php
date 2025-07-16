@@ -8,10 +8,12 @@ use App\Models\SlipGaji;
 use App\Models\Cabang;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
- public function view()
+    public function view()
     {
         $data = [];
 
@@ -86,5 +88,31 @@ class DashboardController extends Controller
         }
 
         return view('dashboard', $data);
+    }
+
+    public function showResetForm()
+    {
+        return view('auth.reset-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'current_password' => ['required', 'string', function ($attribute, $value, $fail) {
+                if (!Hash::check($value, Auth::user()->password)) {
+                    $fail('Password lama salah.');
+                }
+            }],
+            'new_password' => 'required|string|min:8|confirmed',
+        ], [
+            'new_password.min' => 'Password baru harus memiliki minimal 8 karakter.',
+            'new_password.confirmed' => 'Konfirmasi password baru tidak cocok.',
+        ]);
+
+        $user = Auth::user();
+        $user->password = Hash::make($validated['new_password']);
+        $user->save();
+
+        return redirect()->route('dashboard')->with('success', 'Password berhasil diubah.');
     }
 }
