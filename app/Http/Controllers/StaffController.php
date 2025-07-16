@@ -97,7 +97,6 @@ class StaffController extends Controller
         // Simpan data staff
         $staff = Staff::create([
             'NIP' => $validated['NIP'],
-            'absen_id' => $validated['absen_id'],
             'nama' => $validated['nama'],
             'JK' => $validated['JK'],
             'TTL' => $validated['TTL'],
@@ -107,6 +106,7 @@ class StaffController extends Controller
             'tgl_keluar' => $validated['tgl_keluar'],
             'gaji_pokok' => $validated['gaji_pokok'],
             'gaji_tunjangan' => $validated['gaji_tunjangan'],
+            'absen_id' => $validated['absen_id'],   
             'is_active' => $validated['is_active'],
         ]);
 

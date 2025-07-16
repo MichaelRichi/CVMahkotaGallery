@@ -18,6 +18,7 @@ class Staff extends Model
         'tgl_keluar',
         'gaji_pokok',
         'gaji_tunjangan',
+        'absen_id',
         'users_id',
         'is_active',
     ];
