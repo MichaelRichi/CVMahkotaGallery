@@ -332,7 +332,6 @@ class SlipGajiController extends Controller
 
         // Ambil data slip gaji dengan relasi
         $payroll = SlipGaji::with(['staff', 'cabang'])
-            ->where('staff_id', $staffId)
             ->where('id', $id)
             ->firstOrFail();
 
