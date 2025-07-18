@@ -239,7 +239,6 @@ class SlipGajiController extends Controller
                 }
             }
 
-            $potonganLain = $potonganAbsenAlpha + $potonganAbsenIzin + $potonganTerlambat;
             $gajiBersih -= ($potonganKronologi + $potonganPeminjaman + $potonganAbsenAlpha + $potonganAbsenIzin + $potonganTerlambat);
 
             SlipGaji::create([
@@ -249,7 +248,7 @@ class SlipGajiController extends Controller
                 'tanggal_penggajian' => $currentDate,
                 'gaji_pokok' => $s->gaji_pokok,
                 'gaji_tunjangan' => $s->gaji_tunjangan,
-                'potongan_izin' => $potonganLain, // Gunakan potongan_izin untuk izin
+                'potongan_izin' => $potonganAbsenIzin, // Gunakan potongan_izin untuk izin
                 'potongan_kronologi' => $potonganKronologi,
                 'potongan_hutang' => $potonganPeminjaman,
                 'potongan_alpha' => $potonganAbsenAlpha, // Pisahkan potongan Alpha

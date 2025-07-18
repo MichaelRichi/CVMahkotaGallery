@@ -24,6 +24,8 @@ return new class extends Migration
             $table->decimal('gaji_pokok', 12, 2);
             $table->decimal('gaji_tunjangan', 12, 2);
 
+            $table->decimal('potongan_terlambat', 12, 2)->default(0);
+            $table->decimal('potongan_alpha', 12, 2)->default(0);
             $table->decimal('potongan_izin', 12, 2)->default(0);
             $table->decimal('potongan_kronologi', 12, 2)->default(0);
             $table->decimal('potongan_hutang', 12, 2)->default(0);

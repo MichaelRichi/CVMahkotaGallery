@@ -15,6 +15,8 @@ class SlipGaji extends Model
         'gaji_pokok',
         'gaji_tunjangan',
         'potongan_izin',
+        'potongan_alpha',
+        'potongan_terlambat',
         'potongan_kronologi',
         'potongan_hutang',
         'gaji_bersih',
