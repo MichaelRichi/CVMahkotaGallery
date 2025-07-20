@@ -180,8 +180,13 @@ class SlipGajiController extends Controller
                 ->get();
 
             $alphaDays = $absenRecords->where('status', 'A')->count();
-            $izinDays = $absenRecords->where('status', 'I')->count();
             $terlambatDays = $absenRecords->where('status', 'T')->count();
+
+            $izinDays     = $absenRecords->where('status', 'I')->count(); // Izin
+            $offDays      = $absenRecords->where('status', 'O')->count(); // Off
+            $sakitDays    = $absenRecords->where('status', 'S')->count(); // Sakit
+
+            $totalIzinDays = $izinDays + $offDays + $sakitDays;
 
             // Potongan Alpha (langsung dipotong per hari)
             if ($alphaDays > 0) {
@@ -189,9 +194,9 @@ class SlipGajiController extends Controller
             }
 
             // Potongan Izin (hanya jika total Alpha + Izin > 3)
-            $totalAbsentDays = $alphaDays + $izinDays;
+            $totalAbsentDays = $alphaDays + $totalIzinDays;
             if ($totalAbsentDays > 3) {
-                $extraIzinDays = max(0, $izinDays - ($totalAbsentDays - 3)); // Hanya potong izin tambahan
+                $extraIzinDays = max(0, $totalIzinDays - ($totalAbsentDays - 3)); // Hanya potong izin tambahan
                 $potonganAbsenIzin = $extraIzinDays * $dailyRate;
             }
 
@@ -344,7 +349,11 @@ class SlipGajiController extends Controller
 
 
         $alphaDays = $absenRecords->where('status', 'A')->count();
-        $izinDays = $absenRecords->where('status', 'I')->count();
+        $izinDay     = $absenRecords->where('status', 'I')->count(); // Izin
+        $offDays      = $absenRecords->where('status', 'O')->count(); // Off
+        $sakitDays    = $absenRecords->where('status', 'S')->count(); // Sakit
+
+        $izinDays = $izinDay + $offDays + $sakitDays;
         $terlambatDays = $absenRecords->where('status', 'T')->count();
         $daysInMonth = Carbon::create($year, $month)->daysInMonth;
         $dailyRate = $payroll->gaji_pokok / $daysInMonth;
