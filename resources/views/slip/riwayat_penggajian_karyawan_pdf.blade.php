@@ -189,7 +189,7 @@
     <div class="container">
         <div class="header">
             <div class="header-left">
-                {{-- <img src="{{ asset('images/logo.png') }}" alt="Company Logo"> --}}
+                <img src="{{ $logoBase64 }}" alt="Logo">
                 <p><strong>Mahkota Gallery</strong></p>
                 <p>Jl. Dempo Luar No.968, 15 Ilir, Kec. Ilir Tim. I, Kota Palembang, Sumatera Selatan 30111</p>
                 <p>Palembang, Indonesia</p>

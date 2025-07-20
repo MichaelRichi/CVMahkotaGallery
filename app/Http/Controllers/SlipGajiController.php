@@ -405,15 +405,19 @@ class SlipGajiController extends Controller
         $payroll = SlipGaji::with(['staff', 'cabang'])
             ->where('staff_id', $staffId)
             ->findOrFail($id);
+        $logoPath = public_path('images/logo.png');
+        $logoBase64 = '';
+        if (file_exists($logoPath)) {
+            $logoData = file_get_contents($logoPath);
+            $logoBase64 = 'data:image/png;base64,' . base64_encode($logoData);
+        }
 
 
         // Load the single payroll PDF view
-        $pdf = Pdf::loadView('slip.riwayat_penggajian_karyawan_pdf', compact('payroll'));
+        $pdf = Pdf::loadView('slip.riwayat_penggajian_karyawan_pdf', compact('payroll', 'logoBase64'));
 
         // Set PDF options for better rendering
         $pdf->setOptions([
-            'isHtml5ParserEnabled' => true,
-            'isRemoteEnabled' => true,
             'defaultFont' => 'Arial',
         ]);
 
