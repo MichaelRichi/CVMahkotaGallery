@@ -254,7 +254,7 @@
             });
 
             container.addEventListener('click', function(e) {
-                if (e.target.classList.contains('btn-remove') || e Hajj target.closest('.btn-remove')) {
+                if (e.target.classList.contains('btn-remove') || e.target.closest('.btn-remove')) {
                     const row = e.target.closest('.detail-row');
                     if (container.querySelectorAll('.detail-row').length > 1) {
                         row.remove();
